@@ -267,6 +267,7 @@ const TourForm = ({ onBack }) => {
                   }
                   folder="tour/passport"
                   accept=".pdf,image/*,.doc,.docx"
+                  docType="passport"
                 />
                 <FileInput
                   label="Passport Size Photo"
@@ -275,6 +276,7 @@ const TourForm = ({ onBack }) => {
                   onChange={(url) => handleTravellerChange(index, "photo", url)}
                   folder="tour/photo"
                   accept="image/*"
+                  docType="photo"
                 />
                 <FileInput
                   label="PAN Card"
@@ -285,6 +287,7 @@ const TourForm = ({ onBack }) => {
                   }
                   folder="tour/pan"
                   accept=".pdf,image/*"
+                  docType="pan_card"
                 />
                 <FileInput
                   label="Aadhar Card"
@@ -295,6 +298,7 @@ const TourForm = ({ onBack }) => {
                   }
                   folder="tour/aadhar"
                   accept=".pdf,image/*"
+                  docType="aadhar_card"
                 />
                 <FileInput
                   label="Flight Booking"
@@ -306,6 +310,7 @@ const TourForm = ({ onBack }) => {
                   }
                   folder="tour/flight"
                   accept=".pdf,image/*"
+                  docType="flight_ticket"
                 />
               </div>
             </motion.div>
@@ -342,6 +347,7 @@ const FileInput = ({
   optional,
   value,
   folder,
+  docType,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -361,20 +367,20 @@ const FileInput = ({
     setUploadProgress(0);
     setError("");
 
-    // Simulate progress for better UX since fetch doesn't support it natively easily without XHR
+    // Simulate progress
     const progressInterval = setInterval(() => {
       setUploadProgress((prev) => (prev >= 90 ? 90 : prev + 10));
-    }, 200);
+    }, 500);
 
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("folder", folder || "general");
+      formData.append("docType", docType || "document");
 
       const response = await fetch(
         `${
           import.meta.env.VITE_API_URL || "http://localhost:8000"
-        }/api/v1/upload`,
+        }/api/v1/validation/validate`,
         {
           method: "POST",
           body: formData,
@@ -385,17 +391,23 @@ const FileInput = ({
       setUploadProgress(100);
 
       const data = await response.json();
+
       if (data.success) {
-        onChange(data.url); // Pass URL back to parent
-        toast.success("File uploaded successfully");
+        // Validation Passed
+        onChange(data.data.url); // Pass URL back to parent
+        toast.success("Document verified & uploaded!");
       } else {
-        throw new Error(data.message || "Upload failed");
+        // Validation Failed or Error
+        const issues = data.data?.analysis?.issues || [];
+        const issueMsg = issues.length > 0 ? issues[0] : "Invalid document";
+        throw new Error(data.message || issueMsg);
       }
     } catch (err) {
       console.error(err);
       clearInterval(progressInterval);
-      setError("Upload failed");
-      toast.error("File upload failed. Please try again.");
+      setError(err.message || "Upload failed");
+      toast.error(err.message || "Document validation failed");
+      e.target.value = null; // Clear input
     } finally {
       setIsUploading(false);
     }
@@ -450,9 +462,9 @@ const FileInput = ({
                   }`}
                 >
                   {isUploading
-                    ? `Uploading... ${uploadProgress}%`
+                    ? `Verifying... ${uploadProgress}%`
                     : value
-                    ? "File uploaded successfully"
+                    ? "Document Verified"
                     : "Choose file to upload"}
                 </span>
               </div>

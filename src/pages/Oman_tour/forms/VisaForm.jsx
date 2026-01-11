@@ -3,12 +3,9 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft,
   User,
-  Mail,
-  Phone,
   Upload,
   CheckCircle,
   AlertCircle,
-  Loader2,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 
@@ -249,6 +246,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
                   }
                   folder="visa/passport"
                   accept=".pdf,image/*,.doc,.docx"
+                  docType="passport"
                 />
                 <FileInput
                   label="Passport Size Photo"
@@ -257,6 +255,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
                   onChange={(url) => handleTravellerChange(index, "photo", url)}
                   folder="visa/photo"
                   accept="image/*"
+                  docType="photo"
                 />
               </div>
             </motion.div>
@@ -293,48 +292,67 @@ const FileInput = ({
   optional,
   value,
   folder,
+  docType,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState("");
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Basic validation
     if (file.size > 10 * 1024 * 1024) {
       setError("File too large (max 10MB)");
       return;
     }
 
     setIsUploading(true);
+    setUploadProgress(0);
     setError("");
+
+    // Simulate progress
+    const progressInterval = setInterval(() => {
+      setUploadProgress((prev) => (prev >= 90 ? 90 : prev + 10));
+    }, 500);
 
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("folder", folder || "general");
+      formData.append("docType", docType || "document");
 
       const response = await fetch(
         `${
           import.meta.env.VITE_API_URL || "http://localhost:8000"
-        }/api/v1/upload`,
+        }/api/v1/validation/validate`,
         {
           method: "POST",
           body: formData,
         }
       );
+
+      clearInterval(progressInterval);
+      setUploadProgress(100);
+
       const data = await response.json();
+
       if (data.success) {
-        onChange(data.url);
-        toast.success("File uploaded successfully");
+        // Validation Passed
+        onChange(data.data.url); // Pass URL back to parent
+        toast.success("Document verified & uploaded!");
       } else {
-        throw new Error(data.message || "Upload failed");
+        // Validation Failed or Error
+        const issues = data.data?.analysis?.issues || [];
+        const issueMsg = issues.length > 0 ? issues[0] : "Invalid document";
+        throw new Error(data.message || issueMsg);
       }
     } catch (err) {
       console.error(err);
       clearInterval(progressInterval);
-      setError("Upload failed");
-      toast.error("File upload failed. Please try again.");
+      setError(err.message || "Upload failed");
+      toast.error(err.message || "Document validation failed");
+      e.target.value = null; // Clear input
     } finally {
       setIsUploading(false);
     }
@@ -356,62 +374,71 @@ const FileInput = ({
         <div
           className={`w-full px-4 py-3 rounded-lg border-2 border-dashed ${
             value
-              ? "border-blue-500 bg-blue-50"
+              ? "border-emerald-500 bg-emerald-50"
               : error
               ? "border-red-500 bg-red-50"
               : "border-slate-300 bg-white"
-          } transition-all group-hover:border-blue-400 flex flex-col justify-center min-h-[60px] relative overflow-hidden`}
+          } transition-all group-hover:border-emerald-400 flex flex-col justify-center min-h-[60px] relative overflow-hidden`}
         >
           {isUploading && (
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${uploadProgress}%` }}
-              className="absolute bottom-0 left-0 h-1 bg-blue-500"
+              className="absolute bottom-0 left-0 h-1 bg-emerald-500"
             />
           )}
 
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center truncate">
               {isUploading ? (
-                <div className="w-5 h-5 mr-3 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 mr-3 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
               ) : (
                 <Upload
                   className={`w-5 h-5 mr-3 ${
-                    value ? "text-blue-500" : "text-slate-400"
+                    value ? "text-emerald-500" : "text-slate-400"
                   }`}
                 />
               )}
-              <span
-                className={`text-sm truncate ${
-                  value ? "text-blue-700 font-medium" : "text-slate-500"
-                }`}
-              >
-                {isUploading
-                  ? `Uploading... ${uploadProgress}%`
-                  : value
-                  ? "File uploaded successfully"
-                  : "Choose file to upload"}
-              </span>
+
+              <div className="flex flex-col">
+                <span
+                  className={`text-sm truncate ${
+                    value ? "text-emerald-700 font-medium" : "text-slate-500"
+                  }`}
+                >
+                  {isUploading
+                    ? `Verifying... ${uploadProgress}%`
+                    : value
+                    ? "Document Verified"
+                    : "Choose file to upload"}
+                </span>
+              </div>
             </div>
+
             {value && !isUploading && (
-              <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
             )}
           </div>
         </div>
       </div>
+
       {error ? (
-        <p className="text-xs text-red-500 mt-1">{error}</p>
+        <p className="text-xs text-red-500 mt-1 flex items-center">
+          <AlertCircle className="w-3 h-3 mr-1" />
+          {error}
+        </p>
       ) : sub ? (
         <p className="text-xs text-slate-400 mt-1">{sub}</p>
       ) : null}
-      {value && (
+
+      {value && !isUploading && (
         <a
           href={value}
           target="_blank"
           rel="noreferrer"
-          className="text-xs text-blue-600 underline mt-0.5 inline-block"
+          className="text-xs text-emerald-600 hover:text-emerald-700 underline mt-1 inline-flex items-center"
         >
-          View uploaded file
+          View uploaded document
         </a>
       )}
     </div>
