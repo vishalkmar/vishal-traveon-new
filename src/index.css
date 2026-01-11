@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* Global font & smooth scroll */
+* {
+  scroll-behavior: smooth;
+  font-family: "Arsenal", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+a {
+  font-family: "Arsenal", sans-serif;
+}
+
+/* Optional float demo */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Utilities (single layer, no duplicates) ---------- */
+@layer utilities {
+  /* Retreats CTA breathing halo (green) */
+  .rt-halo {
+    animation: rt-halo 3.2s ease-in-out infinite;
+  }
+  @keyframes rt-halo {
+    0%,
+    100% {
+      opacity: 0.45;
+      filter: blur(22px);
+      transform: scale(0.98);
+    }
+    50% {
+      opacity: 0.85;
+      filter: blur(28px);
+      transform: scale(1.03);
+    }
+  }
+
+  /* Optional inner glow (green) */
+  .rt-glow {
+    animation: rt-glow 2.2s ease-in-out infinite;
+  }
+  @keyframes rt-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(98, 189, 152, 0),
+        0 0 24px 8px rgba(98, 189, 152, 0.28); /* Medium Aquamarine */
+    }
+    50% {
+      box-shadow: 0 0 0 0 rgba(139, 186, 72, 0.35),
+        /* Apple Green */ 0 0 36px 12px rgba(112, 192, 97, 0.4); /* Mantis Green */
+    }
+  }
+
+  /* Traveon (blue) breathing halo for primary buttons */
+  .tr-halo {
+    animation: tr-halo 3.2s ease-in-out infinite;
+  }
+  @keyframes tr-halo {
+    0%,
+    100% {
+      opacity: 0.45;
+      filter: blur(18px);
+      transform: scale(0.985);
+    }
+    50% {
+      opacity: 0.85;
+      filter: blur(26px);
+      transform: scale(1.03);
+    }
+  }
+
+  /* Sheen used via group-hover:[animation:rt-sheen_1.2s_ease-out] */
+  @keyframes rt-sheen {
+    0% {
+      transform: translateX(-150%) skewX(-15deg);
+    }
+    100% {
+      transform: translateX(250%) skewX(-15deg);
+    }
+  }
+
+  /* Floating color blobs in hero */
+  .animate-blob-slow {
+    animation: rt-blob 16s ease-in-out infinite;
+  }
+  .animate-blob-slower {
+    animation: rt-blob 22s ease-in-out infinite;
+  }
+  @keyframes rt-blob {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(20px, -14px) scale(1.06);
+    }
+    66% {
+      transform: translate(-16px, 18px) scale(0.96);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  /* Accessibility: respect reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .rt-halo,
+    .rt-glow,
+    .tr-halo,
+    .animate-blob-slow,
+    .animate-blob-slower {
+      animation: none !important;
+    }
+  }
+}
