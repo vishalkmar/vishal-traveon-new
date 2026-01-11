@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
-import { backendUrl } from "../../apiConfig/config";
 import { FaYoutube, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
+const backendUrl =
+  (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api/v1";
 
 const ContactInfo = ({ icon: Icon, title, content }) => (
   <div className="flex items-start space-x-4">
@@ -142,8 +143,9 @@ const ContactUs = () => {
 
     return (
       <div
-        className={`transition-all duration-1000 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        className={`transition-all duration-1000 transform ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
       >
         {children}
       </div>
@@ -295,7 +297,11 @@ const ContactUs = () => {
                 title="Corporate Office"
                 content="128, D-Mall, NSP, Delhi-110034"
               />
-              <a href="mailto:info@traveon.in" target="_blank" rel="noopener noreferrer">
+              <a
+                href="mailto:info@traveon.in"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <ContactInfo
                   icon={Mail}
                   title="Email Address"
@@ -313,27 +319,37 @@ const ContactUs = () => {
 
             <div className="bg-white p-8 rounded-lg shadow-lg space-y-6">
               <div>
-                <h2 className="text-2xl font-bold mb-4">Follow us on social media</h2>
+                <h2 className="text-2xl font-bold mb-4">
+                  Follow us on social media
+                </h2>
 
                 <div className="flex space-x-4">
                   {/* YouTube */}
-                  <SocialMediaLink href="https://www.youtube.com/@traveonventures" aria-label="YouTube">
+                  <SocialMediaLink
+                    href="https://www.youtube.com/@traveonventures"
+                    aria-label="YouTube"
+                  >
                     <FaYoutube className="w-6 h-6 text-[#28bccf]" />
                   </SocialMediaLink>
 
                   {/* Instagram */}
-                  <SocialMediaLink href="https://www.instagram.com/traveonventures/" aria-label="Instagram">
+                  <SocialMediaLink
+                    href="https://www.instagram.com/traveonventures/"
+                    aria-label="Instagram"
+                  >
                     <FaInstagram className="w-6 h-6 text-[#28bccf]" />
                   </SocialMediaLink>
 
                   {/* LinkedIn */}
-                  <SocialMediaLink href="https://www.linkedin.com/company/traveon/" aria-label="LinkedIn">
+                  <SocialMediaLink
+                    href="https://www.linkedin.com/company/traveon/"
+                    aria-label="LinkedIn"
+                  >
                     <FaLinkedinIn className="w-6 h-6 text-[#28bccf]" />
                   </SocialMediaLink>
                 </div>
               </div>
             </div>
-
 
             {/* Map */}
             {/* <div className="bg-white p-8 rounded-lg shadow-lg">

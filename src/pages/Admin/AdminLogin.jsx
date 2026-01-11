@@ -44,7 +44,7 @@ const AdminLogin = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors((prev) => ({ ...prev, form: "" }));
 
@@ -52,26 +52,46 @@ const AdminLogin = () => {
 
     setIsLoading(true);
 
-    // Hardcoded check
-    if (
-      (formData.username === "admin" ||
-        formData.username === "info@evrenglobalsolutions.com") &&
-      (formData.password === "Admin123" || formData.password === "Admin@123")
-    ) {
-      localStorage.setItem("isAdminLoggedIn", "true");
-      // Small delay for UX transition
-      setTimeout(() => {
-        navigate("/admin-dashboard", { replace: true });
-        setIsLoading(false);
-      }, 500);
-      return;
-    }
+    // API Login
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    setErrors((prev) => ({
-      ...prev,
-      form: "Invalid username or password",
-    }));
-    setIsLoading(false);
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        localStorage.setItem("isAdminLoggedIn", "true");
+        localStorage.setItem("token", data.data.token);
+        localStorage.setItem("user", JSON.stringify(data.data.user)); // Optional: store user info
+
+        // Small delay for UX transition
+        setTimeout(() => {
+          navigate("/admin-dashboard", { replace: true });
+          setIsLoading(false);
+        }, 500);
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          form: data.message || "Invalid username or password",
+        }));
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      setErrors((prev) => ({
+        ...prev,
+        form: "Server error. Please try again.",
+      }));
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e) => {
