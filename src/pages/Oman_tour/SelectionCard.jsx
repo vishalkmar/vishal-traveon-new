@@ -5,6 +5,7 @@ import { Check, ArrowRight } from "lucide-react";
 const SelectionCard = ({
   title,
   price,
+  advance,
   description,
   onSelect,
   delay,
@@ -55,7 +56,18 @@ const SelectionCard = ({
             {price}
           </span>
           <span className="text-sm text-slate-500">/person</span>
+        
         </div>
+
+        {advance && (
+  <div className="flex items-baseline gap-1 mb-4">
+    <span className={`text-xl font-extrabold ${theme.text}`}>
+      {`Advance: ${advance}`}
+    </span>
+    <span className="text-sm text-slate-500">/person</span>
+  </div>
+)}
+
 
         <p className="text-slate-600 text-sm mb-6 leading-relaxed">
           {description}

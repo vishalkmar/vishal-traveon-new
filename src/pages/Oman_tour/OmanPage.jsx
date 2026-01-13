@@ -51,7 +51,8 @@ const OmanPage = () => {
             >
               <SelectionCard
                 title="Oman Tour Package"
-                price="₹5,000"
+                price="₹35,000"
+                advance="₹5,000"
                 description="Complete tour experience including desert safari, wadi visits, and city tours."
                 onSelect={() => setView("tour_package")}
                 delay={0.1}
@@ -59,7 +60,7 @@ const OmanPage = () => {
                   "5 Days / 4 Nights",
                   "Hotel & Transport",
                   "Guided Tours",
-                  "Meals Included",
+                  "Breakfast Included",
                 ]}
                 color="emerald"
               />

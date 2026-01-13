@@ -15,7 +15,9 @@ const VisaForm = ({ type, title, price, onBack }) => {
     contactEmail: "",
     contactPhone: "",
     numberOfTravellers: 1,
-    travellers: [{ id: 1, name: "", passportScan: null, photo: null }],
+    travellers: [{ id: 1,
+      //  name: "", 
+      passportScan: null, photo: null }],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,7 +34,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
       for (let i = currentTravellers.length; i < count; i++) {
         currentTravellers.push({
           id: i + 1,
-          name: "",
+          // name: "",
           passportScan: null,
           photo: null,
         });
@@ -109,7 +111,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
 
       if (data.success) {
         toast.success("Application submitted successfully!", { id: toastId });
-        setTimeout(() => window.location.reload(), 2000);
+        window.location.href="https://payments.cashfree.com/forms/iccict2026" // Or redirect to success page
       } else {
         throw new Error(data.message || "Submission failed");
       }
@@ -222,7 +224,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="col-span-1 md:col-span-2">
+                {/* <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Full Name (As on Passport)
                   </label>
@@ -235,7 +237,7 @@ const VisaForm = ({ type, title, price, onBack }) => {
                     className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none bg-white"
                     placeholder="Enter full name"
                   />
-                </div>
+                </div> */}
 
                 <FileInput
                   label="Passport Scan"

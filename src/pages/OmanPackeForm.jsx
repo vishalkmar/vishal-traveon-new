@@ -13,7 +13,7 @@ const OmanTourPackageDetailsForm = () => {
 
   const packageOptions = [
     { value: '', label: 'Select Package Type' },
-    { value: 'tour_package', label: 'Oman Tour Package', price: 5000 },
+    { value: 'tour_package', label: 'Oman Tour Package', price: 35000 },
     { value: 'visa_10_days', label: 'Oman Visa (10 Days)', price: 2000 },
     { value: 'visa_30_days', label: 'Oman Visa (30 Days)', price: 6000 }
   ];

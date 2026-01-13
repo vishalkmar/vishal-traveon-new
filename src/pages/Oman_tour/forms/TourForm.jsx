@@ -21,7 +21,7 @@ const TourForm = ({ onBack }) => {
     travellers: [
       {
         id: 1,
-        name: "",
+       
         passportScan: null,
         photo: null,
         panCard: null,
@@ -130,7 +130,7 @@ const TourForm = ({ onBack }) => {
 
       if (data.success) {
         toast.success("Booking submitted successfully!", { id: toastId });
-        setTimeout(() => window.location.reload(), 2000); // Or redirect to success page
+        window.location.href="https://payments.cashfree.com/forms/iccict2026" // Or redirect to success page
       } else {
         throw new Error(data.message || "Submission failed");
       }
@@ -154,9 +154,9 @@ const TourForm = ({ onBack }) => {
           <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Selection
         </button>
-        <h2 className="text-3xl font-bold">Oman Tour Package Application</h2>
+        <h2 className="text-3xl font-bold">Oman Tour Package </h2>
         <p className="text-emerald-100 mt-2">
-          Complete the form below to book your adventure. Total: ₹
+          Complete the form below to book your adventure. Advance: ₹
           {(formData.numberOfTravellers * 5000).toLocaleString()}
         </p>
       </div>
@@ -243,7 +243,7 @@ const TourForm = ({ onBack }) => {
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="col-span-1 md:col-span-2">
+                {/* <div className="col-span-1 md:col-span-2">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Full Name (As on Passport)
                   </label>
@@ -256,7 +256,7 @@ const TourForm = ({ onBack }) => {
                     className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all outline-none bg-white"
                     placeholder="Enter full name"
                   />
-                </div>
+                </div> */}
 
                 <FileInput
                   label="Passport Scan"
