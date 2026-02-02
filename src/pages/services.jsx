@@ -196,7 +196,7 @@ const Services = () => {
       "Strategic venue & vendor curation",
       "Flawless on-site coordination",
     ],
-    to: "/contact",
+    to: "/mice",
   },
   {
     icon: Briefcase,

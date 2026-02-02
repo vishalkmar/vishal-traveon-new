@@ -42,6 +42,9 @@ import OmanPage from "./pages/Oman_tour/OmanPage";
 import BookingDetailsPage from "./pages/Admin/BookingDetailsPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 
+
+import Iccict from "./pages/iccict.jsx";
+
 /* ---------------- LAYOUT CONTROLLER ---------------- */
 function Layout({ children }) {
   const location = useLocation();
@@ -120,6 +123,7 @@ export default function App() {
           <Route path="/coursera" element={<Coursera />} />
           <Route path="/google-offset" element={<GoogleOffet />} />
           <Route path="/ibiea" element={<Ibiea />} />
+          <Route path="/iccict" element={<Iccict />} />
 
           {/* NO HEADER / FOOTER ROUTES */}
           <Route path="/oman-form" element={<OmanTourPackageDetails />} />

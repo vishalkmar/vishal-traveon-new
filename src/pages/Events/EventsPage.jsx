@@ -189,31 +189,58 @@ const EventCard = ({ event, variant = "grid" }) => {
 
           {/* Footer */}
           <div className="mt-6 flex items-center justify-between">
-            <Link
-              to={event.learnMoreLink}
-              className="text-[#28bccf] font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
-            >
-              Learn more <ChevronRight className="w-4 h-4" />
-            </Link>
-
-            {isUpcoming ? (
+            {event.learnMoreLink.startsWith('http') ? (
+              <a
+                href={event.learnMoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#28bccf] font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
+              >
+                Learn more <ChevronRight className="w-4 h-4" />
+              </a>
+            ) : (
               <Link
                 to={event.learnMoreLink}
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white
-                           bg-[#28bccf] hover:bg-[#22a8b9] shadow-md"
+                className="text-[#28bccf] font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
               >
-                Register
+                Learn more <ChevronRight className="w-4 h-4" />
               </Link>
-            ) : (
-              <a
-  href="https://ibiea.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="text-xs text-gray-500 hover:text-[#44B3C4] transition-colors"
->
-  Visit Site
-</a>
+            )}
 
+            {isUpcoming ? (
+              event.learnMoreLink.startsWith('http') ? (
+                <a
+                  href={event.learnMoreLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white
+                             bg-[#28bccf] hover:bg-[#22a8b9] shadow-md"
+                >
+                  Register
+                </a>
+              ) : (
+                <Link
+                  to={event.learnMoreLink}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white
+                             bg-[#28bccf] hover:bg-[#22a8b9] shadow-md"
+                >
+                  Register
+                </Link>
+              )
+            ) : (
+              event.sitelink ? (
+                <a
+                  href={event.sitelink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white
+                             bg-[#28bccf] hover:bg-[#22a8b9] shadow-md"
+                >
+                  Visit Site
+                </a>
+              ) : (
+                <span></span>
+              )
             )}
           </div>
         </div>
@@ -227,23 +254,23 @@ const EventsPage = () => {
   const AllEvents = [
     {
       title: "IBIEA 2.0",
-      description:
-        "International Business Innovation and Excellence Awards 2025 will be hosted in exotic locations across the globe. Celebrate innovation with global leaders.",
+      description: "The International Business Innovation and Excellence Awards is a prestigious global event dedicated to recognizing and celebrating outstanding achievements in business, research, and innovation. This event honors industrialists, researchers, and innovators who have demonstrated excellence in their respective fields, contributing significantly to their industries and society.",
       date: "To be Announced",
       location: "To be Announced",
-      learnMoreLink: "https://ibiea.com",
+      // learnMoreLink: "https://ibiea.com",
       isUpcoming: true,
       image: "/gallery/4.JPG",
     },
     {
       title: "ICCICT 2026",
-      description:`International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — a leading platform uniting researchers, industry experts, and innovators.`,
-date: "January 22-23 2026",
-      des2:"It focuses on advancing Artificial Intelligence, Machine Learning, Data Science, and next-generation computing technologies",
-       location: "Indian International Centre, Delhi",
-      learnMoreLink: "https://iccict.org/",
-      isUpcoming: true,
-      image: "/events_images/iccict.jpg",
+      description: "We successfully organized ICCICT 2026 as a prestigious international conference, bringing together researchers, academics, and industry professionals from across the globe. The conference served as a dynamic platform for presenting cutting-edge research, fostering meaningful collaborations, and addressing contemporary challenges in computational intelligence, computing technologies, and artificial intelligence. With participation from over 150 delegates representing more than 20 countries, ICCICT 2026 delivered an intellectually enriching, globally connected, and impactful experience for all participants.",
+      date: "22 - 23 January 2026",
+      location: "India International Centre, Lodhi Estate, New Delhi, India",
+      learnMoreLink: "/iccict",
+      isUpcoming: false,
+      image: "/iccictimages/ic2.jpg",
+      sitelink : "https://iccict.org/index.html",
+      // videoId: "dQw4w9WgXcQ",
     },
     {
       title: "IBIEA 2025 Oman",
@@ -255,6 +282,7 @@ date: "January 22-23 2026",
       isUpcoming: false,
       image: "/gallery/2.JPG",
       videoId: "biTfRalKxqg",
+      sitelink: "https://ibiea.com",
     }
   ];
 
@@ -419,7 +447,7 @@ date: "January 22-23 2026",
 
 <div className="absolute bottom-4 right-4 flex items-center space-x-2 text-white text-lg md:text-lg  text-right">
   <MapPin className="w-5 h-5 md:w-6 md:h-6" />
-  <span>Holiday Inn Aero City, Delhi, India</span>
+  <span>India International Centre, Lodhi, New Delhi-110003</span>
 </div>
 
       </div>
@@ -437,7 +465,7 @@ date: "January 22-23 2026",
         {/* Button */}
         <div className="mt-4">
           <a
-            href="https://iams-2026.vercel.app/"
+            href="https://iamsglobal.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full font-medium hover:bg-[#1da6b8] transition duration-300"
@@ -451,30 +479,17 @@ date: "January 22-23 2026",
 </section>
 
 
+
+
+
     {/* Joined Two Event Layout */}
-    <div className="overflow-hidden rounded-3xl shadow-lg bg-white">
-      <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="w-full overflow-hidden rounded-3xl shadow-lg bg-white">
+      <div className="grid grid-cols-1">
         {upcomingEvents.slice(0, 2).map((event, idx) => (
           <Reveal key={event.title} delay={(idx + 1) * 120}>
-            <div
-              className={`flex flex-col h-full ${
-                idx === 0
-                  ? "md:rounded-l-3xl"
-                  : "md:rounded-r-3xl"
-              }`}
-            >
-              {/* Event Image */}
-              <div className="relative w-full h-72 md:h-[420px] overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className=" transition-transform duration-500 hover:scale-105"
-                  style={{height:"100%", width:"100%", objectFit:'conver'}}
-                />
-              </div>
-
+            <div className="flex flex-row h-[420px]">
               {/* Event Details */}
-              <div className="p-8 flex flex-col flex-grow">
+              <div className="w-1/2 p-8 flex flex-col flex-grow">
                 <h3 className="text-2xl font-semibold text-[#003B4A] mb-2">
                   {event.title}
                 </h3>
@@ -506,6 +521,15 @@ date: "January 22-23 2026",
                   Learn more 
                 </a>
               </div>
+
+              {/* Event Image */}
+              <div className="w-1/2 h-full overflow-hidden">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
             </div>
           </Reveal>
         ))}
@@ -515,10 +539,22 @@ date: "January 22-23 2026",
 </section>
 
 
-      {/* Previous Events */}
-         <PreviewEventsSection/>
-         
-      <section className="bg-gray-100 py-16">
+
+
+{/*  previous event cards start form here */}
+        <div className="text-center mb-14">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          Previous Events
+        </h2>
+        <p className="text-gray-600 mt-2">
+          Highlights & short previews from our recent events
+        </p>
+      </div>
+
+
+
+     
+      <section className="bg-gray-100 mb-8 ">
         <div className="max-w-6xl mx-auto px-4">
           
           <div className="mt-10 grid grid-cols-1 gap-8">
@@ -530,6 +566,17 @@ date: "January 22-23 2026",
           </div>
         </div>
       </section>
+
+      {/* Previous Events */}
+         <PreviewEventsSection/>
+
+    
+
+    
+
+{/*  previous event cards end here */}
+
+     
 
    
 

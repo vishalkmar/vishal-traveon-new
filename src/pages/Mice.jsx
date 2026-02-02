@@ -23,24 +23,26 @@ export default function Mice() {
   const whatsappUrl =
     "https://wa.me/9540111307?text=Hi! I'm interested in planning a MICE tour.";
 
-  const bannerMedia  = [
+  const bannerMedia = [
+        { type: "image", src: "/iccictimages/ic5.JPG" },
+            { type: "image", src: "/iccictimages/ic2.jpg" },
     { type: "image", src: "/ibiea/21.jpg" },
     { type: "image", src: "/coursera/12.jpg" },
-    {type: "image", src: "/google-wellness/16.jpg" },
+    { type: "image", src: "/google-wellness/16.jpg" },
     { type: "image", src: "/ibiea/18.jpg" },
     { type: "image", src: "/coursera/9.jpg" },
     { type: "image", src: "/google-wellness/14.jpg" },
     { type: "image", src: "/ibiea/23.jpg" },
-  
+
   ];
 
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen  bg-background">
       {/* ✅ Banner Carousel */}
       <div
-        className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
+        className="relative w-full h-[250px] sm:h-[500px] md:h-[600px] lg:h-[700px]"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -80,44 +82,101 @@ export default function Mice() {
       {/* Preview Events Section */}
       <section className="py-12 bg-white">
         <div className="max-w-6xl mx-auto px-[30px] py-[40px]">
+          {/* Full-width horizontal preview row for Coursera */}
+          
+
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-5xl font-bold text-gray-900">Previous Events & MICE</h2>
             <p className="text-gray-600 mt-2">Highlights & short previews from our recent events</p>
           </div>
 
+
+<div className="mb-8">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="w-full">
+                  <div className="h-56 md:h-72 w-full relative">
+                    <PreviewCardCarousel
+                      media={[
+                        { type: "image", src: "/iccictimages/ic5.JPG", alt: "Coursera 1" },
+                        { type: "image", src: "/iccictimages/ic1.jpg", alt: "Coursera 2" },
+                        { type: "image", src: "/iccictimages/ic2.jpg", alt: "Coursera 3" },
+                        { type: "image", src: "/iccictimages/ic3.jpg", alt: "Coursera 4" },
+                        { type: "image", src: "/iccictimages/ic6.JPG", alt: "Coursera 5" },
+                        { type: "image", src: "/iccictimages/ic4.jpg", alt: "Coursera 6" },
+                      ]}
+                      interval={2000}
+                      showDots
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+                <div className="p-6 md:p-8 flex flex-col justify-center">
+                  <h3 className="text-2xl font-bold mb-2">ICCICT 2026</h3>
+                  <p className="text-gray-600 mb-4">International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.</p>
+
+                  <div className="text-sm text-gray-500 mb-4 space-y-2">
+                    <div className="flex items-center gap-3"><span>January 22–23, 2026</span></div>
+                    <div className="flex items-center gap-3"><span>India International Centre, Lodhi Estate, New Delhi, India</span></div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    <a
+                      href="/iccict"
+                      className="inline-flex items-center gap-2 text-[#44B3C4] font-semibold hover:underline"
+                    >
+                      Learn more →
+                    </a>
+                     <a
+                      href="https://iccict.org/index.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-[#44B3C4]"
+                    >
+                      Visit site ↗
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
           <div className="flex flex-wrap justify-center gap-6">
             {[
-             {
-  title: "Coursera Offsite",
-  description:
-    "A 2-day offsite conference for Coursera with complete end-to-end management, including accommodation, conference setup, meals, logistics, and hospitality, ensuring a seamless and productive experience.",
-  venue: "Lemon Tree Tarudhan Valley",
-  date: "17–18 November 2025",
-  learnMoreLink: "/coursera",
-  media: [
-    { type: "image", src: "/coursera/7.jpg", alt: "coursera offsite 1" },
-    { type: "image", src: "/coursera/8.jpg", alt: "coursera offsite 2" },
-    { type: "image", src: "/coursera/9.jpg", alt: "coursera offsite 3" },
-    { type: "image", src: "/coursera/10.jpg", alt: "coursera offsite 4" },
-    { type: "image", src: "/coursera/11.jpg", alt: "coursera offsite 5" },
-    { type: "image", src: "/coursera/12.jpg", alt: "coursera offsite 6" },
-  ],
-}
-,
               {
-  title: "Google Wellness Retreat",
-  description:
-    "A rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being, highlighted by a calming sound healing experience.",
-  venue: "Google Campus",
-  date: "16 September 2025",
-  learnMoreLink: "/google-offset",
-  media: [
-    { type: "image", src: "/google-wellness/13.jpg", alt: "google wellness 1" },
-    { type: "image", src: "/google-wellness/14.jpg", alt: "google wellness 2" },
-    { type: "image", src: "/google-wellness/15.jpg", alt: "google wellness 3" },
-    { type: "image", src: "/google-wellness/16.jpg", alt: "google wellness 4" },
-  ],
-}
+                title: "Coursera Offsite",
+                description:
+                  "A 2-day offsite conference for Coursera with complete end-to-end management, including accommodation, conference setup, meals, logistics, and hospitality, ensuring a seamless and productive experience.",
+                venue: "Lemon Tree Tarudhan Valley",
+                date: "17–18 November 2025",
+                learnMoreLink: "/coursera",
+                media: [
+                  { type: "image", src: "/coursera/7.jpg", alt: "coursera offsite 1" },
+                  { type: "image", src: "/coursera/8.jpg", alt: "coursera offsite 2" },
+                  { type: "image", src: "/coursera/9.jpg", alt: "coursera offsite 3" },
+                  { type: "image", src: "/coursera/10.jpg", alt: "coursera offsite 4" },
+                  { type: "image", src: "/coursera/11.jpg", alt: "coursera offsite 5" },
+                  { type: "image", src: "/coursera/12.jpg", alt: "coursera offsite 6" },
+                ],
+              }
+              ,
+              {
+                title: "Google Wellness Retreat",
+                description:
+                  "A rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being, highlighted by a calming sound healing experience.",
+                venue: "Google Campus",
+                date: "16 September 2025",
+                learnMoreLink: "/google-offset",
+                media: [
+                  { type: "image", src: "/google-wellness/13.jpg", alt: "google wellness 1" },
+                  { type: "image", src: "/google-wellness/14.jpg", alt: "google wellness 2" },
+                  { type: "image", src: "/google-wellness/15.jpg", alt: "google wellness 3" },
+                  { type: "image", src: "/google-wellness/16.jpg", alt: "google wellness 4" },
+                ],
+              }
 
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-2xl shadow-lg overflow-hidden w-full md:w-[48%]">
@@ -157,7 +216,7 @@ export default function Mice() {
                         { type: "image", src: "/ibiea/21.jpg", alt: "Featured 5" },
                         { type: "image", src: "/ibiea/22.jpg", alt: "Featured 6" },
                         { type: "image", src: "/ibiea/23.jpg", alt: "Featured 7" },
-                      
+
 
                       ]}
                       interval={2000}
@@ -175,132 +234,108 @@ export default function Mice() {
                     <div className="flex items-center gap-3"><span>Grand Hyatt Muscat, Oman</span></div>
                   </div>
 
-                 <div className="mt-4 flex items-center justify-between">
-  {/* Left – Know more */}
-  <a
-    href="/ibiea"
-    className="inline-flex items-center gap-2 text-[#44B3C4] font-semibold hover:underline"
-  >
-    Know more →
-  </a>
+                  <div className="mt-4 flex items-center justify-between">
+                    {/* Left – Know more */}
+                    <a
+                      href="/ibiea"
+                      className="inline-flex items-center gap-2 text-[#44B3C4] font-semibold hover:underline"
+                    >
+                      Know more →
+                    </a>
 
-  {/* Right – Visit site */}
-  <a
-    href="https://ibiea.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-[#44B3C4]"
-  >
-    Visit site ↗
-  </a>
-</div>
+                    {/* Right – Visit site */}
+                    <a
+                      href="https://ibiea.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-[#44B3C4]"
+                    >
+                      Visit site ↗
+                    </a>
+                  </div>
 
                 </div>
               </div>
             </div>
 
 
+
+
+
+
+            
+         
+
             <section className="w-full bg-white py-16 px-4">
-  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center gap-8">
+              <div className="max-w-7xl mx-auto flex flex-col justify-center gap-8">
 
-    {/* ICCIT Card */}
-    <div className="w-full lg:w-[50%] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
-      <div className="h-56 w-full overflow-hidden">
-        <img
-          src="/iccict.jpg" // 🔁 ICCIT banner image
-          alt="ICCIT 2026"
-          className="w-full h-full object-cover"
-        />
-      </div>
+                {/* ICCIT Card */}
+            
 
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-[#44B3C4] mb-3">
-          ICCICT 2026
-        </h3>
+                {/* IAMS Card */}
+                <div className="w-full lg:w-[50%] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
+                  <div className="h-56 w-full overflow-hidden">
+                    <img
+                      src="/iamsglobal.jpeg" // 🔁 IAMS banner image
+                      alt="IAMS 2026"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          International Conference on Computational Intelligence and Computing
-          Technologies & AI (ICCICT 2026) — uniting researchers, industry experts,
-          and innovators.
-        </p>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-[#44B3C4] mb-3">
+                      IAMS 2026
+                    </h3>
 
-        <p className="text-sm font-medium text-gray-800 mb-4">
-          January 22–23, 2026
-        </p>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      International Aviation Marketing Summit — the complete next-gen
+                      aviation commercial ecosystem bringing global leaders together.
+                    </p>
 
-        <a
-          href="https://iccict.org/"
-          className="inline-flex items-center text-[#44B3C4] font-semibold text-sm"
-        >
-          Learn more&nbsp;→
-        </a>
-      </div>
-    </div>
+                    <p className="text-sm font-medium text-gray-800 mb-4">
+                      April 9–10, 2026
+                    </p>
 
-    {/* IAMS Card */}
-    <div className="w-full lg:w-[50%] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
-      <div className="h-56 w-full overflow-hidden">
-        <img
-          src="/iamsglobal.jpeg" // 🔁 IAMS banner image
-          alt="IAMS 2026"
-          className="w-full h-full object-cover"
-        />
-      </div>
+                    <a
+                      href="https://iamsglobal.com/"
+                      className="inline-flex items-center text-[#44B3C4] font-semibold text-sm"
+                    >
+                      Learn more&nbsp;→
+                    </a>
+                  </div>
+                </div>
 
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-[#44B3C4] mb-3">
-          IAMS 2026
-        </h3>
-
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          International Aviation Marketing Summit — the complete next-gen
-          aviation commercial ecosystem bringing global leaders together.
-        </p>
-
-        <p className="text-sm font-medium text-gray-800 mb-4">
-          April 9–10, 2026
-        </p>
-
-        <a
-          href="https://iamsglobal.com/"
-          className="inline-flex items-center text-[#44B3C4] font-semibold text-sm"
-        >
-          Learn more&nbsp;→
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
+              </div>
+            </section>
 
 
 
 
             {/* CTA: Plan Your MICE */}
-     <div className="mt-20 mb-20 text-center px-4">
-  {/* Title */}
-  <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-    Want to Be Start Planning Your MICE Tour?
-  </h2>
+            <div className="mt-20 mb-20 text-center px-4">
+              {/* Title */}
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+                Want to Be Start Planning Your MICE Tour?
+              </h2>
 
-  {/* Description */}
-  <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
-    Let us help you create memorable MICE experiences tailored to your goals.
-  </p>
+              {/* Description */}
+              <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
+                Let us help you create memorable MICE experiences tailored to your goals.
+              </p>
 
-  {/* Button */}
- <div className="mt-6 flex justify-center">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
-            >
-              <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
-              Plan Your MICE Now ?
-            </a>
-          </div>
-</div>
+              {/* Button */}
+              <div className="mt-6 flex justify-center">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
+                >
+                  <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
+                  Plan Your MICE Now ?
+                </a>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -308,7 +343,7 @@ export default function Mice() {
 
       {/* ✅ Introduction Section */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Business Objectives, Immersive Experiences
@@ -596,30 +631,30 @@ export default function Mice() {
       </section>
 
       {/* CTA Section */}
-       <div className="mt-20 mb-20 text-center px-4">
-  {/* Title */}
-  <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-    Want to Be Start Planning Your MICE Tour?
-  </h2>
+      <div className="mt-20 mb-20 text-center px-4">
+        {/* Title */}
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+          Want to Be Start Planning Your MICE Tour?
+        </h2>
 
-  {/* Description */}
-  <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
-    Let us help you create memorable MICE experiences tailored to your goals.
-  </p>
+        {/* Description */}
+        <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
+          Let us help you create memorable MICE experiences tailored to your goals.
+        </p>
 
-  {/* Button */}
-  <div className="mt-6 flex justify-center">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
-            >
-              <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
-              Plan Your MICE Tour
-            </a>
-          </div>
-</div>
+        {/* Button */}
+        <div className="mt-6 flex justify-center">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
+          >
+            <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
+            Plan Your MICE Tour
+          </a>
+        </div>
+      </div>
 
     </div>
   );

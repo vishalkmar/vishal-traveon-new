@@ -1,4 +1,5 @@
 import PreviewCardCarousel from "../../components/shared/PreviewCardCarousel";
+
 const previewEvents = [
   {
     title: "Coursera Offsite",
@@ -36,14 +37,7 @@ export default function PreviewEventsSection() {
   return (
     <div className="max-w-6xl mx-auto px-5">
       {/* Heading */}
-      <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-          Previous Events
-        </h2>
-        <p className="text-gray-600 mt-2">
-          Highlights & short previews from our recent events
-        </p>
-      </div>
+     
 
       {/* Cards */}
       <div className="flex flex-wrap justify-center gap-6">

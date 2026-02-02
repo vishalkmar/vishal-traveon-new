@@ -32,9 +32,8 @@ const FadeIn = ({ children, delay = 0 }) => {
 
   return (
     <div
-      className={`transition-all duration-1000 transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
+      className={`transition-all duration-1000 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
     >
       {children}
     </div>
@@ -134,38 +133,53 @@ export default function LandingPage() {
   };
 
   const carouselItems = [
+
+     {
+      image: "/iccictimages/ic2.jpg",
+      title: "ICCICT 2026",
+      date: "22 - 23 January 2026 (Hybrid Mode)",
+      subtitle:
+        "International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.",
+
+      //  description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
+      link: "/iccict",
+      location: "Lemon Tree Tarudhan Valley",
+      buttonText: "Know more",
+
+    },
+
     {
       image: "/coursera/12.jpg",
       title: "Coursera Offsite",
-       date: "17-18 NOV 2025",
+      date: "17-18 NOV 2025",
       subtitle:
         "A seamlessly managed 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley with complete end-to-end arrangements.",
-   
+
       //  description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
-        link: "/coursera",
-         location: "Lemon Tree Tarudhan Valley",
-       buttonText: "Know more",
-      
+      link: "/coursera",
+      location: "Lemon Tree Tarudhan Valley",
+      buttonText: "Know more",
+
     },
-     {
+    {
       image: "/google-wellness/13.jpg",
       title: "GOOGLE WELLNESS RETREAT",
-       date: "16 SEPTEMBER 2025",
+      date: "16 SEPTEMBER 2025",
       subtitle:
         "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance."
-   ,
+      ,
       //  description: "We organized a rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being. The highlight of the retreat was a calming sound healing experience, helping participants unwind, reduce stress, and restore inner balance. The session created a peaceful atmosphere that left everyone feeling refreshed, recharged, and truly satisfied.",
-        link: "/google-offset",
-         location: "GURGAON DELHI",
-       buttonText: "Know more",
-      
+      link: "/google-offset",
+      location: "GURGAON DELHI",
+      buttonText: "Know more",
+
     },
-       {
-      image:"/ibiea/21.jpg",
+    {
+      image: "/ibiea/21.jpg",
       title: "IBIEA 2025",
       subtitle: "A prestigious IBIEA 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
       // description:
-        // "We successfully organized the IBIEA event in Oman, taking a group of 50 participants from India for a memorable international experience. The program included a prestigious awards function along with a well-planned 2-night, 3-day stay. In addition to the formal ceremony, we curated sightseeing and local experiences across Oman, ensuring a perfect blend of celebration, networking, and leisure. The event delivered a seamless and enriching experience for all attendees.",
+      // "We successfully organized the IBIEA event in Oman, taking a group of 50 participants from India for a memorable international experience. The program included a prestigious awards function along with a well-planned 2-night, 3-day stay. In addition to the formal ceremony, we curated sightseeing and local experiences across Oman, ensuring a perfect blend of celebration, networking, and leisure. The event delivered a seamless and enriching experience for all attendees.",
       date: "May 29, 2025",
       location: "Muscat, Oman",
       link: "/ibiea",
@@ -182,18 +196,7 @@ export default function LandingPage() {
       link: "https://iamsglobal.com",
     },
 
-    {
-      image: "/india_internatinal.png",
-      title: "ICCICT 2026",
-      subtitle:
-        "International Conference on Computational Intelligence and Computing Technologies & AI",
-      description:
-        "A leading platform uniting researchers, industry experts, and innovators.",
-      date: "January 22-23 2026",
-      location: "Indian International Centre, Delhi",
-      link: "https://www.iccict.org/",
-      buttonText: "Learn More",
-    },
+   
     {
       image: "/carousel3.jpeg",
       title: "IBIEA 2.0 (Comming soon)",
@@ -205,7 +208,7 @@ export default function LandingPage() {
       buttonText: "Learn More",
     },
 
- 
+
   ];
 
   useEffect(() => {
@@ -263,11 +266,10 @@ export default function LandingPage() {
         {carouselItems.map((item, index) => (
           <div
             key={index}
-           className={`absolute inset-0 transition-opacity duration-1000 ${
-  index === currentImageIndex
-    ? "opacity-100 pointer-events-auto"
-    : "opacity-0 pointer-events-none"
-}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImageIndex
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none"
+              }`}
 
           >
             <img
@@ -293,27 +295,27 @@ export default function LandingPage() {
                   {/* <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
                     {item.description}
                   </p> */}
-  {item.buttonText && item.link && (
-  isExternalLink(item.link) ? (
-    <a
-      href={item.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-    >
-      {item.buttonText}
-      <ArrowRight className="ml-2 w-5 h-5" />
-    </a>
-  ) : (
-    <Link
-      to={item.link}
-      className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-    >
-      {item.buttonText}
-      <ArrowRight className="ml-2 w-5 h-5" />
-    </Link>
-  )
-)}
+                  {item.buttonText && item.link && (
+                    isExternalLink(item.link) ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
+                      >
+                        {item.buttonText}
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.link}
+                        className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
+                      >
+                        {item.buttonText}
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Link>
+                    )
+                  )}
 
                 </FadeIn>
               </div>
@@ -327,11 +329,10 @@ export default function LandingPage() {
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
                   ? "bg-[#28bccf] w-8"
                   : "bg-white/50 hover:bg-white"
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -454,10 +455,12 @@ export default function LandingPage() {
                 // learnMoreTo: "/contact",
               },
               {
-                title: "Conference and Seminars",
+                title: "International Conference on Computational Intelligence and Computing Technologies & AI 2026 ",
                 description:
-                  "We deliver well-structured conferences and seminars designed to connect people, share ideas, and spark new opportunities.",
-                image: "/gallery/conference.jpg",
+                  `International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT) 2026 is a prestigious gathering of researchers, academics, and industry professionals from around the world.
+
+This conference provides a platform for sharing cutting-edge research, fostering collaborations, and addressing contemporary challenges across multiple disciplines.`,
+                image: "/iccictimages/ic3.jpg",
                 // learnMoreTo: "/contact",
               },
               {
@@ -493,9 +496,8 @@ export default function LandingPage() {
             ].map((service, index) => (
               <div
                 key={index}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                } gap-8 md:gap-16 items-center`}
+                className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  } gap-8 md:gap-16 items-center`}
               >
                 <div className="w-full md:w-1/2 overflow-hidden rounded-lg">
                   <img
@@ -618,25 +620,34 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
+               {
+                title: "ICCICT 2026",
+                description: `International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — a leading platform uniting researchers, industry experts, and innovators.`,
+                image: "/iccictimages/ic2.jpg",
+                date: "January 22-23 2026",
+                href: "https://www.iccict.org/index.html",
+                // href: "/events/2",
+              },
+
               {
-    
-      title: "Coursera Offsite",
-      description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
-       image: "/coursera/12.jpg",
-      date: "17-18 NOV 2025",
-      link: "/coursera",
-      href: "/coursera"
-    },
-    {
-    
-      title: "GOOGLE WELLNESS RETREAT",
-      description:" We organized a rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being. The highlight of the retreat was a calming sound healing experience, helping participants unwind, reduce stress, and restore inner balance. The session created a peaceful atmosphere that left everyone feeling refreshed, recharged, and truly satisfied.",
-       image: "/google-wellness/13.jpg",
-      date: "16 SEPTEMBER 2025",
-      link: "/google-offset",
-      href: "/google-offset"
-    },
-                     {
+
+                title: "Coursera Offsite",
+                description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
+                image: "/coursera/12.jpg",
+                date: "17-18 NOV 2025",
+                link: "/coursera",
+                href: "/coursera"
+              },
+              {
+
+                title: "GOOGLE WELLNESS RETREAT",
+                description: " We organized a rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being. The highlight of the retreat was a calming sound healing experience, helping participants unwind, reduce stress, and restore inner balance. The session created a peaceful atmosphere that left everyone feeling refreshed, recharged, and truly satisfied.",
+                image: "/google-wellness/13.jpg",
+                date: "16 SEPTEMBER 2025",
+                link: "/google-offset",
+                href: "/google-offset"
+              },
+              {
                 title: "IBIEA 2025",
                 description:
                   "IBIEA 2025 Oman: International Business Innovation and Excellence Awards (IBIEA 2025) unfolded as a grand spectacle at Afrah Ballroom, Grand Hyatt Muscat, Oman on 29th May 2025",
@@ -644,16 +655,9 @@ export default function LandingPage() {
                 date: "29 May 2025",
                 href: "/ibiea",
                 // href: "/events/1",
-              }, 
-
-              {
-                 title: "ICCICT 2026",
-                 description:`International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — a leading platform uniting researchers, industry experts, and innovators.`,
-                 image: "/events_images/iccict.jpg",
-               date: "January 22-23 2026",
-                href: "https://www.iccict.org/index.html",
-                // href: "/events/2",
               },
+
+             
               {
                 title: "IBIEA 2.0",
                 description:
@@ -663,16 +667,16 @@ export default function LandingPage() {
                 href: "https://ibiea.com",
                 // href: "/events/3",
               },
-        
-               {
-    
-      title: "IAMS 2026",
-      description: " International Aviation Marketing Summit . The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders, marketers, and innovators shaping the future of aviation commerce.",
-       image: "/image.jpeg",
-      date: "April 9-10, 2026",
-      link: "https://iamsglobal.com",
-      href: "https://iamsglobal.com",
-    },
+
+              {
+
+                title: "IAMS 2026",
+                description: " International Aviation Marketing Summit . The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders, marketers, and innovators shaping the future of aviation commerce.",
+                image: "/image.jpeg",
+                date: "April 9-10, 2026",
+                link: "https://iamsglobal.com",
+                href: "https://iamsglobal.com",
+              },
             ].map((event, index) => (
               <div
                 key={index}

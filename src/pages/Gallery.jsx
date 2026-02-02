@@ -161,8 +161,8 @@ const Gallery = () => {
   const categories = ["All", "Events", "MICE"];
 
   const images = [
-    { src: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1200&q=80", alt: "Business Conference", category: "MICE" },
-    { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=80", alt: "Corporate Meeting", category: "MICE" },
+    { src: "/iccictimages/ic1.jpg", alt: "iccict", category: "Events" },
+   
 
     // Your local gallery images (mixed orientations)
     { src: "/gallery/2.JPG", alt: "IBIEA", category: "Events" },
@@ -173,8 +173,21 @@ const Gallery = () => {
     { src: "/gallery/7.JPG", alt: "IBIEA", category: "Events" },
     { src: "/gallery/10.JPG", alt: "IBIEA", category: "Events" },
     { src: "/gallery/8.JPG", alt: "IBIEA", category: "Events" },
+     { src: "/iccictimages/ic2.jpg", alt: "Corporate Meeting", category: "Events" },
     { src: "/gallery/9.JPG", alt: "IBIEA", category: "Events" },
     { src: "/gallery/11.JPG", alt: "IBIEA", category: "Events" },
+
+     { src: "/iccictimages/ic3.jpg", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic4.jpg", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic5.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic6.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic7.jpg", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic8.jpg", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic9.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic10.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic11.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic12.JPG", alt: "iccict", category: "Events" },
+
   ];
 
   useEffect(() => {
