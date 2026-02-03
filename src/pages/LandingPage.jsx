@@ -657,7 +657,16 @@ This conference provides a platform for sharing cutting-edge research, fostering
                 // href: "/events/1",
               },
 
-             
+             {
+
+                title: "IAMS 2026",
+                description: " International Aviation Marketing Summit . The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders, marketers, and innovators shaping the future of aviation commerce.",
+                image: "/image.jpeg",
+                date: "April 9-10, 2026",
+                link: "https://iamsglobal.com",
+                href: "https://iamsglobal.com",
+              },
+              
               {
                 title: "IBIEA 2.0",
                 description:
@@ -668,15 +677,7 @@ This conference provides a platform for sharing cutting-edge research, fostering
                 // href: "/events/3",
               },
 
-              {
-
-                title: "IAMS 2026",
-                description: " International Aviation Marketing Summit . The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders, marketers, and innovators shaping the future of aviation commerce.",
-                image: "/image.jpeg",
-                date: "April 9-10, 2026",
-                link: "https://iamsglobal.com",
-                href: "https://iamsglobal.com",
-              },
+              
             ].map((event, index) => (
               <div
                 key={index}

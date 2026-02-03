@@ -91,6 +91,8 @@ export default function Mice() {
           </div>
 
 
+
+{/* this is the iccict long card */}
 <div className="mb-8">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2">
@@ -141,6 +143,64 @@ export default function Mice() {
               </div>
             </div>
           </div>
+{/* here is the iccict long card end */}
+
+
+<div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="w-full">
+                  <div className="h-56 md:h-72 w-full relative">
+                    <PreviewCardCarousel
+                      media={[
+                        { type: "image", src: "/ibiea/17.jpg", alt: "Featured 1" },
+                        { type: "image", src: "/ibiea/18.jpg", alt: "Featured 2" },
+                        { type: "image", src: "/ibiea/19.jpg", alt: "Featured 3" },
+                        { type: "image", src: "/ibiea/20.jpg", alt: "Featured 4" },
+                        { type: "image", src: "/ibiea/21.jpg", alt: "Featured 5" },
+                        { type: "image", src: "/ibiea/22.jpg", alt: "Featured 6" },
+                        { type: "image", src: "/ibiea/23.jpg", alt: "Featured 7" },
+
+
+                      ]}
+                      interval={2000}
+                      showDots
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+                <div className="p-6 md:p-8 flex flex-col justify-center">
+                  <h3 className="text-2xl font-bold mb-2">IBIEA 2025 Oman</h3>
+                  <p className="text-gray-600 mb-4">IBIEA 2025 unfolded as a grand spectacle at Afrah Ballroom, Grand Hyatt Muscat—celebrating excellence across industries.</p>
+
+                  <div className="text-sm text-gray-500 mb-4 space-y-2">
+                    <div className="flex items-center gap-3"><span>May 29, 2025</span></div>
+                    <div className="flex items-center gap-3"><span>Grand Hyatt Muscat, Oman</span></div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    {/* Left – Know more */}
+                    <a
+                      href="/ibiea"
+                      className="inline-flex items-center gap-2 text-[#44B3C4] font-semibold hover:underline"
+                    >
+                      Know more →
+                    </a>
+
+                    {/* Right – Visit site */}
+                    <a
+                      href="https://ibiea.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-[#44B3C4]"
+                    >
+                      Visit site ↗
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
 
 
 
@@ -203,68 +263,7 @@ export default function Mice() {
 
           {/* Full-width horizontal preview row */}
           <div className="mt-8">
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="w-full">
-                  <div className="h-56 md:h-72 w-full relative">
-                    <PreviewCardCarousel
-                      media={[
-                        { type: "image", src: "/ibiea/17.jpg", alt: "Featured 1" },
-                        { type: "image", src: "/ibiea/18.jpg", alt: "Featured 2" },
-                        { type: "image", src: "/ibiea/19.jpg", alt: "Featured 3" },
-                        { type: "image", src: "/ibiea/20.jpg", alt: "Featured 4" },
-                        { type: "image", src: "/ibiea/21.jpg", alt: "Featured 5" },
-                        { type: "image", src: "/ibiea/22.jpg", alt: "Featured 6" },
-                        { type: "image", src: "/ibiea/23.jpg", alt: "Featured 7" },
-
-
-                      ]}
-                      interval={2000}
-                      showDots
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-                <div className="p-6 md:p-8 flex flex-col justify-center">
-                  <h3 className="text-2xl font-bold mb-2">IBIEA 2025 Oman</h3>
-                  <p className="text-gray-600 mb-4">IBIEA 2025 unfolded as a grand spectacle at Afrah Ballroom, Grand Hyatt Muscat—celebrating excellence across industries.</p>
-
-                  <div className="text-sm text-gray-500 mb-4 space-y-2">
-                    <div className="flex items-center gap-3"><span>May 29, 2025</span></div>
-                    <div className="flex items-center gap-3"><span>Grand Hyatt Muscat, Oman</span></div>
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    {/* Left – Know more */}
-                    <a
-                      href="/ibiea"
-                      className="inline-flex items-center gap-2 text-[#44B3C4] font-semibold hover:underline"
-                    >
-                      Know more →
-                    </a>
-
-                    {/* Right – Visit site */}
-                    <a
-                      href="https://ibiea.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-[#44B3C4]"
-                    >
-                      Visit site ↗
-                    </a>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-
-            
-         
+          
 
             <section className="w-full bg-white py-16 px-4">
               <div className="max-w-7xl mx-auto flex flex-col justify-center gap-8">
@@ -570,21 +569,21 @@ export default function Mice() {
                   "Our MICE tour with Traveon was flawless. We combined business meetings, team bonding, and cultural exploration seamlessly.",
                 name: "Naveen Kumar",
                 company: "Rahat Trust",
-                avatar: "/testimonials/7.png",
+                avatar: "/reviews/naveen kumar.webp",
               },
               {
                 quote:
                   "Every detail was managed professionally, making the award function and MICE tour a truly memorable experience for all participants.",
                 name: "Archit Singla",
                 company: "Director, Nuwud",
-                avatar: "/testimonials/9.png",
+                 avatar: "/reviews/archit.webp",
               },
               {
                 quote:
                   "Attending IBIEA 2025 in Oman was an incredible experience. The atmosphere, the people, and the recognition of true talent made it a night to remember.",
                 name: "Pascal Esparon",
                 company: "Escape Seychelles",
-                avatar: "/testimonials/8.png",
+                 avatar: "/reviews/pascal.webp",
               },
             ].map((testimonial, index) => (
               <div
