@@ -98,6 +98,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form data:", formData);
     try {
       const response = await fetch(`${backendUrl}/contact/submit`, {
         method: "POST",

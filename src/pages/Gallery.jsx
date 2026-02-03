@@ -155,38 +155,54 @@ const GalleryImage = ({ src, alt, category, onClick }) => {
 /* --------------------------------- Page ----------------------------------- */
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   const categories = ["All", "Events", "MICE"];
 
+  const subCategories = {
+    Events: ["IBIEA", "ICCICT"],
+  };
+
   const images = [
-    { src: "/iccictimages/ic1.jpg", alt: "iccict", category: "Events" },
+    { src: "/iccictimages/ic1.jpg", alt: "ICCICT", category: "ICCICT" },
    
 
     // Your local gallery images (mixed orientations)
-    { src: "/gallery/2.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/1.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/3.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/4.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/6.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/7.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/10.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/8.JPG", alt: "IBIEA", category: "Events" },
-     { src: "/iccictimages/ic2.jpg", alt: "Corporate Meeting", category: "Events" },
-    { src: "/gallery/9.JPG", alt: "IBIEA", category: "Events" },
-    { src: "/gallery/11.JPG", alt: "IBIEA", category: "Events" },
+    { src: "/gallery/2.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/1.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/3.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/4.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/6.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/7.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/10.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/8.JPG", alt: "IBIEA", category: "IBIEA" },
+     { src: "/iccictimages/ic2.jpg", alt: "ICCICT", category: "ICCICT" },
+    { src: "/gallery/9.JPG", alt: "IBIEA", category: "IBIEA" },
+    { src: "/gallery/11.JPG", alt: "IBIEA", category: "IBIEA" },
 
-     { src: "/iccictimages/ic3.jpg", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic4.jpg", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic5.JPG", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic6.JPG", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic7.jpg", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic8.jpg", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic9.JPG", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic10.JPG", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic11.JPG", alt: "iccict", category: "Events" },
-     { src: "/iccictimages/ic12.JPG", alt: "iccict", category: "Events" },
+     { src: "/iccictimages/ic3.jpg", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic4.jpg", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic5.JPG", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic6.JPG", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic7.jpg", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic8.jpg", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic9.JPG", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic10.JPG", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic11.JPG", alt: "ICCICT", category: "ICCICT" },
+     { src: "/iccictimages/ic12.JPG", alt: "ICCICT", category: "ICCICT" },
+
+
+    { src: "/coursera/7.jpg", alt: "Coursera", category: "MICE" },
+     { src: "/coursera/8.jpg", alt: "Coursera", category: "MICE" },
+      { src: "/coursera/9.jpg", alt: "Coursera", category: "MICE" },
+       { src: "/coursera/10.jpg", alt: "Coursera", category: "MICE" },
+        { src: "/coursera/11.jpg", alt: "Coursera", category: "MICE" },
+         { src: "/coursera/12.jpg", alt: "Coursera", category: "MICE" },
+        
+
+
 
   ];
 
@@ -195,9 +211,20 @@ const Gallery = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const filteredImages = images.filter(
-    (img) => selectedCategory === "All" || img.category === selectedCategory
-  );
+  const filteredImages = images.filter((img) => {
+    if (selectedCategory === "All") return true;
+    if (selectedCategory === "Events") {
+      if (selectedSubCategory) {
+        return img.category === selectedSubCategory;
+      } else {
+        return img.category === "IBIEA" || img.category === "ICCICT";
+      }
+    }
+    if (selectedCategory === "MICE") {
+      return img.category === "MICE";
+    }
+    return false;
+  });
 
   const handleImageClick = (index) => setSelectedImageIndex(index);
   const handleCloseModal = () => setSelectedImageIndex(null);
@@ -241,7 +268,10 @@ const Gallery = () => {
               return (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    setSelectedSubCategory(null);
+                  }}
                   className={`px-6 py-2 rounded-md transition-colors duration-200 ${active ? "bg-[#28bccf] text-white" : "text-gray-700 hover:bg-gray-100"
                     }`}
                   aria-pressed={active}
@@ -252,6 +282,28 @@ const Gallery = () => {
             })}
           </div>
         </div>
+
+        {/* Sub-Category Filter for Events */}
+        {selectedCategory === "Events" && subCategories[selectedCategory] && (
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-gray-100 rounded-lg p-1 shadow-md">
+              {subCategories[selectedCategory].map((sub) => {
+                const active = selectedSubCategory === sub;
+                return (
+                  <button
+                    key={sub}
+                    onClick={() => setSelectedSubCategory(sub)}
+                    className={`px-6 py-2 rounded-md transition-colors duration-200 ${active ? "bg-[#28bccf] text-white" : "text-gray-700 hover:bg-gray-100"
+                      }`}
+                    aria-pressed={active}
+                  >
+                    {sub=="IBIEA"?"IBIEA 2025":"ICCICT 2026"}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Masonry (columns) Layout */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
