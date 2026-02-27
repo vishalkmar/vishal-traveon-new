@@ -47,10 +47,10 @@ export default function OurApproachMice(){
               fontSize: '48px',
               lineHeight: '42px',
               letterSpacing: '-5%',
-              background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)',
+             
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
-              color: 'transparent',
+              color: '#0E8FA0',
               display: 'inline-block'
             }}>Approach</span>
           </h2>

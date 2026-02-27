@@ -15,7 +15,7 @@
        
        
 <section className="w-full bg-white py-16">
-        <div className="max-w-7xl mx-auto px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 style={{ marginBottom: 8, textAlign: 'center', whiteSpace: 'nowrap' }}>
             <span style={{
               fontFamily: 'Archivo, serif',
@@ -35,14 +35,14 @@
               lineHeight: '42px',
               letterSpacing: '-5%',
               textTransform: 'capitalize',
-              background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)',
+           
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
-              color: 'transparent',
+              color: '#0E8FA0',
               display: 'inline-block'
             }}>Offerings</span>
           </h2>
-          <p className="text-gray-700 mb-8" style={{ fontFamily: 'Archivo, serif', fontWeight: 400, fontSize: 18, lineHeight: '24px', letterSpacing: '0%', textAlign: 'center' }}>
+          <p className="text-gray-700 my-5" style={{ fontFamily: 'Archivo, serif', fontWeight: 400, fontSize: 18, lineHeight: '24px', letterSpacing: '0%', textAlign: 'center' }}>
             Tailored programs that inspire growth, collaboration, and well-being for every organisation.
           </p>
 

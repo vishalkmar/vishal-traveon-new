@@ -6,9 +6,9 @@ export default function BussinessObjective() {
         className="w-full py-20 bg-cover bg-center"
         style={{ backgroundImage: `url(${"/mice/objective.png"})` }}
       >
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-transparent max-w-2xl text-left text-white">
-            <h3 className="mb-3 sm:mb-4" style={{ marginBottom: 12, whiteSpace: 'nowrap' }}>
+            <h3 className="mb-3 sm:mb-4" style={{ marginBottom: 12 }}>
               <span style={{
                 fontFamily: 'Lato, sans-serif',
                 fontWeight: 700,
@@ -40,10 +40,10 @@ export default function BussinessObjective() {
               <span style={{ width: 8, display: 'inline-block' }} />
 
               <span style={{
-                background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)',
+               
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
-                color: 'transparent',
+                color: 'black',
                 fontFamily: 'Cormorant, serif',
                 fontWeight: 600,
                 fontStyle: 'italic',
@@ -73,7 +73,7 @@ At Retreats by Traveon, our MICE Tours are designed to combine business objectiv
                     <img src={p.img} alt={p.title} className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <div className="text-sm md:text-base" style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700 }}>{p.title}</div>
+                    <div className="text-sm md:text-base text-white" style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700,color: '#0c0c0c' }}>{p.title}</div>
                     <div className="text-xs md:text-sm" style={{ fontFamily: 'Archivo, serif', color: 'rgba(255,255,255,0.9)', marginTop: 6 }}>{p.desc}</div>
                   </div>
                 </div>

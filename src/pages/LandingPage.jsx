@@ -20,7 +20,7 @@ import { backendUrl } from "../../apiConfig/config";
 import Testimonials from "../Components/Testimonials";
 import Hero from "../Components/HeroHome";
 
-import HomePagePackages from "../Components/packages/HomePagePackages";
+// import HomePagePackages from "../Components/packages/HomePagePackages";
 
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -149,7 +149,7 @@ export default function LandingPage() {
       {/* WhatsApp button */}
 
       <Hero/>
-      <HomePagePackages />
+      {/* <HomePagePackages /> */}
 
       <section className="pt-20 relative min-h-screen bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
