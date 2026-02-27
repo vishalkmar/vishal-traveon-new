@@ -43,6 +43,11 @@ import BookingDetailsPage from "./pages/Admin/BookingDetailsPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 
 
+import PackagesIndex from "./pages/packagespages/PackagesIndex.jsx"
+import PackageDetailsPage from "./Components/packages/PackageDetails.jsx";
+
+
+
 import Iccict from "./pages/iccict.jsx";
 
 /* ---------------- LAYOUT CONTROLLER ---------------- */
@@ -125,10 +130,16 @@ export default function App() {
           <Route path="/ibiea" element={<Ibiea />} />
           <Route path="/iccict" element={<Iccict />} />
 
+           
+            <Route path="/packages/:id" element={<PackageDetailsPage />} />
+            <Route path="/packages" element={<PackagesIndex />} />
+
+
           {/* NO HEADER / FOOTER ROUTES */}
           <Route path="/oman-form" element={<OmanTourPackageDetails />} />
           <Route path="/oman-tour" element={<OmanPage />} />
           <Route path="/admin" element={<AdminLogin />} />
+        
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>

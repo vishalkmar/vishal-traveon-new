@@ -43,7 +43,7 @@ function Navbar() {
     { path: "/", label: "Home" },
     { path: "/about", label: "About Traveon" },
     { path: "/services", label: "Our Services" },
-    { path: "/packages", label: "Packages", isDropdown: true },
+    { path: "/packages", label: "Packages" },
     { path: "/events", label: "Events" },
     { path: "/gallery", label: "Gallery" },
     { path: "/mice", label: "MICE" },
@@ -54,13 +54,13 @@ function Navbar() {
     active
       ? "text-[#28bccf]"
       : scrolled
-      ? "text-gray-700 hover:text-[#28bccf]"
+      ? "text-slate-600 hover:text-[#28bccf] font-medium"
       : "text-white hover:text-[#28bccf]";
 
   return (
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-3" : "bg-transparent py-4"
+        scrolled ? "bg-white shadow-lg py-3" : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -90,7 +90,7 @@ function Navbar() {
                   <div key={link.label} className="relative" ref={packagesRef}>
                     <button
                       onClick={() => setPackagesOpen((v) => !v)}
-                      className={`inline-flex items-center gap-1 transition ${
+                      className={`inline-flex items-center gap-1 transition font-medium ${
                         linkColor(isPackagesActive)
                       }`}
                     >
@@ -104,16 +104,16 @@ function Navbar() {
                     </button>
 
                     {packagesOpen && (
-                      <div className="absolute right-0 mt-3 w-56 rounded-xl bg-white shadow-lg ring-1 ring-black/5 overflow-hidden">
+                      <div className="absolute right-0 mt-3 w-56 rounded-xl bg-white shadow-xl ring-1 ring-black/10 overflow-hidden">
                         <Link
                           to="/packages/wellness"
-                          className="block px-4 py-3 text-sm text-gray-700 hover:bg-[#28bccf]/10 hover:text-[#28bccf]"
+                          className="block px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-[#28bccf] font-medium"
                         >
                           Wellness Retreat
                         </Link>
                         <Link
                           to="/packages/community-tour"
-                          className="block px-4 py-3 text-sm text-gray-700 hover:bg-[#28bccf]/10 hover:text-[#28bccf]"
+                          className="block px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-[#28bccf] font-medium"
                         >
                           Community Tours
                         </Link>
@@ -144,9 +144,9 @@ function Navbar() {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X size={24} className={scrolled ? "text-gray-700" : "text-white"} />
+              <X size={24} className={scrolled ? "text-slate-600" : "text-white"} />
             ) : (
-              <Menu size={24} className={scrolled ? "text-gray-700" : "text-white"} />
+              <Menu size={24} className={scrolled ? "text-slate-600" : "text-white"} />
             )}
           </button>
         </div>
@@ -158,23 +158,23 @@ function Navbar() {
           mobileMenuOpen ? "max-h-[600px]" : "max-h-0"
         }`}
       >
-        <div className="bg-white px-4 py-3 space-y-1">
+        <div className="bg-white px-4 py-3 space-y-1 shadow-md">
           {navLinks.map((link) => {
             if (link.isDropdown) {
               return (
                 <div key={link.label} className="pt-2">
-                  <div className="text-gray-900 font-medium mb-2">
+                  <div className="text-slate-900 font-semibold mb-2">
                     Packages
                   </div>
                   <Link
                     to="/packages/wellness"
-                    className="block px-3 py-2 rounded text-gray-700 hover:bg-[#28bccf]/10"
+                    className="block px-3 py-2 rounded text-slate-700 hover:bg-sky-50 hover:text-[#28bccf] font-medium"
                   >
                     Wellness Retreat
                   </Link>
                   <Link
                     to="/packages/community-tour"
-                    className="block px-3 py-2 rounded text-gray-700 hover:bg-[#28bccf]/10"
+                    className="block px-3 py-2 rounded text-slate-700 hover:bg-sky-50 hover:text-[#28bccf] font-medium"
                   >
                     Community Tours
                   </Link>
@@ -186,7 +186,7 @@ function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className="block px-3 py-2 rounded text-gray-700 hover:bg-[#28bccf]/10"
+                className="block px-3 py-2 rounded text-slate-700 hover:bg-sky-50 hover:text-[#28bccf] font-medium"
               >
                 {link.label}
               </Link>

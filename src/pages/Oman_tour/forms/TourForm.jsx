@@ -98,6 +98,7 @@ const TourForm = ({ onBack }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (!validateForm()) return;
 
     setIsSubmitting(true);

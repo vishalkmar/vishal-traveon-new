@@ -419,65 +419,7 @@ const EventsPage = () => {
       </Reveal>
     </div>
 
-   <section id="iams2026" className="bg-gray-50 py-20">
-  <div className="max-w-5xl mx-auto px-4">
-    {/* Event Card */}
-    <div className="overflow-hidden rounded-3xl shadow-lg bg-white">
-      {/* Image with overlays */}
-      <div className="relative w-full h-80 md:h-[450px] overflow-hidden">
-        <img
-          src="/image.jpeg"
-          alt="IAMS 2026"
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-        {/* Top-center main title */}
-        <h2 className="absolute top-6 left-1/2 -translate-x-1/2 text-4xl md:text-6xl font-bold text-white drop-shadow-lg mt-[80px]">
-          IAMS 2026
-        </h2>
-
-        {/* Bottom overlay info */}
-       <div className="absolute bottom-4 left-4 flex items-center space-x-2 text-white text-lg md:text-lg">
-  <Calendar className="w-5 h-5 md:w-6 md:h-6" />
-  <span>April 9–10, 2026</span>
-</div>
-
-<div className="absolute bottom-4 right-4 flex items-center space-x-2 text-white text-lg md:text-lg  text-right">
-  <MapPin className="w-5 h-5 md:w-6 md:h-6" />
-  <span>India International Centre, Lodhi, New Delhi-110003</span>
-</div>
-
-      </div>
-
-      {/* Event Details */}
-      <div className="p-8 md:p-10 text-center">
-        <h3 className="text-2xl font-semibold text-[#003B4A] mb-3">
-          International Aviation Marketing Summit 2026
-        </h3>
-        <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders,
-          marketers, and innovators shaping the future of aviation commerce.
-        </p>
-
-        {/* Button */}
-        <div className="mt-4">
-          <a
-            href="https://iamsglobal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full font-medium hover:bg-[#1da6b8] transition duration-300"
-          >
-            Learn More
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+   
 
 
 

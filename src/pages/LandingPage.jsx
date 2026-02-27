@@ -18,6 +18,9 @@ import Footer from "../Components/Footer";
 import toast from "react-hot-toast";
 import { backendUrl } from "../../apiConfig/config";
 import Testimonials from "../Components/Testimonials";
+import Hero from "../Components/HeroHome";
+
+import HomePagePackages from "../Components/packages/HomePagePackages";
 
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -132,120 +135,7 @@ export default function LandingPage() {
     }
   };
 
-  const carouselItems = [
-
-     {
-      image: "/iccictimages/ic2.jpg",
-      title: "ICCICT 2026",
-      date: "22 - 23 January 2026 (Hybrid Mode)",
-      subtitle:
-        "International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.",
-
-      //  description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
-      link: "/iccict",
-      location: "Lemon Tree Tarudhan Valley",
-      buttonText: "Know more",
-
-    },
-
-    {
-      image: "/coursera/12.jpg",
-      title: "Coursera Offsite",
-      date: "17-18 NOV 2025",
-      subtitle:
-        "A seamlessly managed 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley with complete end-to-end arrangements.",
-
-      //  description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
-      link: "/coursera",
-      location: "Lemon Tree Tarudhan Valley",
-      buttonText: "Know more",
-
-    },
-    {
-      image: "/google-wellness/13.jpg",
-      title: "GOOGLE WELLNESS RETREAT",
-      date: "16 SEPTEMBER 2025",
-      subtitle:
-        "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance."
-      ,
-      //  description: "We organized a rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being. The highlight of the retreat was a calming sound healing experience, helping participants unwind, reduce stress, and restore inner balance. The session created a peaceful atmosphere that left everyone feeling refreshed, recharged, and truly satisfied.",
-      link: "/google-offset",
-      location: "GURGAON DELHI",
-      buttonText: "Know more",
-
-    },
-    {
-      image: "/ibiea/21.jpg",
-      title: "IBIEA 2025",
-      subtitle: "A prestigious IBIEA 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
-      // description:
-      // "We successfully organized the IBIEA event in Oman, taking a group of 50 participants from India for a memorable international experience. The program included a prestigious awards function along with a well-planned 2-night, 3-day stay. In addition to the formal ceremony, we curated sightseeing and local experiences across Oman, ensuring a perfect blend of celebration, networking, and leisure. The event delivered a seamless and enriching experience for all attendees.",
-      date: "May 29, 2025",
-      location: "Muscat, Oman",
-      link: "/ibiea",
-      buttonText: "Learn More",
-    },
-    {
-      image: "/image.jpeg",
-      title: "IAMS 2026",
-      subtitle: "International Aviation Marketing Summit",
-      description: "The Complete Next-Gen Aviation Commercial Ecosystem",
-      date: "April 9-10, 2026",
-      location: "Holiday Inn Aero City, Delhi, India",
-      buttonText: "Visit IAMS",
-      link: "https://iamsglobal.com",
-    },
-
-   
-    {
-      image: "/carousel3.jpeg",
-      title: "IBIEA 2.0 (Comming soon)",
-      subtitle: "International Business Innovation and Excellence Awards",
-      description: "Experience business excellence in paradise.",
-      date: "To be Announced",
-      location: "",
-      link: "https://ibiea.com/",
-      buttonText: "Learn More",
-    },
-
-
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % carouselItems.length
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll(".animate-on-scroll").forEach((item) => {
-      observer.observe(item);
-    });
-
-    return () => {
-      document.querySelectorAll(".animate-on-scroll").forEach((item) => {
-        observer.unobserve(item);
-      });
-    };
-  }, []);
-
+ 
   return (
     <div className="font-['Arsenal'] text-gray-800 overflow-x-hidden relative">
       {/* Scroll to top button */}
@@ -258,86 +148,8 @@ export default function LandingPage() {
 
       {/* WhatsApp button */}
 
-      {/* Hero Section with Carousel */}
-      <section
-        id="hero"
-        className="pt-20 relative h-screen max-h-screen overflow-hidden"
-      >
-        {carouselItems.map((item, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImageIndex
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
-              }`}
-
-          >
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/60"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="max-w-5xl mx-auto text-center px-4">
-                <FadeIn delay={300}>
-                  {item.date && (
-                    <h2 className="text-2xl text-[#28bccf] font-semibold mb-2">
-                      {item.date} • {item.location}
-                    </h2>
-                  )}
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
-                    {item.title}
-                  </h1>
-                  <p className="text-xl md:text-2xl text-white mb-6">
-                    {item.subtitle}
-                  </p>
-                  {/* <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-                    {item.description}
-                  </p> */}
-                  {item.buttonText && item.link && (
-                    isExternalLink(item.link) ? (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-                      >
-                        {item.buttonText}
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </a>
-                    ) : (
-                      <Link
-                        to={item.link}
-                        className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-                      >
-                        {item.buttonText}
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Link>
-                    )
-                  )}
-
-                </FadeIn>
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {/* Carousel Navigation */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {carouselItems.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
-                  ? "bg-[#28bccf] w-8"
-                  : "bg-white/50 hover:bg-white"
-                }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </section>
+      <Hero/>
+      <HomePagePackages />
 
       <section className="pt-20 relative min-h-screen bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -657,16 +469,7 @@ This conference provides a platform for sharing cutting-edge research, fostering
                 // href: "/events/1",
               },
 
-             {
-
-                title: "IAMS 2026",
-                description: " International Aviation Marketing Summit . The Complete Next-Gen Aviation Commercial Ecosystem — bringing together global leaders, marketers, and innovators shaping the future of aviation commerce.",
-                image: "/image.jpeg",
-                date: "April 9-10, 2026",
-                link: "https://iamsglobal.com",
-                href: "https://iamsglobal.com",
-              },
-              
+           
               {
                 title: "IBIEA 2.0",
                 description:
