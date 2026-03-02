@@ -50,6 +50,8 @@ import PackageDetailsPage from "./Components/packages/PackageDetails.jsx";
 
 import Iccict from "./pages/iccict.jsx";
 
+import Randompage from "./pages/random.jsx";
+
 /* ---------------- LAYOUT CONTROLLER ---------------- */
 function Layout({ children }) {
   const location = useLocation();
@@ -88,6 +90,7 @@ export default function App() {
         <Routes>
           {/* PUBLIC ROUTES */}
           <Route path="/" element={<LandingPage />} />
+           <Route path="/random" element={<Randompage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:id" element={<EventDetailsPage />} />
           <Route path="/gallery" element={<Gallery />} />

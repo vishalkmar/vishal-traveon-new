@@ -9,40 +9,34 @@
     {img: "/mice/cultural.webp", title: 'Cultural & Experiential Activities', desc: '' },
   ];
 
-
-
-       return(<>
-       
+  return(<>
        
 <section className="w-full bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 style={{ marginBottom: 8, textAlign: 'center', whiteSpace: 'nowrap' }}>
+          {/* Standardized Heading */}
+          <h2 className="text-center mb-6">
             <span style={{
-              fontFamily: 'Archivo, serif',
+              fontFamily: 'Lato, sans-serif',
               fontWeight: 700,
-              fontStyle: 'normal',
-              fontSize: '40px',
-              lineHeight: '42px',
-              letterSpacing: '-4%',
-              display: 'inline-block'
-            }}>Our MICE&nbsp;</span>
-
+              fontSize: '36px',
+              lineHeight: '1.2',
+              color: '#1a202c'
+            }}>Our MICE </span>
             <span style={{
               fontFamily: 'Cormorant, serif',
               fontWeight: 600,
               fontStyle: 'italic',
-              fontSize: '48px',
-              lineHeight: '42px',
-              letterSpacing: '-5%',
-              textTransform: 'capitalize',
-           
+              fontSize: '44px',
+              lineHeight: '1.2',
+              background: 'linear-gradient(91.87deg, #0f8b8d 0%, #009F26 100%)',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
-              color: '#0E8FA0',
-              display: 'inline-block'
+              color: 'transparent'
             }}>Offerings</span>
           </h2>
-          <p className="text-gray-700 my-5" style={{ fontFamily: 'Archivo, serif', fontWeight: 400, fontSize: 18, lineHeight: '24px', letterSpacing: '0%', textAlign: 'center' }}>
+
+          {/* Standardized Subheading */}
+          <p className="text-center max-w-3xl mx-auto text-gray-600 text-lg md:text-xl leading-relaxed mb-12">
             Tailored programs that inspire growth, collaboration, and well-being for every organisation.
           </p>
 
@@ -64,8 +58,6 @@
         </div>
         
 </section>
-
-
 
        </>)
  }

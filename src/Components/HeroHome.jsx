@@ -1,5 +1,5 @@
 export default function Hero({
-  badge = "🌿 Transforming Experiences Since 2020",
+ 
   title = (
     <>
       <i>Retreats</i> that Renew,
@@ -42,7 +42,7 @@ export default function Hero({
       >
         <div className="pt-12 md:pt-24 lg:pt-36" />
 
-        {showBadge && (
+        {/* {showBadge && (
           <div className="inline-flex items-center">
             <div className="rounded-[30px] p-[2px] bg-gradient-to-r from-[#39C6D8] via-[#2FB8D3] to-[#23A8CC]">
               <div className="flex items-center gap-2 rounded-[28px] bg-[linear-gradient(90deg,#001F24_0%,#002B33_100%)] px-4 py-2 text-white/95">
@@ -50,7 +50,7 @@ export default function Hero({
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight font-serif text-white drop-shadow">
           {titleOverride ?? title}
