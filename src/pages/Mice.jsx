@@ -6,7 +6,7 @@ import BussinessObjective from "../Components/BussinessObjective";
 import OurApproachMice from "../Components/shared/OurApproachMice";
 import Testimonials from "../Components/Testimonial";
 
-import TrustedBy from "../components/TrustedBy";
+import TrustedBy from "../Components/TrustedBy";
 import {
   Briefcase,
   Gift,

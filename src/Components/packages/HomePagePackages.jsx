@@ -130,7 +130,7 @@ export default function HomePagePackages(){
      
           <PackagesCarousel
                title="Oman Tour Packages"
-                items={packagesData
+                items={ApiPackages
                 }
                  onViewAll={() => (window.location.href = "/packages")}
             />
@@ -139,7 +139,7 @@ export default function HomePagePackages(){
     {activeTab === "vietnam" && (
       <PackagesCarousel
         title="Vietnam Tour Packages"
-        items={packagesData}
+        items={ApiPackages}
         onViewAll={() => (window.location.href = "/packages")}
       />
     )}
@@ -147,7 +147,7 @@ export default function HomePagePackages(){
     {activeTab === "seychelles" && (
       <PackagesCarousel
         title="Seychelles Tour Packages"
-        items={packagesData}
+        items={ApiPackages}
         onViewAll={() => (window.location.href = "/packages")}
       />
     )}

@@ -1,5 +1,5 @@
 import Hero from "../components/HeroHome";
-import TrustedBy from "../components/TrustedBy";
+import TrustedBy from "../Components/TrustedBy";
 import { ArrowRight } from "lucide-react";
 
 export default function AboutUs() {
