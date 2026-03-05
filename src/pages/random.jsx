@@ -1,7 +1,7 @@
 
 
-import Hero from "../components/HeroHome.jsx";
-import TrustedBy from "../components/TrustedBy.jsx";
+import Hero from "../Components/HeroHome.jsx";
+import TrustedBy from "../Components/TrustedBy.jsx";
 import Why from "../Components/Why.jsx";
 import Testimonial from "../Components/Testimonial.jsx";
 

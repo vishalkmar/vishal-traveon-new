@@ -1,4 +1,4 @@
-import Hero from "../Components/HeroHome.jsx"
+import Hero from "../Components/HeroHome.jsx";
 import TrustedBy from "../Components/TrustedBy";
 import { ArrowRight } from "lucide-react";
 
