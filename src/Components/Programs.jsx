@@ -28,7 +28,7 @@ export default function Programs() {
             <span
               className="inline-block text-4xl sm:text-5xl md:text-[48px] leading-tight"
               style={{
-                fontFamily: 'Cormorant, serif',
+                fontFamily: 'Lato, sans-serif',
                 fontWeight: 600,
                 fontStyle: 'italic',
                 background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)',

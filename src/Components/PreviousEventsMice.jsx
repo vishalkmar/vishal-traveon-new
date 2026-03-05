@@ -4,8 +4,8 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export default function PreviousEventsMice() {
 
-      const whatsappUrl =
-    "https://wa.me/9540111307?text=Hi! I'm interested in planning a MICE tour.";
+     const whatsappUrl =
+    "https://wa.me/9540111307?text=Hi! I'm interested in planning a M.I.C.E tour.";
 
 
      return(<>
@@ -19,7 +19,7 @@ export default function PreviousEventsMice() {
                
      
                <div className="text-center mb-8">
-                 <h2 className="text-2xl sm:text-5xl font-bold text-gray-900">Previous <span className="text-[#0E8FA0] italic font-serif">Events</span> &  <span className="text-[#0E8FA0] italic font-serif">MICE</span></h2>
+                 <h2 className="text-2xl sm:text-5xl font-bold text-gray-900">Previous <span className="text-[#0E8FA0] italic font-serif">Events</span> &  <span className="text-[#0E8FA0] italic font-serif">M.I.C.E</span></h2>
                  <p className="text-gray-600 my-3">Highlights & short previews from our recent events</p>
                </div>
      
@@ -200,16 +200,16 @@ export default function PreviousEventsMice() {
      
      
      
-                 {/* CTA: Plan Your MICE */}
+                 {/* CTA: Plan Your M.I.C.E */}
                  <div className="mt-20 mb-20 text-center px-4">
                    {/* Title */}
                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                     Want to Be Start Planning Your MICE Tour?
+                     Want to Be Start Planning Your M.I.C.E Tour?
                    </h2>
      
                    {/* Description */}
                    <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
-                     Let us help you create memorable MICE experiences tailored to your goals.
+                     Let us help you create memorable M.I.C.E experiences tailored to your goals.
                    </p>
      
                    {/* Button */}
@@ -221,7 +221,7 @@ export default function PreviousEventsMice() {
                        className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
                      >
                        <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
-                       Plan Your MICE Now ?
+                       Plan Your M.I.C.E Now ?
                      </a>
                    </div>
                  </div>

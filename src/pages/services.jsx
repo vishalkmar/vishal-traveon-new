@@ -188,15 +188,15 @@ const Services = () => {
   },
   {
     icon: Users,
-    title: "MICE Management",
+    title: "M.I.C.E Management",
     description:
-      "From boardroom to ballroom: precision planning, creative experiences, and seamless execution for MICE.",
+      "From boardroom to ballroom: precision planning, creative experiences, and seamless execution for M.I.C.E.",
     features: [
       "End-to-end project ownership",
       "Strategic venue & vendor curation",
       "Flawless on-site coordination",
     ],
-    to: "/mice",
+    to: "/m-i-c-e",
   },
   {
     icon: Briefcase,
@@ -302,7 +302,7 @@ const Services = () => {
         <div className="max-w-6xl mx-auto px-4">
           <Reveal>
             <p className="mx-auto max-w-4xl text-center text-gray-700 text-lg md:text-xl mb-10">
-              At <strong>Traveon Ventures</strong>, we craft <b>Immersive Wellness Retreats</b>, <b>curated travel</b>, run flawless <b>MICE</b>,
+              At <strong>Traveon Ventures</strong>, we craft <b>Immersive Wellness Retreats</b>, <b>curated travel</b>, run flawless <b>M.I.C.E</b>,
               and enable <b>business expansion</b> — with quality and responsibility at the core.
             </p>
           </Reveal>

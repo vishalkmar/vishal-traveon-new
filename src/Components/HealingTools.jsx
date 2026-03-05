@@ -96,9 +96,9 @@ export default function HealingTools() {
         <div className="mb-4 text-center">
           <h2 style={{ margin: 0, display: 'inline-block' }}>
             <span style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, fontSize: 32, lineHeight: '40px', letterSpacing: '-2%', display: 'inline-block', verticalAlign: 'middle', marginRight: 8 }}>Our Powerful</span>
-            <span style={{ fontFamily: 'Cormorant, serif', fontWeight: 600, fontStyle: 'italic', fontSize: 36, lineHeight: '40px', letterSpacing: '-3%', background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', display: 'inline-block', verticalAlign: 'middle' }}>Healing Tools</span>
+            <span style={{ fontFamily: 'Lato, sans-serif', fontWeight: 600, fontStyle: 'italic', fontSize: 36, lineHeight: '40px', letterSpacing: '-3%', background: 'linear-gradient(91.87deg, #00C5C5 0%, #009F26 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', display: 'inline-block', verticalAlign: 'middle' }}>Healing Tools</span>
           </h2>
-          <p className="mt-3 text-gray-700 mx-auto" style={{ fontFamily: 'Archivo, sans-serif', fontSize: 16, lineHeight: '22px', maxWidth: 720 }}>An array of powerful, science-backed & ancient tools designed to heal and transform</p>
+          <p className="mt-3 text-gray-700 mx-auto" style={{ fontFamily: 'Lato, sans-serif', fontSize: 16, lineHeight: '22px', maxWidth: 720 }}>An array of powerful, science-backed & ancient tools designed to heal and transform</p>
         </div>
 
         <div className="mt-6 -mx-4">
@@ -121,7 +121,7 @@ export default function HealingTools() {
 
                 <div className="absolute left-0 right-0 bottom-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                   <div style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, fontSize: 18, color: '#fff' }}>{t.title}</div>
-                  <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.95)', marginTop: 6 }}>{t.desc}</div>
+                  <div style={{ fontFamily: 'Lato, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.95)', marginTop: 6 }}>{t.desc}</div>
                 </div>
               </div>
             ))}

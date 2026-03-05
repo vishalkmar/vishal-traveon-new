@@ -43,10 +43,10 @@ function Navbar() {
     { path: "/", label: "Home" },
     { path: "/about", label: "About Traveon" },
     { path: "/services", label: "Our Services" },
-    { isDropdown: true, label: "Packages" },  // agar baad mai change krna hai to bs ye tur bala isrdropdown hta kr path mai /packages daal dena hai aur ye khud active ho jayega
-    { path: "/events", label: "Events" },
+    { path: "/packages", label: "Packages" },
+    // { path: "/events", label: "Events" },
     { path: "/gallery", label: "Gallery" },
-    { path: "/mice", label: "MICE" },
+    { path: "/mice", label: "M.I.C.E" },
     { path: "/contact", label: "Contact Us" },
   ];
 

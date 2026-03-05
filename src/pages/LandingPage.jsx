@@ -29,7 +29,7 @@ import HomePageEvents from "./Events/HomePageEvents.jsx";
 
 
 
-// import HomePagePackages from "../Components/packages/HomePagePackages";
+import HomePagePackages from "../Components/packages/HomePagePackages";
 
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -146,7 +146,7 @@ export default function LandingPage() {
 
  
   return (
-    <div className="font-['Arsenal'] text-gray-800 overflow-x-hidden relative">
+    <div className="font-['Lato'] text-gray-800 overflow-x-hidden relative">
       {/* Scroll to top button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -157,6 +157,7 @@ export default function LandingPage() {
       
            <Hero />
           <TrustedBy />
+          <HomePagePackages />
           <Why />
           <HomePageEvents />
           <Transform />
@@ -228,6 +229,7 @@ export default function LandingPage() {
                         Phone
                       </h4>
                       <p className="text-gray-600">+91 9540111207</p>
+                      <p className="text-gray-600">+91 9540111307</p>
                     </div>
                   </div>
                 </div>

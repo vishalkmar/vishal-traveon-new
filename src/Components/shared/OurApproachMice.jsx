@@ -31,7 +31,7 @@ export default function OurApproachMice(){
         <div className="max-w-7xl mx-auto px-8 text-center">
           <h2 style={{ marginBottom: 8, textAlign: 'center' }}>
             <span style={{
-              fontFamily: 'Archivo, serif',
+              fontFamily: 'Lato, serif',
               fontWeight: 700,
               fontStyle: 'normal',
               fontSize: '40px',
@@ -41,7 +41,7 @@ export default function OurApproachMice(){
             }}>Our&nbsp;</span>
 
             <span style={{
-              fontFamily: 'Cormorant, serif',
+              fontFamily: 'Lato, serif',
               fontWeight: 600,
               fontStyle: 'italic',
               fontSize: '48px',
@@ -55,7 +55,7 @@ export default function OurApproachMice(){
             }}>Approach</span>
           </h2>
 
-          <p className="text-gray-700 mb-12" style={{ fontFamily: 'Archivo, serif', fontWeight: 400, fontSize: 18, lineHeight: '24px', letterSpacing: '0%', textAlign: 'center' }}>
+          <p className="text-gray-700 mb-12" style={{ fontFamily: 'Lato', fontWeight: 400, fontSize: 18, lineHeight: '24px', letterSpacing: '0%', textAlign: 'center' }}>
             A systematic process ensuring every retreat delivers maximum impact
           </p>
 
@@ -77,7 +77,7 @@ export default function OurApproachMice(){
                         <p style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, fontSize: 18, color: '#0b0b0b', margin: 0 }}>
                           {step.title}
                         </p>
-                        <p style={{ fontFamily: 'Archivo, sans-serif', fontSize: 14, color: 'rgba(0,0,0,0.85)', marginTop: 4, lineHeight: '20px' }}>
+                        <p style={{ fontFamily: 'Lato, sans-serif', fontSize: 14, color: 'rgba(0,0,0,0.85)', marginTop: 4, lineHeight: '20px' }}>
                           {step.description}
                         </p>
                       </div>
@@ -86,7 +86,7 @@ export default function OurApproachMice(){
                         <p style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, fontSize: 18, color: '#0b0b0b', margin: 0 }}>
                           {step.title}
                         </p>
-                        <p style={{ fontFamily: 'Archivo, sans-serif', fontSize: 14, color: 'rgba(0,0,0,0.85)', marginTop: 4, lineHeight: '20px' }}>
+                        <p style={{ fontFamily: 'Lato, sans-serif', fontSize: 14, color: 'rgba(0,0,0,0.85)', marginTop: 4, lineHeight: '20px' }}>
                           {step.description}
                         </p>
                       </div>

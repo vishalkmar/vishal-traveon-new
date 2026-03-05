@@ -25,7 +25,7 @@ export default function Latest() {
           <span
             style={{
               marginLeft: 6,
-              fontFamily: 'Cormorant, serif',
+              fontFamily: 'Lato, sans-serif',
               fontWeight: 600,
               fontStyle: 'italic',
               fontSize: '48px',

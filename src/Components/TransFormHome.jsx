@@ -24,7 +24,7 @@ const DEFAULT_ITEMS = [
     title: "Corporate Retreats",
     desc: "Build stronger teams and drive innovation through immersive offsites.",
     image:
-      "/wellness/corporate.avif",
+      "/coursera/12.jpg",
     link: "/packages/wellness/corporate_sound_healing",
   },
   {
@@ -35,10 +35,10 @@ const DEFAULT_ITEMS = [
     link: "/packages/community-tour",
   },
   {
-    title: "MICE Tours",
+    title: "M.I.C.E ",
     desc: "Elevate business events with luxury venues and seamless logistics.",
     image:
-      "/mice/planing.png",
+      "/ibiea/21.jpg",
     link: "/mice",
   },
 ];

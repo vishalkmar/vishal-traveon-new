@@ -29,7 +29,7 @@ import CommunityTour from "./pages/Community-tour-pages/CommunityTour";
 import CommunityTourMagicalMuscat from "./pages/Community-tour-pages/CommunityTourMusicalMuscat";
 import CommunityTourSeychelles from "./pages/Community-tour-pages/CommunityTourSeychelles";
 
-import Mice from "./pages/Mice";
+import MICE from "./pages/Mice";
 import Coursera from "./pages/Coursera";
 import GoogleOffet from "./pages/GoogleOffset";
 import Ibiea from "./pages/ibiea";
@@ -127,7 +127,7 @@ export default function App() {
             element={<CommunityTourSeychelles />}
           />
 
-          <Route path="/mice" element={<Mice />} />
+          <Route path="/mice" element={<MICE />} />
           <Route path="/coursera" element={<Coursera />} />
           <Route path="/google-offset" element={<GoogleOffet />} />
           <Route path="/ibiea" element={<Ibiea />} />

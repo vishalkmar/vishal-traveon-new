@@ -44,7 +44,7 @@ export default function BussinessObjective() {
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 color: 'black',
-                fontFamily: 'Cormorant, serif',
+                fontFamily: 'Lato, sans-serif',
                 fontWeight: 600,
                 fontStyle: 'italic',
                 fontSize: '48px',
@@ -74,7 +74,7 @@ At Retreats by Traveon, our MICE Tours are designed to combine business objectiv
                   </div>
                   <div>
                     <div className="text-sm md:text-base text-white" style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700,color: '#0c0c0c' }}>{p.title}</div>
-                    <div className="text-xs md:text-sm" style={{ fontFamily: 'Archivo, serif', color: 'rgba(255,255,255,0.9)', marginTop: 6 }}>{p.desc}</div>
+                    <div className="text-xs md:text-sm" style={{ fontFamily: 'Lato, sans-serif', color: 'rgba(255,255,255,0.9)', marginTop: 6 }}>{p.desc}</div>
                   </div>
                 </div>
               ))}

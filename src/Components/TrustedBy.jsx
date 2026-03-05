@@ -1,12 +1,19 @@
-import logo1 from '/mice/t1.png';
-import logo2 from '/mice/t2.png';
-import logo3 from '/mice/t3.png';
-import logo4 from '/mice/t4.png';
-import logo5 from '/mice/t1.png';
-import logo6 from '/mice/t2.png';
+import logo1 from '/logo/1.webp';
+import logo2 from '/logo/2.webp';
+import logo3 from '/logo/3.webp';
+import logo4 from '/logo/4.webp';
+import logo5 from '/logo/5.webp';
+import logo6 from '/logo/6.webp';
+import logo7 from '/logo/7.webp';
+import logo8 from '/logo/8.webp';
+import logo9 from '/logo/9.webp';
+import logo10 from '/logo/10.webp';
+import logo11 from '/logo/11.webp';
+import logo12 from '/logo/12.webp';
+import logo13 from '/logo/13.webp';
 
 export default function TrustedBy() {
-  const logos = [logo1, logo2, logo3, logo4, logo5, logo6];
+  const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10, logo11, logo12, logo13];
 
   return (
     <section className="py-8 bg-white">
@@ -14,7 +21,7 @@ export default function TrustedBy() {
         <h2 className="text-center mb-8">
           <span
             style={{
-              fontFamily: 'Cormorant Infant',
+              fontFamily: 'Lato',
               fontWeight: 500,
               fontStyle: 'Italic',
               fontSize: '24px',
@@ -29,7 +36,7 @@ export default function TrustedBy() {
           </span>
           <span
             style={{
-              fontFamily: 'Archivo',
+              fontFamily: 'Lato',
               fontWeight: 500,
               fontStyle: 'Medium',
               fontSize: '20px',
@@ -44,7 +51,7 @@ export default function TrustedBy() {
           </span>
           <span
             style={{
-              fontFamily: 'Cormorant Infant',
+              fontFamily: 'Lato',
               fontWeight: 500,
               fontStyle: 'Italic',
               fontSize: '24px',
@@ -59,7 +66,7 @@ export default function TrustedBy() {
           </span>
           <span
             style={{
-              fontFamily: 'Archivo',
+              fontFamily: 'Lato',
               fontWeight: 500,
               fontStyle: 'Medium',
               fontSize: '20px',
@@ -79,7 +86,7 @@ export default function TrustedBy() {
             {logos.concat(logos).map((logo, index) => (
               <div
                 key={index}
-                className="w-32 h-16 flex items-center justify-center flex-shrink-0"
+                className="w-44 h-24 flex items-center justify-center flex-shrink-0"
               >
                 <img
                   src={logo}

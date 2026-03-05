@@ -28,7 +28,7 @@ import MiceTourOffering from "../Components/MiceTourOffering";
 
 export default function Mice() {
   const whatsappUrl =
-    "https://wa.me/9540111307?text=Hi! I'm interested in planning a MICE tour.";
+    "https://wa.me/9540111307?text=Hi! I'm interested in planning a M.I.C.E tour.";
 
   const carouselItems = [
     {
@@ -58,17 +58,17 @@ export default function Mice() {
       subtitle:
         "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance.",
       link: "/google-offset",
-      location: "GURGAON DELHI",
+      location: "Gurgaon, Delhi",
       buttonText: "Know more",
     },
     {
       image: "/ibiea/21.jpg",
       title: "IBIEA 2025",
-      subtitle: "A prestigious IBIEA 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
+      subtitle: "A prestigious International Business Innovation & Excellence Awards 2025 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
       // description:
       // "We successfully organized the IBIEA event in Oman, taking a group of 50 participants from India for a memorable international experience. The program included a prestigious awards function along with a well-planned 2-night, 3-day stay. In addition to the formal ceremony, we curated sightseeing and local experiences across Oman, ensuring a perfect blend of celebration, networking, and leisure. The event delivered a seamless and enriching experience for all attendees.",
       date: "May 29, 2025",
-      location: "Muscat, Oman",
+      location: "Grand Hyatt Muscat, Oman",
       link: "/ibiea",
       buttonText: "Learn More",
     },
@@ -148,7 +148,7 @@ export default function Mice() {
               Business Objectives, Immersive Experiences
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              At Retreats by Traveon, our MICE Tours are designed to combine
+              At Retreats by Traveon, our M.I.C.E Tours are designed to combine
               business objectives with immersive travel experiences. We create
               programs that integrate corporate meetings, incentive trips,
               conferences, and team-building events with cultural exploration,
@@ -193,7 +193,7 @@ export default function Mice() {
                   color: "#44B3C4",
                   title: "Impactful Outcomes",
                   description:
-                    "MICE tours designed to boost engagement, strengthen teams, and leave lasting impressions.",
+                    "M.I.C.E tours designed to boost engagement, strengthen teams, and leave lasting impressions.",
                 },
               ].map((item) => (
                 <div className="flex items-start space-x-4" key={item.title}>
@@ -232,14 +232,14 @@ export default function Mice() {
             {[
               {
                 quote:
-                  "Our MICE tour with Traveon was flawless. We combined business meetings, team bonding, and cultural exploration seamlessly.",
+                  "Our M.I.C.E tour with Traveon was flawless. We combined business meetings, team bonding, and cultural exploration seamlessly.",
                 name: "Naveen Kumar",
                 company: "Rahat Trust",
                 avatar: "/reviews/naveen kumar.webp",
               },
               {
                 quote:
-                  "Every detail was managed professionally, making the award function and MICE tour a truly memorable experience for all participants.",
+                  "Every detail was managed professionally, making the award function and M.I.C.E tour a truly memorable experience for all participants.",
                 name: "Archit Singla",
                 company: "Director, Nuwud",
                  avatar: "/reviews/archit.webp",
@@ -293,12 +293,12 @@ export default function Mice() {
       <div className="mt-20 mb-20 text-center px-4">
         {/* Title */}
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-          Want to Be Start Planning Your MICE Tour?
+          Want to Be Start Planning Your M.I.C.E Tour?
         </h2>
 
         {/* Description */}
         <p className="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto">
-          Let us help you create memorable MICE experiences tailored to your goals.
+          Let us help you create memorable M.I.C.E experiences tailored to your goals.
         </p>
 
         {/* Button */}
@@ -310,7 +310,7 @@ export default function Mice() {
             className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
           >
             <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
-            Plan Your MICE Tour
+            Plan Your M.I.C.E Tour
           </a>
         </div>
       </div>

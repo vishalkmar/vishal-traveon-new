@@ -21,17 +21,15 @@
               fontSize: '36px',
               lineHeight: '1.2',
               color: '#1a202c'
-            }}>Our MICE </span>
+            }}>Our M.I.C.E </span>
             <span style={{
-              fontFamily: 'Cormorant, serif',
+              fontFamily: 'Lato, serif',
               fontWeight: 600,
               fontStyle: 'italic',
               fontSize: '44px',
               lineHeight: '1.2',
-              background: 'linear-gradient(91.87deg, #0f8b8d 0%, #009F26 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent'
+             
+              color: '#428df5'
             }}>Offerings</span>
           </h2>
 
@@ -49,7 +47,7 @@
                   {/* bottom overlay: bold title + 1-2 line description */}
                   <div className="absolute left-0 right-0 bottom-0 p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent text-left">
                     <div style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, fontSize: 16, color: '#fff' }}>{o.title}</div>
-                    <div style={{ fontFamily: 'Archivo, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.95)', marginTop: 6 }}>{o.desc}</div>
+                    <div style={{ fontFamily: 'Lato, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.95)', marginTop: 6 }}>{o.desc}</div>
                   </div>
                 </div>
               </div>

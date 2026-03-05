@@ -47,7 +47,7 @@ const WhatsAppSection = () => (
       responses.
     </p>
     <a
-      href="https://wa.me/919540111207?text=Hi%20Traveon,%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+      href="https://wa.me/919540111307?text=Hi%20Traveon,%20I%20would%20like%20to%20know%20more%20about%20your%20services."
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center space-x-2 bg-[#28bccf] text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors"

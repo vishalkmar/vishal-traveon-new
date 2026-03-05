@@ -146,6 +146,35 @@ export default function Iccict(){
 </section>
 
 
+ <section className="w-full bg-white py-20 px-4">
+
+  {/* Grid */}
+  <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    { bannerMedia.map((item, index) => (
+      <div
+        key={index}
+        className="bg-white rounded-xl overflow-hidden
+                   transition-transform duration-300
+                   hover:-translate-y-1 hover:shadow-lg"
+      >
+        {/* Image */}
+        <div className="w-full h-[260px] overflow-hidden">
+          <img
+            src={item.src}
+            alt=""
+            className="w-full h-full object-cover
+                       transition-transform duration-500
+                       hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+
+</section>
+
+
               <div className="bg-gray-100 py-16">
                                   <div className="max-w-screen-xl mx-auto px-4 text-center">
                                     <h2 className="text-3xl font-bold mb-4">Want to Be Part of Our Story?</h2>

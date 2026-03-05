@@ -7,7 +7,7 @@ export default function HomePageEvents(){
      <section id="our-events" className="py-20 bg-white">
              <div className="max-w-screen-xl mx-auto px-4">
                <div className="text-center mb-16">
-                 <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Events & Mice</h2>
+                 <h2 className="text-3xl md:text-4xl font-bold mb-4">M.I.C.E by <span className="text-[#28bccf]">Traveon</span></h2>
                  <div className="w-20 h-1 bg-[#28bccf] mx-auto mb-6"></div>
                  <p className="text-lg text-gray-700">
                    We craft memorable events, whether corporate conferences,
@@ -15,13 +15,13 @@ export default function HomePageEvents(){
                  </p>
                </div>
      
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+               <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
                  {[
                     {
                      title: "ICCICT 2026",
                      description: `International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — a leading platform uniting researchers, industry experts, and innovators.`,
                      image: "/iccictimages/ic2.jpg",
-                     date: "January 22-23 2026",
+                     date: "22-23 JANUARY 2026",
                      href: "https://www.iccict.org/index.html",
                      // href: "/events/2",
                    },
@@ -31,13 +31,13 @@ export default function HomePageEvents(){
                      title: "Coursera Offsite",
                      description: "We successfully organized a 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley, where all participants stayed at the venue throughout the event. Our team managed the complete end-to-end arrangements, including accommodation, conference setup, meals, logistics, and hospitality. Every detail was handled with care to ensure a seamless, comfortable, and productive experience for the Coursera team.",
                      image: "/coursera/12.jpg",
-                     date: "17-18 NOV 2025",
+                     date: "17-18 NOVEMBER 2025",
                      link: "/coursera",
                      href: "/coursera"
                    },
                    {
      
-                     title: "GOOGLE WELLNESS RETREAT",
+                     title:"Google Wellness Retreat",
                      description: " We organized a rejuvenating wellness retreat at Google, Gurgaon, featuring a 2-hour guided session focused on relaxation and holistic well-being. The highlight of the retreat was a calming sound healing experience, helping participants unwind, reduce stress, and restore inner balance. The session created a peaceful atmosphere that left everyone feeling refreshed, recharged, and truly satisfied.",
                      image: "/google-wellness/13.jpg",
                      date: "16 SEPTEMBER 2025",
@@ -69,21 +69,23 @@ export default function HomePageEvents(){
                  ].map((event, index) => (
                    <div
                      key={index}
-                     className="bg-gray-50 rounded-lg overflow-hidden shadow-md group"
+                     className="bg-gray-50 rounded-lg overflow-hidden shadow-md group flex flex-col h-full"
                    >
-                     <div className="overflow-hidden h-48">
+                     <div className="overflow-hidden h-96">
                        <img
                          src={event.image}
                          alt={event.title}
                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                        />
                      </div>
-                     <div className="p-6">
-                       <h3 className="text-xl font-bold text-[#28bccf] mb-3">
-                         {event.title}
-                       </h3>
-                       <p className="text-gray-600 mb-4">{event.description}</p>
-                       <p className="text-gray-600 mb-4 font-bold">{event.date}</p>
+                     <div className="p-6 flex flex-col flex-grow justify-between">
+                       <div>
+                         <h3 className="text-xl font-bold text-[#28bccf] mb-3">
+                           {event.title}
+                         </h3>
+                         <p className="text-gray-600 mb-4">{event.description}</p>
+                         <p className="text-gray-600 mb-4 font-bold">{event.date}</p>
+                       </div>
                        <a
                          href={event.href}
                          className="text-sm font-medium text-[#28bccf] hover:underline inline-flex items-center"
