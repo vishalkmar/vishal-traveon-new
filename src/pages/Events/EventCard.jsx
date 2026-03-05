@@ -1,4 +1,4 @@
-import PreviewCardCarousel from "../../components/shared/PreviewCardCarousel";
+import PreviewCardCarousel from "../../Components/shared/PreviewCardCarousel";
 
 const previewEvents = [
   {
