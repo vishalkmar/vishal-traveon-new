@@ -23,7 +23,7 @@ import {
   Quote,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import PreviewCardCarousel from "../components/shared/PreviewCardCarousel";
+// import PreviewCardCarousel from "../components/shared/PreviewCardCarousel";
 import MiceTourOffering from "../Components/MiceTourOffering";
 
 export default function Mice() {
