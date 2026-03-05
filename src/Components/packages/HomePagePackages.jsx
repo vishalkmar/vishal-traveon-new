@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PackagesCarousel from "../../Components/packages/PackageCrawsel.jsx";
 
+import { packagesData } from "../shared/PackageData.jsx";
+
 export default function HomePagePackages(){
 
 
@@ -128,7 +130,7 @@ export default function HomePagePackages(){
      
           <PackagesCarousel
                title="Oman Tour Packages"
-                items={ApiPackages
+                items={packagesData
                 }
                  onViewAll={() => (window.location.href = "/packages")}
             />
@@ -137,7 +139,7 @@ export default function HomePagePackages(){
     {activeTab === "vietnam" && (
       <PackagesCarousel
         title="Vietnam Tour Packages"
-        items={ApiPackages}
+        items={packagesData}
         onViewAll={() => (window.location.href = "/packages")}
       />
     )}
@@ -145,7 +147,7 @@ export default function HomePagePackages(){
     {activeTab === "seychelles" && (
       <PackagesCarousel
         title="Seychelles Tour Packages"
-        items={ApiPackages}
+        items={packagesData}
         onViewAll={() => (window.location.href = "/packages")}
       />
     )}

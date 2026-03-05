@@ -20,7 +20,7 @@ import { backendUrl } from "../../apiConfig/config";
 
 
 import Hero from "../components/HeroHome.jsx";
-import TrustedBy from "../components/TrustedBy.jsx";
+import TrustedBy from "../Components/TrustedBy.jsx";
 import Why from "../Components/Why.jsx";
 import Testimonial from "../Components/Testimonial.jsx";
 import Transform from "../Components/TransFormHome.jsx";
