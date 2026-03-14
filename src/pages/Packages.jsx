@@ -68,10 +68,17 @@ export default function Packages() {
   useEffect(() => {
     const fetchPackages = async () => {
       setLoading(true);
-      const response = await fetch(`${backendUrl}/packages`);
-      const data = await response.json();
-      setPackages(data);
-      setLoading(false);
+      try {
+        const response = await fetch("http://localhost:5050/packages");
+        if (!response.ok) throw new Error("Failed to fetch packages");
+        const data = await response.json();
+        setPackages(data);
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+        setPackages([]);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchPackages();
   }, []);
@@ -143,7 +150,7 @@ export default function Packages() {
             >
               {/* Image */}
               <img
-                src={pkg.image}
+                src={pkg.gallery?.hero || pkg.image || "https://via.placeholder.com/400"}
                 alt={pkg.title}
                 className="h-72 w-full object-cover rounded-xl"
               />
@@ -151,65 +158,55 @@ export default function Packages() {
               {/* Duration and Rating */}
               <div className="flex justify-between items-center">
                 <span className="text-gray-500 text-sm">
-                  {/* Example: 9 days & 8 nights */}
-                  {pkg.packageDetails.replace(/\|/g, "&") || "Duration"}
+                  {pkg.nightsDays || pkg.packageDetails || "Duration TBD"}
                 </span>
-                {/* <span className="flex items-center text-green-600 font-semibold text-sm">
-                  <FaStar className="mr-1 text-green-500" />
-                  4.9 <span className="ml-1 text-gray-400">(523)</span>
-                </span> */}
+                {pkg.rating && (
+                  <span className="flex items-center text-green-600 font-semibold text-sm">
+                    <FaStar className="mr-1 text-green-500" />
+                    {pkg.rating} <span className="ml-1 text-gray-400">{pkg.reviewsLabel}</span>
+                  </span>
+                )}
               </div>
 
               {/* Title */}
               <h2 className="text-xl font-semibold mb-1">{pkg.title}</h2>
 
-              {/*  Cities/Days summary */}
-              <div className="bg-yellow-50 rounded px-2 py-1 text-sm font-semibold text-gray-700 flex flex-col gap-2">
-                <div className="flex flex-wrap items-center gap-1">
-                  {formatDescription(pkg.description)?.map((item, idx, arr) => (
-                    <span key={idx} className="flex items-center">
-                      <span className="font-bold">{item.days}N</span>&nbsp;
-                      {item.city}
-                      {idx < arr.length - 1 && <span className="mx-2">•</span>}
-                    </span>
-                  ))}
-                </div>
+              {/* Route Summary */}
+              <div className="bg-yellow-50 rounded px-2 py-1 text-sm font-semibold text-gray-700">
+                {pkg.routeSummary || pkg.destination || "Full itinerary available"}
               </div>
 
-              {/* Activities */}
-              <div className="bg-sky-50 rounded px-2 py-1 text-sm font-semibold text-gray-700 mb-2 flex flex-col gap-2">
-                <div className="">
-                  {/* Included Activities : */}
-                  <ul className="ml-4 grid grid-cols-2 gap-3">
-                    {getActivitiesForPackage(pkg)
-                      .splice(0, 4)
-                      .map((activity, idx) => (
-                        <li key={idx} className="list-disc ml-2 text-xs">
-                          {activity}
-                        </li>
-                      ))}
-                  </ul>
+              {/* Tag */}
+              {pkg.tag && (
+                <div className="bg-sky-50 rounded px-2 py-1 text-sm font-semibold text-gray-700 mb-2">
+                  {pkg.tag}
                 </div>
-              </div>
+              )}
 
               {/* Price section */}
               <div className="mb-2">
-                <span className="text-xl font-bold text-gray-900">
-                  INR {pkg.price}/- Avg. price / person
-                </span>
-                {/* <span className="ml-2 text-gray-400 line-through">
-                  INR 2,65,185
-                </span>
-                <span className="ml-2 bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">
-                  SAVE INR 1,21,985
-                </span> */}
+                <div className="text-xl font-bold text-gray-900">
+                  {pkg.pricing?.price || "Contact for pricing"}
+                </div>
+                {pkg.pricing?.oldPrice && (
+                  <>
+                    <span className="text-gray-400 line-through ml-2 text-sm">
+                      {pkg.pricing.oldPrice}
+                    </span>
+                    {pkg.pricing?.discountLabel && (
+                      <span className="ml-2 bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">
+                        {pkg.pricing.discountLabel}
+                      </span>
+                    )}
+                  </>
+                )}
+                {pkg.pricing?.note && (
+                  <p className="text-xs text-gray-600 mt-1">{pkg.pricing.note}</p>
+                )}
               </div>
 
               {/* Buttons */}
               <Link to={"/contact"} className="flex gap-2">
-                {/* <button className="cursor-pointer flex items-center border border-sky-400 text-sky-500 px-3 py-2 rounded-lg hover:bg-sky-50 transition">
-                  <FaPhone className="" />
-                </button> */}
                 <button className="cursor-pointer flex-1 bg-sky-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-sky-600 transition">
                   Contact Us for Quotation
                 </button>

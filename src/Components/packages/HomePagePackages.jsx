@@ -6,26 +6,42 @@ import { packagesData } from "../shared/PackageData.jsx";
 
 export default function HomePagePackages(){
 
-
-
   const [ApiPackages,setApiPackages] = useState([]);
   const [activeTab, setActiveTab] = useState('oman');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5050/packages"); // if your endpoint is /pack, change here
+        const res = await fetch("http://localhost:4000/api/v1/packages/");
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
-        console.log("API packages:", jsondata);
         setApiPackages(jsondata);
       } catch (error) {
         console.error("Error fetching packages:", error);
+        setApiPackages([]);
       }
     };
 
     fetchData();
   }, []);
+
+  // Filter packages by destination
+  const getFilteredPackages = () => {
+    if (!Array.isArray(ApiPackages) || ApiPackages.length === 0) return [];
+    
+    const filterMap = {
+      oman: ['Oman', 'untold'],
+      vietnam: ['Vietnam', 'vietnam'],
+      seychelles: ['Seychelles', 'seychelles']
+    };
+
+    const keywords = filterMap[activeTab] || [];
+    return ApiPackages.filter(pkg => 
+      pkg.title && keywords.some(keyword => 
+        pkg.title.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
+  };
     
 
 
