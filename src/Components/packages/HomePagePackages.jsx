@@ -15,7 +15,12 @@ export default function HomePagePackages(){
         const res = await fetch("http://localhost:4000/api/v1/packages/");
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
-        setApiPackages(jsondata);
+        
+        const packagesArray = Array.isArray(jsondata?.data) 
+          ? jsondata.data 
+          : (Array.isArray(jsondata) ? jsondata : [jsondata?.data].filter(Boolean));
+          
+        setApiPackages(packagesArray);
       } catch (error) {
         console.error("Error fetching packages:", error);
         setApiPackages([]);

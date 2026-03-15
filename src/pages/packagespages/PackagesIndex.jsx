@@ -18,7 +18,13 @@ export default function PackagesIndex() {
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
         console.log("API packages:", jsondata);
-        setApiPackages(jsondata);
+
+        // Unwrap data if the API returns { success: true, data: [...] }
+        const packagesArray = Array.isArray(jsondata?.data)
+          ? jsondata.data
+          : (Array.isArray(jsondata) ? jsondata : [jsondata?.data].filter(Boolean));
+
+        setApiPackages(packagesArray);
       } catch (error) {
         console.error("Error fetching packages:", error);
       }
@@ -29,18 +35,15 @@ export default function PackagesIndex() {
 
   return (
     <div className="min-h-screen pt-28">
-      
+
       <PackagesListingLayout pageTitle="Tour Packages" totalCount={284}>
         <PackagesCarousel title="Oman Tour Packages" items={apiPackages} />
         <PackagesCarousel title="Seychelles Tour Packages" items={apiPackages} />
         <PackagesCarousel title="Viatnam Tour Packages" items={apiPackages} />
-        <PackagesCarousel title="Customized Tour Packages" items={apiPackages} />
+        {/* <PackagesCarousel title="Customized Tour Packages" items={apiPackages} /> */}
         <PackagesCarousel title="Group Tour Packages" items={apiPackages} />
-
-
       </PackagesListingLayout>
 
-    
     </div>
   );
 }

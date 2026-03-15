@@ -296,7 +296,7 @@ const OmanTourPackageDetailsForm = () => {
                   {packageOptions.map(option => (
                     <option key={option.value} value={option.value}>
                       {option.label}
-                     
+
                     </option>
                   ))}
                 </select>
@@ -346,24 +346,24 @@ const OmanTourPackageDetailsForm = () => {
                     </div>
                   </div>
                   <div>
-  <label className="block text-sm font-semibold text-gray-700 mb-2">
-    <Mail className="inline w-4 h-4 mr-1" />
-    Email Address <span className="text-red-500">*</span>
-  </label>
-  <input
-    type="email"
-    value={email}
-    onChange={(e) => {
-      setEmail(e.target.value);
-      setErrors({ ...errors, email: validateEmail(e.target.value) });
-    }}
-    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500"
-    placeholder="email@example.com"
-  />
-  {errors.email && (
-    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-  )}
-</div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <Mail className="inline w-4 h-4 mr-1" />
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setErrors({ ...errors, email: validateEmail(e.target.value) });
+                      }}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                      placeholder="email@example.com"
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                    )}
+                  </div>
 
 
                   {persons.length > 0 && (
@@ -382,7 +382,7 @@ const OmanTourPackageDetailsForm = () => {
                             Person {index + 1}
                           </h3>
 
-                          
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                             <div>
                               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -434,7 +434,7 @@ const OmanTourPackageDetailsForm = () => {
                               <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                                   <CreditCard className="inline w-4 h-4 mr-1" />
-                                 PAN Card <span className="text-red-500">*</span>
+                                  PAN Card <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                   <input
@@ -511,11 +511,10 @@ const OmanTourPackageDetailsForm = () => {
                 <button
                   type="submit"
                   disabled={!isFormValid() || isSubmitting}
-                  className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 ${
-                    isFormValid() && !isSubmitting
+                  className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 ${isFormValid() && !isSubmitting
                       ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg hover:shadow-xl'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? 'Processing...' : 'Proceed to Pay'}
                 </button>

@@ -48,15 +48,137 @@ export default function PackageDetailsPage() {
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5050/packages/${packageId}`);
+        const res = await fetch(`http://localhost:4000/api/v1/packages/${packageId}`);
         if (!res.ok) throw new Error("Package not found");
-        const data = await res.json();
+        let jsondata = await res.json();
+
+        // Unwrap data exactly like index page
+        const pObj = jsondata?.data ? jsondata.data : jsondata;
+        const outerPkg = pObj?.longJsonInfo?.package || {};
+
         if (!mounted) return;
 
-        setPkg(data);
+        // Map variables locally inside useEffect to construct our standard state shape
+        const city = outerPkg?.Cities?.City?.[0] || {};
+        const hotels = city?.Hotels?.Hotel || [];
+        const includedHotel = hotels.find((h) => h?.IsIncluded) || hotels[0] || null;
+
+        const nightsVal = Number(pObj?.nights) || 0;
+        const daysVal = nightsVal > 0 ? nightsVal + 1 : 0;
+        const nightsDaysStr = nightsVal > 0 ? `${nightsVal}N / ${daysVal}D` : "";
+
+        // Itineraries formatting
+        let its = [];
+        if (outerPkg?.Itineraries?.Itinerary && Array.isArray(outerPkg.Itineraries.Itinerary)) {
+          its = outerPkg.Itineraries.Itinerary.map((it, idx) => ({
+            day: (idx + 1), // Itineraries usually don't have day numbers easily exposed, default sequential
+            title: it.Title || `Day ${idx + 1}`,
+            bullets: [],
+            note: "",
+            image: ""
+          }));
+        }
+
+        // Inclusions parsing (same as card but verbose for terms page)
+        const inclusionText = outerPkg?.Terms?.Inclusion || outerPkg?.DETAILS || "No inclusions specified.";
+        const exclusionText = outerPkg?.Terms?.Exclusions || "No exclusions specified.";
+        const bTerms = outerPkg?.Terms?.BookingTerms || "";
+        const cTerms = outerPkg?.Terms?.Conditions || "";
+
+        // Build the dynamic icons row based on found inclusions
+        const itemsRow = [];
+        const pkgTxt = (inclusionText + " " + (pObj?.destinations || "") + " " + outerPkg.PackageType).toLowerCase();
+
+        if (outerPkg?.FlightData?.length || pkgTxt.includes("flight")) itemsRow.push({ key: "flights", label: "Flights", details: ["Flights included as per itinerary"] });
+
+        // --- Pass FULL hotel objects for rendering rich tabs ---
+        if (hotels.length > 0) {
+          itemsRow.push({
+            key: "hotel",
+            label: "Hotel",
+            isRich: true,
+            richType: "hotels",
+            details: hotels // pass the raw array of hotel objects
+          });
+        }
+
+        // --- Pass FULL Sightseeing objects ---
+        const sightseeings = city?.SightSeeings?.SightSeeing || [];
+        if (sightseeings.length > 0) {
+          itemsRow.push({
+            key: "sightseeing",
+            label: "Sightseeing",
+            isRich: true,
+            richType: "sightseeing",
+            details: sightseeings
+          });
+        }
+
+        if (pkgTxt.includes("visa") || outerPkg?.VisaDetails?.length) itemsRow.push({ key: "visa", label: "Visa", details: ["Visa assistance included"] });
+        if (pkgTxt.includes("meal") || pkgTxt.includes("breakfast") || pkgTxt.includes("dinner")) itemsRow.push({ key: "meals", label: "Meals", details: ["Meals as per itinerary"] });
+        if (outerPkg?.TransferData?.length || pkgTxt.includes("transfer")) itemsRow.push({ key: "transfer", label: "Transfer", details: ["Transfers included"] });
+
+        if (itemsRow.length === 0) itemsRow.push({ key: "info", label: "Info", details: ["View detailed terms"] });
+
+        // Helper to decode HTML entities and rip out bullets
+        const parseToBullets = (text) => {
+           if(!text) return [];
+           let decoded = String(text).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ');
+           
+           if (decoded.includes('<li>') || decoded.includes('<li ')) {
+              const items = decoded.split(/<li[^>]*>/i);
+              items.shift(); 
+              return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+           } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
+              return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+           } else if (decoded.includes('<p>')) {
+              return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+           } else {
+              return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
+           }
+        };
+
+        const mappedPkg = {
+          id: pObj.gtxPkgId || packageId,
+          title: outerPkg.Name || pObj.name || "Package",
+          rating: includedHotel?.Star && includedHotel?.Star !== ".00" ? Number(includedHotel.Star) : 4.3,
+          reviewsLabel: "(953)",
+          nightsDays: nightsDaysStr,
+          routeLine: (pObj?.destinations ? pObj.destinations.split(',').join(' • ') : outerPkg?.DestinationPlaces || ""),
+          gallery: {
+            hero: outerPkg?.ImgThumbnail || includedHotel?.MainImg || "",
+            thumbs: [outerPkg?.ImgThumbnail, includedHotel?.MainImg].filter(Boolean)
+          },
+          inclusions: itemsRow,
+          itinerary: its,
+          packageDetails: {
+            flights: outerPkg?.FlightData?.length ? ["Flights are subject to availability"] : [],
+            transfer: outerPkg?.TransferData?.length ? ["All transfers on SIC basis"] : [],
+            visa: outerPkg?.VisaDetails && Object.values(outerPkg.VisaDetails)[0] ? Object.values(outerPkg.VisaDetails)[0] : [],
+            sightseeing: sightseeings.map(s => s.Title || s.Name) || [],
+            accommodation: hotels.map(h => `${h.Name} (${h.Star} Star)`),
+            meals: includedHotel?.MealTypeName ? [includedHotel.MealTypeName] : [],
+            inclusionsExclusions: [
+              "INCLUSIONS:",
+              ...parseToBullets(inclusionText),
+              "EXCLUSIONS:",
+              ...parseToBullets(exclusionText)
+            ]
+          },
+          rawTerms: outerPkg?.Terms || {}, // Pass raw object for new sub-tabs
+          pricing: {
+            price: pObj?.minPrice ? `₹${pObj.minPrice.toLocaleString('en-IN')} ` : "Price on Request",
+            note: "Starting price per adult",
+            oldPrice: null,
+            points: "Earn 500 Loyal Points"
+          },
+          preString: `Hi, I want to enquire about ${outerPkg.Name} (${nightsDaysStr})`
+        };
+
+        setPkg(mappedPkg);
         setActiveTab("itinerary");
-        setActiveDetail(data?.inclusions?.[0]?.key || "hotel");
-        setActiveSubDetail("flights");
+        setActiveDetail(mappedPkg.inclusions[0]?.key || "hotel");
+        setActiveSubDetail("accommodation");
       } catch (error) {
         console.error("Failed to fetch package:", error);
         if (mounted) setLoading(false);
@@ -136,7 +258,7 @@ export default function PackageDetailsPage() {
 
             {activeTab === "price" && <CalculatePriceTab />}
 
-            {activeTab === "terms" && <TermsTab terms={pkg.terms} />}
+            {activeTab === "terms" && <TermsConditionsTab termsObj={pkg.rawTerms} />}
           </div>
 
           {/* Right */}
@@ -206,20 +328,21 @@ function GallerySection({ pkg }) {
 
 function InclusionIconRow({ items, active, onChange }) {
   const icons = {
-  hotel: Hotel,
-  meals: Utensils,
-  flights: Plane,
-  sightseeing: Camera,
-  transfer: Bus,
-  visa: FileText,
-};
-
+    hotel: Hotel,
+    meals: Utensils,
+    flights: Plane,
+    sightseeing: Camera,
+    transfer: Bus,
+    visa: FileText,
+  };
 
   const activeObj = items.find((x) => x.key === active);
 
   const parsedDetails = (() => {
     const d = activeObj?.details;
     if (!d) return [];
+    if (activeObj?.isRich) return d; // Return raw array of objects for rich rendering
+
     if (Array.isArray(d)) return d;
     try {
       return JSON.parse(String(d).replace(/'/g, '"'));
@@ -255,12 +378,12 @@ function InclusionIconRow({ items, active, onChange }) {
                   color: isActive ? "#0f766e" : "inherit",
                 }}
               >
-                  {
-                    (() => {
-                      const IconComp = icons[it.key];
-                      return IconComp ? <IconComp className="h-5 w-5" /> : <span className="text-lg">•</span>;
-                    })()
-                  }
+                {
+                  (() => {
+                    const IconComp = icons[it.key];
+                    return IconComp ? <IconComp className="h-5 w-5" /> : <span className="text-lg">•</span>;
+                  })()
+                }
               </span>
 
               <div className="text-left">
@@ -274,18 +397,101 @@ function InclusionIconRow({ items, active, onChange }) {
 
       {/* Content */}
       <div className="mt-4 rounded-xl bg-slate-50 ring-1 ring-black/5 p-4">
-        <p className="text-sm font-semibold text-slate-900">
+        <p className="text-sm font-semibold text-slate-900 mb-3">
           {activeObj?.label} Overview
         </p>
 
-        <div className="mt-2 text-sm text-slate-600 space-y-1">
-          {parsedDetails.map((line, index) => (
-            <div key={index} className="flex gap-2">
-              <span className="text-emerald-600">•</span>
-              <span>{line}</span>
-            </div>
-          ))}
-        </div>
+        {activeObj?.isRich && activeObj?.richType === "hotels" ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {parsedDetails.map((hotel, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden flex flex-col">
+                {/* Hotel Image */}
+                <div className="relative h-40 bg-slate-200">
+                  {(hotel.Images && hotel.Images.length > 0) || hotel.MainImg ? (
+                    <img
+                      src={hotel.MainImg || hotel.Images[0]}
+                      alt={hotel.Name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" }} // fallback
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-400">
+                      <Hotel className="h-10 w-10 opacity-20" />
+                    </div>
+                  )}
+                  {/* Star Badge */}
+                  {hotel.Star && hotel.Star !== ".00" && (
+                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-slate-800 shadow-sm flex items-center gap-1">
+                      {parseInt(hotel.Star)} <span className="text-amber-500">★</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Hotel Info */}
+                <div className="p-3 flex-1 flex flex-col">
+                  <h4 className="font-bold text-slate-900 text-base leading-tight mb-1">{hotel.Name}</h4>
+                  {hotel.Location?.Address && (
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-2">
+                      <span className="text-emerald-600 mr-1">📍</span>{hotel.Location.Address}
+                    </p>
+                  )}
+                  <div className="mt-auto pt-2 space-y-1">
+                    {hotel.RoomTypeName && (
+                      <p className="text-xs text-slate-600 font-medium bg-slate-100 px-2 py-1 rounded inline-block mr-2">Room: {hotel.RoomTypeName}</p>
+                    )}
+                    {hotel.MealTypeName && (
+                      <p className="text-xs text-slate-600 font-medium bg-slate-100 px-2 py-1 rounded inline-block">Meal: {hotel.MealTypeName}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : activeObj?.isRich && activeObj?.richType === "sightseeing" ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+            {parsedDetails.map((ss, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden flex flex-col">
+                {/* Sightseeing Image */}
+                <div className="relative h-40 bg-slate-200">
+                  {ss.Image ? (
+                    <img
+                      src={ss.Image}
+                      alt={ss.Title || ss.Name || "Sightseeing"}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80" }} // fallback
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-400">
+                      <Camera className="h-10 w-10 opacity-20" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Sightseeing Info */}
+                <div className="p-3 flex-1 flex flex-col">
+                  <h4 className="font-bold text-slate-900 text-base leading-tight mb-1">{ss.Title || ss.Name}</h4>
+                  {ss.CityName && (
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-2">
+                      <span className="text-emerald-600 mr-1">📍</span>{ss.CityName}
+                    </p>
+                  )}
+                  {ss.Description && (
+                    <p className="text-xs text-slate-600 mb-2 line-clamp-3">{String(ss.Description).replace(/<[^>]*>?/gm, '')}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-2 text-sm text-slate-600 space-y-1">
+            {parsedDetails.map((line, index) => (
+              <div key={index} className="flex gap-2">
+                <span className="text-emerald-600">•</span>
+                <span>{line}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -451,7 +657,48 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
             {SUBTABS.find((x) => x.key === activeSub)?.label}
           </p>
 
-          {Array.isArray(content) && content.length > 0 ? (
+          {activeSub === "visa" && typeof content === "object" && content !== null && !Array.isArray(content) ? (
+            <div className="bg-slate-50 p-5 rounded-xl ring-1 ring-black/5">
+              <div className="flex justify-between items-start mb-4 pb-4 border-b border-black/10">
+                <div>
+                  <h4 className="text-lg font-bold text-slate-900">{content.VisaName || "Tourist Visa"}</h4>
+                  <div className="flex gap-2 mt-2">
+                    {content.VisaType && (
+                      <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded">{content.VisaType}</span>
+                    )}
+                    {content.VisaCategory && (
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">{content.VisaCategory}</span>
+                    )}
+                  </div>
+                </div>
+                {content.PrecessingTime && (
+                  <div className="text-right">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Processing Time</p>
+                    <p className="text-sm font-bold text-slate-900">{content.PrecessingTime} Days</p>
+                  </div>
+                )}
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center">
+                  <p className="text-xs text-slate-500 mb-1">Adult</p>
+                  <p className="text-base font-bold text-slate-900">{content.CurrencySymbol} {content.VisaAdultRates || "N/A"}</p>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center">
+                  <p className="text-xs text-slate-500 mb-1">Child</p>
+                  <p className="text-base font-bold text-slate-900">{content.CurrencySymbol} {content.VisaChildRates || "N/A"}</p>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center">
+                  <p className="text-xs text-slate-500 mb-1">Child (Family)</p>
+                  <p className="text-base font-bold text-slate-900">{content.CurrencySymbol} {content.VisaChildFamilyRates || "N/A"}</p>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center">
+                  <p className="text-xs text-slate-500 mb-1">Infant</p>
+                  <p className="text-base font-bold text-slate-900">{content.CurrencySymbol} {content.VisaInfantRates || "N/A"}</p>
+                </div>
+              </div>
+            </div>
+          ) : Array.isArray(content) && content.length > 0 ? (
             <ul className="space-y-2">
               {content.map((line, i) => (
                 <li key={i} className="flex gap-3 text-sm text-slate-700">
@@ -468,6 +715,63 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
               No data available. (API se aate hi show hoga)
             </p>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+function TermsConditionsTab({ termsObj }) {
+  const validKeys = Object.keys(termsObj || {}).filter(k => termsObj[k] && String(termsObj[k]).trim() !== "");
+  const [activeTerm, setActiveTerm] = useState(validKeys[0] || "");
+
+  if (validKeys.length === 0) {
+    return (
+        <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
+          <p className="text-sm text-slate-600">No terms available.</p>
+        </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl bg-white ring-1 ring-black/10 overflow-hidden">
+      {/* Sub tabs (Horizontal) */}
+      <div className="flex flex-wrap border-b border-black/5 bg-slate-50">
+        {validKeys.map((key) => {
+          const isActive = activeTerm === key;
+          const label = key.replace(/([A-Z])/g, ' $1').trim();
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setActiveTerm(key)}
+              className={[
+                "px-4 py-3 text-sm font-semibold border-b-2 transition whitespace-nowrap",
+                isActive
+                  ? "border-emerald-600 text-emerald-700 bg-white"
+                  : "border-transparent text-slate-600 hover:text-slate-900",
+              ].join(" ")}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Content Area */}
+      <div className="p-4">
+        <div className="rounded-xl ring-1 ring-black/10 bg-white p-6 overflow-y-auto prose prose-sm max-w-none text-slate-700">
+          <h3 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-3">
+              {activeTerm.replace(/([A-Z])/g, ' $1').trim()}
+          </h3>
+          
+          {/* Render HTML content securely */}
+          <div 
+             className="space-y-3 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-emerald-500"
+             dangerouslySetInnerHTML={{
+               // Parse entities &lt; and &gt; back to html
+               __html: String(termsObj[activeTerm] || "").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ').replace(/&amp;#39;/g, "'").replace(/&amp;rsquo;/g, "’")
+             }} 
+          />
         </div>
       </div>
     </div>
@@ -558,20 +862,20 @@ function PriceCard({ pkg }) {
       </div>
 
       <button
-                    type="button"
-                    className="h-12 rounded-xl font-semibold text-white shadow mt-2 w-full py-3 rounded-xl  ring-1 ring-black/10  font-semibold"
-                    style={{ background: BRAND.grad }}
-                    onClick={() => {
-                        const phone = "919540111307"; // without +
-                        const message = item?.preString || "Hi, I want to enquire about this tour package.";
-                        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-                        window.open(url, "_blank");
-                    }}
-                >
-                    Book Now
-                </button>
+        type="button"
+        className="h-12 rounded-xl font-semibold text-white shadow mt-2 w-full py-3 rounded-xl  ring-1 ring-black/10  font-semibold"
+        style={{ background: BRAND.grad }}
+        onClick={() => {
+          const phone = "919540111307"; // without +
+          const message = pkg?.preString || "Hi, I want to enquire about this tour package.";
+          const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+          window.open(url, "_blank");
+        }}
+      >
+        Book Now
+      </button>
 
-   
+
 
       <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
         <button
@@ -583,7 +887,7 @@ function PriceCard({ pkg }) {
         </button>
         <button
           type="button"
-          onClick={() => navigator?.share?.({ title: pkg.title })?.catch(() => {})}
+          onClick={() => navigator?.share?.({ title: pkg.title })?.catch(() => { })}
           className="hover:text-slate-900"
         >
           ↗ Share
