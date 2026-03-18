@@ -302,9 +302,10 @@ const Services = () => {
         <div className="max-w-6xl mx-auto px-4">
           <Reveal>
             <p className="mx-auto max-w-4xl text-center text-gray-700 text-lg md:text-xl mb-10">
-              At <strong>Traveon Ventures</strong>, we craft <b>Immersive Wellness Retreats</b>, <b>curated travel</b>, run flawless <b>M.I.C.E</b>,
-              and enable <b>business expansion</b> — with quality and responsibility at the core.
+            At Traveon Ventures, we run flawless M.I.C.E, craft immersive wellness retreats, and enable business expansion — with quality and responsibility at the core.
             </p>
+
+            
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">

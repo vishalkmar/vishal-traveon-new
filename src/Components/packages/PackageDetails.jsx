@@ -122,20 +122,20 @@ export default function PackageDetailsPage() {
 
         // Helper to decode HTML entities and rip out bullets
         const parseToBullets = (text) => {
-           if(!text) return [];
-           let decoded = String(text).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ');
-           
-           if (decoded.includes('<li>') || decoded.includes('<li ')) {
-              const items = decoded.split(/<li[^>]*>/i);
-              items.shift(); 
-              return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-           } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
-              return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-           } else if (decoded.includes('<p>')) {
-              return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-           } else {
-              return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
-           }
+          if (!text) return [];
+          let decoded = String(text).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ');
+
+          if (decoded.includes('<li>') || decoded.includes('<li ')) {
+            const items = decoded.split(/<li[^>]*>/i);
+            items.shift();
+            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
+            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else if (decoded.includes('<p>')) {
+            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else {
+            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
+          }
         };
 
         const mappedPkg = {
@@ -678,7 +678,7 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
                   </div>
                 )}
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center">
                   <p className="text-xs text-slate-500 mb-1">Adult</p>
@@ -726,9 +726,9 @@ function TermsConditionsTab({ termsObj }) {
 
   if (validKeys.length === 0) {
     return (
-        <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
-          <p className="text-sm text-slate-600">No terms available.</p>
-        </div>
+      <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
+        <p className="text-sm text-slate-600">No terms available.</p>
+      </div>
     );
   }
 
@@ -761,16 +761,16 @@ function TermsConditionsTab({ termsObj }) {
       <div className="p-4">
         <div className="rounded-xl ring-1 ring-black/10 bg-white p-6 overflow-y-auto prose prose-sm max-w-none text-slate-700">
           <h3 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-3">
-              {activeTerm.replace(/([A-Z])/g, ' $1').trim()}
+            {activeTerm.replace(/([A-Z])/g, ' $1').trim()}
           </h3>
-          
+
           {/* Render HTML content securely */}
-          <div 
-             className="space-y-3 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-emerald-500"
-             dangerouslySetInnerHTML={{
-               // Parse entities &lt; and &gt; back to html
-               __html: String(termsObj[activeTerm] || "").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ').replace(/&amp;#39;/g, "'").replace(/&amp;rsquo;/g, "’")
-             }} 
+          <div
+            className="space-y-3 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-emerald-500"
+            dangerouslySetInnerHTML={{
+              // Parse entities &lt; and &gt; back to html
+              __html: String(termsObj[activeTerm] || "").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ').replace(/&amp;#39;/g, "'").replace(/&amp;rsquo;/g, "’")
+            }}
           />
         </div>
       </div>
