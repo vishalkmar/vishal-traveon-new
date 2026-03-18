@@ -31,6 +31,15 @@ a {
 
 /* ---------- Utilities (single layer, no duplicates) ---------- */
 @layer utilities {
+  /* Hide scrollbars */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
   /* Retreats CTA breathing halo (green) */
   .rt-halo {
     animation: rt-halo 3.2s ease-in-out infinite;

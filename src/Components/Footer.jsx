@@ -20,7 +20,28 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-400 py-6">
+    <footer className="bg-gray-900 text-gray-400">
+      {/* Newsletter CTA Strip */}
+      <div className="bg-gray-900 py-8 border-b border-gray-800">
+        <div className="max-w-screen-xl mx-auto px-4 md:px-6">
+          <h3 className="text-white text-xl font-bold mb-4 text-center">Subscribe to our Newsletter</h3>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-white placeholder-gray-500 min-w-[250px]"
+            />
+            <button
+              type="submit"
+              className="px-8 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors font-semibold whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
       <div className="max-w-screen-xl mx-auto px-4 md:px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
@@ -68,23 +89,30 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-bold mb-4">Newsletter</h4>
-            <p className="mb-4">
-              Subscribe to our newsletter for the latest updates and offers.
-            </p>
-            <form className="space-y-4">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-white"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors w-full"
-              >
-                Subscribe
-              </button>
-            </form>
+            <h4 className="text-white font-bold mb-4">Contact Us</h4>
+            <div className="space-y-4">
+              <div>
+                <p className="text-teal-400 font-semibold text-sm mb-1">Location</p>
+                <p className="text-sm">128-A, D-Mall, NSP, Delhi, India (110034)</p>
+              </div>
+              <div>
+                <p className="text-teal-400 font-semibold text-sm mb-1">Email</p>
+                <a href="mailto:info@traveon.in" className="text-sm hover:text-teal-400 transition-colors">
+                  info@traveon.in
+                </a>
+              </div>
+              <div>
+                <p className="text-teal-400 font-semibold text-sm mb-1">Phone</p>
+                <div className="space-y-1 text-sm">
+                  <a href="tel:+919540111207" className="block hover:text-teal-400 transition-colors">
+                    +91 9540111207
+                  </a>
+                  <a href="tel:+919540111307" className="block hover:text-teal-400 transition-colors">
+                    +91 9540111307
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

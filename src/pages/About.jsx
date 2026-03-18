@@ -1,51 +1,104 @@
+import { useState, useEffect } from "react";
 import Hero from "../Components/HeroHome.jsx";
 import TrustedBy from "../Components/TrustedBy";
 import { ArrowRight } from "lucide-react";
 
 export default function AboutUs() {
+  const carouselItems = [
+    {
+      image: "/iccictimages/ic2.jpg",
+      title: "ICCICT 2026",
+      date: "22 - 23 January 2026 (Hybrid Mode)",
+      subtitle:
+        "International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.",
+      link: "/iccict",
+      location: "India International Centre, Lodhi Estate, New Delhi, India",
+      buttonText: "Know more",
+    },
+    {
+      image: "/coursera/12.jpg",
+      title: "Coursera Offsite",
+      date: "17-18 NOV 2025",
+      subtitle:
+        "A seamlessly managed 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley with complete end-to-end arrangements.",
+      link: "/coursera",
+      location: "Lemon Tree Tarudhan Valley",
+      buttonText: "Know more",
+    },
+    {
+      image: "/google-wellness/13.jpg",
+      title: "GOOGLE WELLNESS RETREAT",
+      date: "16 SEPTEMBER 2025",
+      subtitle:
+        "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance.",
+      link: "/google-offset",
+      location: "Gurgaon, Delhi",
+      buttonText: "Know more",
+    },
+    {
+      image: "/ibiea/21.jpg",
+      title: "IBIEA 2025",
+      subtitle: "A prestigious International Business Innovation & Excellence Awards 2025 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
+      date: "May 29, 2025",
+      location: "Grand Hyatt Muscat, Oman",
+      link: "/ibiea",
+      buttonText: "Learn More",
+    },
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % carouselItems.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+  
   return (
     <div className="min-h-screen">
-      {/* HERO */}
-      <section className="w-full">
-        <div className="about-hero">
-          <style>{`
-            .about-hero .inline-flex.items-center.gap-3{display:none !important}
-            .about-hero .absolute.bottom-0{display:none !important}
-
-            .about-hero .about-hero-title { display: inline-block; margin-top: -8px; }
-            .about-hero .about-hero-subtitle { display: block; margin-top: 12px; }
-
-            @media(min-width:640px) {
-              .about-hero .about-hero-title { margin-top: -48px; }
-              .about-hero .about-hero-subtitle { margin-top: 24px; }
-            }
-
-            @media(min-width:1024px) {
-              .about-hero .about-hero-title { margin-top: -120px; }
-              .about-hero .about-hero-subtitle { margin-top: 36px; }
-            }
-
-            .about-title{font-size:50px}
-            @media(max-width:767px){ .about-title{font-size:28px} }
-          `}</style>
-
-          <Hero showBadge={false} />
-
-          {/* gentler curve divider */}
-          <div className="w-full">
-            <svg
-              viewBox="0 0 1440 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-auto"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 40 C360 100 1080 100 1440 40 L1440 120 L0 120 Z"
-                fill="white"
-              />
-            </svg>
+      {/* CAROUSEL HERO */}
+      <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden">
+        {carouselItems.map((item, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentImageIndex ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/60"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="max-w-5xl mx-auto text-center px-4">
+                <div className="transition-all duration-1000 transform opacity-100 translate-y-0">
+                  {item.date && <h2 className="text-2xl text-[#28bccf] font-semibold mb-2">{item.date} • {item.location}</h2>}
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{item.title}</h1>
+                  <p className="text-xl md:text-2xl text-white mb-6">{item.subtitle}</p>
+                  {item.buttonText && item.link && (
+                    <a
+                      href={item.link}
+                      className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
+                    >
+                      {item.buttonText}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
+        ))}
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {carouselItems.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? "bg-[#28bccf] w-8" : "bg-white/50 hover:bg-white"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -192,8 +245,8 @@ export default function AboutUs() {
         </div>
       </section>
 
-{/* ✅ HOW IT STARTED (FIXED: pushed circles outward) */}
-<section className="w-full bg-white relative overflow-visible pb-[100px]">
+{/* ✅ HOW IT STARTED (FIXED: viewport-bound images) */}
+<section className="w-full bg-white relative overflow-hidden pb-[100px]">
   <style>{`
     .about-blob{
       display:block;
@@ -208,28 +261,20 @@ export default function AboutUs() {
     @media (min-width: 1280px){ .blob-size{ width: 360px; height: 360px; } }
   `}</style>
 
-  {/* ✅ Left blob (more left) */}
-  <div className="hidden lg:block absolute -left-10 xl:-left-16 2xl:-left-24 top-1/2 -translate-y-1/2 z-0">
-    <img
-      src="/about/start1.jpg"
-      alt="about left"
-      aria-hidden="true"
-      className="about-blob blob-size"
-    />
-  </div>
+  {/* Container with 3-column layout: 20% left, 60% center, 20% right */}
+  <div className="w-full relative">
+    {/* Left container (20% width) */}
+    <div className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 z-0 w-1/5 justify-center">
+      <img
+        src="/about/start1.jpg"
+        alt="about left"
+        aria-hidden="true"
+        className="about-blob blob-size"
+      />
+    </div>
 
-  {/* ✅ Right blob (more right) */}
-  <div className="hidden lg:block absolute -right-10 xl:-right-16 2xl:-right-24 top-1/2 -translate-y-1/2 z-0">
-    <img
-      src="/about/start2.jpg"
-      alt="about right"
-      aria-hidden="true"
-      className="about-blob blob-size"
-    />
-  </div>
-
-  {/* Center content */}
-  <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-24 py-12 relative z-10">
+    {/* Center content (60% width) */}
+    <div className="w-full lg:w-3/5 lg:mx-auto py-12 relative z-10 px-6 sm:px-10">
     <div className="flex items-start justify-center">
       <div className="flex-1 max-w-3xl mx-auto text-center">
         <h3
@@ -286,6 +331,17 @@ export default function AboutUs() {
           </p>
         </div>
       </div>
+    </div>
+    </div>
+
+    {/* Right container (20% width) */}
+    <div className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-0 w-1/5 justify-center">
+      <img
+        src="/about/start2.jpg"
+        alt="about right"
+        aria-hidden="true"
+        className="about-blob blob-size"
+      />
     </div>
   </div>
 </section>
@@ -484,7 +540,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex justify-between">
             <div className="w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/2 border-t border-white/60" />
           </div>
 
@@ -509,6 +565,21 @@ export default function AboutUs() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* 3rd centered row */}
+          <div className="mt-8 flex justify-center">
+            <div className="flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2 max-w-xs">
+              <img src="/team/priyal.jpg" alt="Team Member" className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0 bg-white/20" />
+              <div className="text-center sm:text-left">
+                <h5 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
+                   Priyal Arora
+                </h5>
+                <p className="text-white/80 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
+                 Business Development Executive
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -20,16 +20,16 @@ import { backendUrl } from "../../apiConfig/config";
 
 
 import Hero from "../Components/HeroHome.jsx";
-import TrustedBy from "../Components/TrustedBy.jsx";
-import Why from "../Components/Why.jsx";
-import Testimonial from "../Components/Testimonial.jsx";
-import Transform from "../Components/TransFormHome.jsx";
-import PopularDestinations from "../Components/PopularDestinations.jsx";
-import HomePageEvents from "./Events/HomePageEvents.jsx";
 
+// import Why from "../Components/Why.jsx";
+import Testimonial from "../Components/Testimonial.jsx";
+// import Transform from "../Components/TransFormHome.jsx";
+import PopularDestinations from "../Components/PopularDestinations.jsx";
+// import HomePageEvents from "./Events/HomePageEvents.jsx";
 
 
 import HomePagePackages from "../Components/packages/HomePagePackages";
+import FAQAccordion from "../Components/FAQAccordion.jsx";
 
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -156,13 +156,15 @@ export default function LandingPage() {
       </button>
       
            <Hero />
-          <TrustedBy />
+      
           <HomePagePackages />
-          <Why />
-          <HomePageEvents />
-          <Transform />
+             <Testimonial />
+          {/* <Why /> */}
+          {/* <HomePageEvents /> */}
+          {/* <Transform /> */}
           <PopularDestinations />
-          <Testimonial />
+          <FAQAccordion/>
+       
         
 
 

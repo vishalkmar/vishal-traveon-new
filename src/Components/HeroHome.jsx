@@ -8,8 +8,8 @@ export default function Hero({
   ),
   subtitle =
     "Immersive wellness, inspiring corporate offsites, community journeys, and MICE experiences—crafted by Retreats by Traveon.",
-  ctaText = "Explore Retreats",
-  ctaHref = "#",
+  ctaText = "Explore Packages",
+  ctaHref = "/packages",
   overlay = 0.45,
   center = true,
   showBadge = true,
@@ -17,7 +17,7 @@ export default function Hero({
   subtitleOverride,
 }) {
   return (
-    <section className="relative mt-[-120px] pt-[200px]  min-h-[70svh] md:min-h-[78svh] lg:min-h-[86svh] overflow-hidden">
+    <section className="relative pt-[200px]  min-h-[90svh] md:min-h-[98svh] lg:min-h-[86svh] overflow-hidden border-b-2 border-gray-300">
       {/* Video Background */}
       <video
         autoPlay
@@ -52,14 +52,6 @@ export default function Hero({
           </div>
         )} */}
 
-        <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight font-serif text-white drop-shadow">
-          {titleOverride ?? title}
-        </h1>
-
-        <p className="mx-auto mt-4 max-w-xl text-base md:text-lg text-white/85">
-          {subtitleOverride ?? subtitle}
-        </p>
-
         <div className="mt-8 w-full px-4 sm:px-0">
           <a
             href={ctaHref}
@@ -90,19 +82,6 @@ export default function Hero({
 
         <div className="pb-20 md:pb-22 lg:pb-24" />
       </div>
-
-      {/* Curved separator */}
-      <svg
-        aria-hidden
-        viewBox="0 0 1440 160"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-0 w-full h-24 sm:h-32 md:h-36"
-      >
-        <path
-          d="M0 96 C90 76 180 76 270 96 C360 116 450 116 540 96 C630 76 720 76 810 96 C900 116 990 116 1080 96 C1170 76 1260 76 1350 96 C1440 116 1440 96 1440 96 L1440 160 L0 160 Z"
-          fill="#ffffff"
-        />
-      </svg>
     </section>
   );
 }

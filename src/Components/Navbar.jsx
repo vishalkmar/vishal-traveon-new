@@ -70,7 +70,7 @@ function Navbar() {
           <Link to="/" aria-label="Traveon" className="shrink-0">
             <div
               className={`flex items-center transition-all duration-300
-                h-[clamp(30px,4vw,48px)]
+                h-[clamp(20px,3vw,28px)]
                 max-w-[160px] sm:max-w-[180px] md:max-w-[200px] lg:max-w-[240px] xl:max-w-[260px]
               `}
             >

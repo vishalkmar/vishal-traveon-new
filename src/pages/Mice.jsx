@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PreviousEventsMice from "../Components/PreviousEventsMice";
 import BussinessObjective from "../Components/BussinessObjective";
 import OurApproachMice from "../Components/shared/OurApproachMice";
@@ -30,104 +30,32 @@ export default function Mice() {
   const whatsappUrl =
     "https://wa.me/9540111307?text=Hi! I'm interested in planning a M.I.C.E tour.";
 
-  const carouselItems = [
-    {
-      image: "/iccictimages/ic2.jpg",
-      title: "ICCICT 2026",
-      date: "22 - 23 January 2026 (Hybrid Mode)",
-      subtitle:
-        "International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.",
-      link: "/iccict",
-      location: "India International Centre, Lodhi Estate, New Delhi, India",
-      buttonText: "Know more",
-    },
-    {
-      image: "/coursera/12.jpg",
-      title: "Coursera Offsite",
-      date: "17-18 NOV 2025",
-      subtitle:
-        "A seamlessly managed 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley with complete end-to-end arrangements.",
-      link: "/coursera",
-      location: "Lemon Tree Tarudhan Valley",
-      buttonText: "Know more",
-    },
-    {
-      image: "/google-wellness/13.jpg",
-      title: "GOOGLE WELLNESS RETREAT",
-      date: "16 SEPTEMBER 2025",
-      subtitle:
-        "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance.",
-      link: "/google-offset",
-      location: "Gurgaon, Delhi",
-      buttonText: "Know more",
-    },
-    {
-      image: "/ibiea/21.jpg",
-      title: "IBIEA 2025",
-      subtitle: "A prestigious International Business Innovation & Excellence Awards 2025 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
-      // description:
-      // "We successfully organized the IBIEA event in Oman, taking a group of 50 participants from India for a memorable international experience. The program included a prestigious awards function along with a well-planned 2-night, 3-day stay. In addition to the formal ceremony, we curated sightseeing and local experiences across Oman, ensuring a perfect blend of celebration, networking, and leisure. The event delivered a seamless and enriching experience for all attendees.",
-      date: "May 29, 2025",
-      location: "Grand Hyatt Muscat, Oman",
-      link: "/ibiea",
-      buttonText: "Learn More",
-    },
-  ];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % carouselItems.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const [hovered, setHovered] = useState(false);
-
   return (
     <div className="min-h-screen  bg-background">
-      {/* Hero section copied from LandingPage */}
-      <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden">
-        {carouselItems.map((item, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImageIndex ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-            }`}
+      {/* Simple Hero section */}
+      <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden flex items-center justify-center">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('/mice/team.avif')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            M.I.C.E Events & Experiences
+          </h1>
+          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+            Creating unforgettable business and corporate experiences through seamlessly managed meetings, incentives, conferences, and events worldwide.
+          </p>
+          <a
+            href="#offerings"
+            className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
           >
-            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/60"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="max-w-5xl mx-auto text-center px-4">
-                <div className="transition-all duration-1000 transform opacity-100 translate-y-0">
-                  {item.date && <h2 className="text-2xl text-[#28bccf] font-semibold mb-2">{item.date} • {item.location}</h2>}
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{item.title}</h1>
-                  <p className="text-xl md:text-2xl text-white mb-6">{item.subtitle}</p>
-                  {item.buttonText && item.link && (
-                    <a
-                      href={item.link}
-                      className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-                    >
-                      {item.buttonText}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {carouselItems.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? "bg-[#28bccf] w-8" : "bg-white/50 hover:bg-white"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+            Explore Our Services
+          </a>
         </div>
       </section>
 

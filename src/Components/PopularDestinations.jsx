@@ -1,12 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * PopularDestinationsOverlay.jsx
- * - Full-image cards
+ * - Full-image cards in simple grid
  * - Bottom overlay text on image
  * - Dark shield/gradient so text is readable
- * - NO button
- * - Heading includes: "Popular Destination"
+ * - Clickable cards navigate to destination
  */
 
 const THEME = {
@@ -17,20 +17,20 @@ const DESTINATIONS = [
   {
     name: "Oman",
     desc: "Desert sunsets, wadis, and mountain escapes — calm luxury with rich culture.",
-    image:
-      "/oman/banner1.jpg",
+    image: "/oman/banner1.jpg",
+    link: "/packages/oman",
   },
   {
     name: "Seychelles",
     desc: "Crystal beaches, island serenity, and slow mornings — perfect for a true reset.",
-    image:
-      "/seychelles/banner.jpg",
+    image: "/seychelles/banner.jpg",
+    link: "/packages/seychelles",
   },
   {
     name: "Vietnam",
     desc: "Heritage towns, scenic bays, and vibrant streets — nature + energy in one trip.",
-    image:
-      "/seychelles/viatnam.webp",
+    image: "/seychelles/viatnam.webp",
+    link: "/packages/vietnam",
   },
 ];
 
@@ -39,9 +39,11 @@ export default function PopularDestinations({
   subtitle = "Three destinations we craft with comfort, care, and flawless execution.",
   items = DESTINATIONS,
 }) {
+  const navigate = useNavigate();
+
   return (
     <section className="w-full bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
         {/* Heading */}
         <div className="text-left sm:text-center">
           <p
@@ -67,10 +69,14 @@ export default function PopularDestinations({
           </p>
         </div>
 
-        {/* Cards */}
+        {/* Cards Grid */}
         <div className="mt-7 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
           {items.map((d) => (
-            <ImageOverlayCard key={d.name} d={d} />
+            <ImageOverlayCard 
+              key={d.name} 
+              d={d} 
+              onNavigate={() => navigate(d.link)}
+            />
           ))}
         </div>
       </div>
@@ -78,9 +84,12 @@ export default function PopularDestinations({
   );
 }
 
-function ImageOverlayCard({ d }) {
+function ImageOverlayCard({ d, onNavigate }) {
   return (
-    <article className="group relative h-[320px] overflow-hidden rounded-2xl shadow-[0_14px_40px_rgba(2,8,23,0.14)] ring-1 ring-black/5">
+    <article 
+      onClick={onNavigate}
+      className="group relative h-[320px] overflow-hidden rounded-2xl shadow-[0_14px_40px_rgba(2,8,23,0.14)] ring-1 ring-black/5 cursor-pointer transition-transform duration-300 hover:scale-105"
+    >
       {/* Full Image */}
       <img
         src={d.image}
