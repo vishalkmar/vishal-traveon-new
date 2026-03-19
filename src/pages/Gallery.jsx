@@ -5,10 +5,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 /* ------------------------------ Simple FadeIn ------------------------------ */
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     const t = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(t);
   }, [delay]);
+
   return (
     <div
       className={`transition-all duration-1000 transform ${
@@ -28,6 +30,7 @@ const LightboxModal = ({ images, currentIndex, onClose, onNext, onPrevious }) =>
 
   const handleTouchStart = (e) => setTouchStart(e.touches[0].clientX);
   const handleTouchMove = (e) => setTouchEnd(e.touches[0].clientX);
+
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
@@ -43,12 +46,15 @@ const LightboxModal = ({ images, currentIndex, onClose, onNext, onPrevious }) =>
       if (e.key === "ArrowLeft") onPrevious();
       if (e.key === "ArrowRight") onNext();
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose, onNext, onPrevious]);
 
   const handleBackdropClick = (e) => {
-    if (contentRef.current && !contentRef.current.contains(e.target)) onClose();
+    if (contentRef.current && !contentRef.current.contains(e.target)) {
+      onClose();
+    }
   };
 
   if (!images?.length) return null;
@@ -154,26 +160,18 @@ const GalleryImage = ({ src, alt, category, onClick }) => {
 
 /* --------------------------------- Page ----------------------------------- */
 const Gallery = () => {
-  // ✅ Tabs: All + Events + M.I.C.E
   const [selectedCategory, setSelectedCategory] = useState("All");
-
-  // ✅ Events sub-tabs: IBIEA, ICCICT, Coursera Offsite
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
-  const categories = ["All", "Events/M.I.C.E"];
+  const categories = ["All", "Events/M.I.C.E", "Tour"];
 
-  // ✅ Add Coursera Offsite under Events
   const subCategories = {
     "Events/M.I.C.E": ["IBIEA", "ICCICT", "COURSERA_OFFSITE"],
   };
 
-  // ✅ Update category tagging:
-  // - IBIEA images -> category: "IBIEA"
-  // - ICCICT images -> category: "ICCICT"
-  // - Coursera offsite images -> category: "COURSERA_OFFSITE"
+
   const images = [
     // ICCICT
     { src: "/iccictimages/ic1.jpg", alt: "ICCICT", category: "ICCICT" },
@@ -201,13 +199,34 @@ const Gallery = () => {
     { src: "/gallery/9.JPG", alt: "IBIEA", category: "IBIEA" },
     { src: "/gallery/11.JPG", alt: "IBIEA", category: "IBIEA" },
 
-    // ✅ Coursera Offsite (moved from MICE tab into Events -> Coursera Offsite sub-tab)
+    // Coursera Offsite
     { src: "/coursera/7.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
     { src: "/coursera/8.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
     { src: "/coursera/9.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
     { src: "/coursera/10.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
     { src: "/coursera/11.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
     { src: "/coursera/12.jpg", alt: "Coursera Offsite", category: "COURSERA_OFFSITE" },
+
+    // Tour images
+   // Tour images
+{ src: "/tour/1.jpg", alt: "Tour 1", category: "TOUR" },
+{ src: "/tour/2.jpg", alt: "Tour 2", category: "TOUR" },
+{ src: "/tour/3.jpg", alt: "Tour 3", category: "TOUR" },
+{ src: "/tour/4.jpg", alt: "Tour 4", category: "TOUR" },
+{ src: "/tour/5.jpg", alt: "Tour 5", category: "TOUR" },
+{ src: "/tour/6.jpg", alt: "Tour 6", category: "TOUR" },
+{ src: "/tour/7.jpg", alt: "Tour 7", category: "TOUR" },
+{ src: "/tour/8.jpg", alt: "Tour 8", category: "TOUR" },
+{ src: "/tour/9.jpg", alt: "Tour 9", category: "TOUR" },
+{ src: "/tour/10.jpg", alt: "Tour 10", category: "TOUR" },
+{ src: "/tour/11.jpg", alt: "Tour 11", category: "TOUR" },
+{ src: "/tour/12.jpg", alt: "Tour 12", category: "TOUR" },
+{ src: "/tour/13.jpeg", alt: "Tour 13", category: "TOUR" },
+{ src: "/tour/14.jpeg", alt: "Tour 14", category: "TOUR" },
+{ src: "/tour/16.jpeg", alt: "Tour 16", category: "TOUR" },
+{ src: "/tour/17.jpeg", alt: "Tour 17", category: "TOUR" },
+{ src: "/tour/18.jpeg", alt: "Tour 18", category: "TOUR" },
+{ src: "/tour/19.jpeg", alt: "Tour 19", category: "TOUR" },
   ];
 
   useEffect(() => {
@@ -215,13 +234,12 @@ const Gallery = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ✅ Filtering logic updated exactly as you asked
   const filteredImages = images.filter((img) => {
     if (selectedCategory === "All") return true;
 
     if (selectedCategory === "Events/M.I.C.E") {
       if (selectedSubCategory) return img.category === selectedSubCategory;
-      // default Events view (all event sub categories)
+
       return (
         img.category === "IBIEA" ||
         img.category === "ICCICT" ||
@@ -229,15 +247,27 @@ const Gallery = () => {
       );
     }
 
+    if (selectedCategory === "Tour") {
+      return img.category === "TOUR";
+    }
+
     return false;
   });
 
   const handleImageClick = (index) => setSelectedImageIndex(index);
   const handleCloseModal = () => setSelectedImageIndex(null);
-  const handleNext = () =>
-    setSelectedImageIndex((prev) => (prev === filteredImages.length - 1 ? 0 : prev + 1));
-  const handlePrevious = () =>
-    setSelectedImageIndex((prev) => (prev === 0 ? filteredImages.length - 1 : prev - 1));
+
+  const handleNext = () => {
+    setSelectedImageIndex((prev) =>
+      prev === filteredImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handlePrevious = () => {
+    setSelectedImageIndex((prev) =>
+      prev === 0 ? filteredImages.length - 1 : prev - 1
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -251,6 +281,7 @@ const Gallery = () => {
             </p>
           </FadeIn>
         </div>
+
         <div className="absolute inset-0 bg-gray-900/40 z-20" />
         <div
           className="absolute inset-0"
@@ -268,9 +299,10 @@ const Gallery = () => {
       <div className="max-w-screen-xl mx-auto px-4 py-16">
         {/* Category Filter */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-white rounded-lg p-1 shadow-md">
+          <div className="inline-flex bg-white rounded-lg p-1 shadow-md flex-wrap gap-1">
             {categories.map((category) => {
               const active = selectedCategory === category;
+
               return (
                 <button
                   key={category}
@@ -290,10 +322,10 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* ✅ Sub-Category Filter for Events */}
+        {/* Sub-Category Filter for Events */}
         {selectedCategory === "Events/M.I.C.E" && subCategories[selectedCategory] && (
           <div className="flex justify-center mb-8">
-            <div className="inline-flex bg-gray-100 rounded-lg p-1 shadow-md">
+            <div className="inline-flex bg-gray-100 rounded-lg p-1 shadow-md flex-wrap gap-1">
               {subCategories[selectedCategory].map((sub) => {
                 const active = selectedSubCategory === sub;
 

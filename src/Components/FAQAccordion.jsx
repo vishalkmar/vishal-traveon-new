@@ -1,146 +1,215 @@
-import React, { useState } from 'react'
-import { Plus, Minus } from 'lucide-react'
+import React, { useState } from "react";
+import { Plus, Minus } from "lucide-react";
 
 const FAQAccordion = () => {
-  const [openId, setOpenId] = useState(null)
+  const [openId, setOpenId] = useState(1);
 
   const faqs = [
     {
       id: 1,
       question: "What destinations do you offer?",
-      answer: "We specialize in curated travel experiences to Oman, Seychelles, and Vietnam. Each destination offers unique wellness retreats, corporate experiences, and immersive cultural journeys tailored to your needs."
+      answer:
+        "We offer curated travel experiences to Oman, Seychelles, Vietnam, and selected custom international destinations for leisure, wellness, and corporate travel.",
     },
     {
       id: 2,
-      question: "How far in advance should I book?",
-      answer: "We recommend booking 30-60 days in advance for most packages to secure the best accommodations and arrange necessary logistics. However, we can often accommodate last-minute requests depending on availability."
+      question: "Do you provide customized packages?",
+      answer:
+        "Yes, we design personalized travel packages based on your budget, travel style, dates, and group requirements including family trips, corporate retreats, and wellness journeys.",
     },
     {
       id: 3,
       question: "What is included in your packages?",
-      answer: "Our packages typically include accommodations, meals, airport transfers, guided tours, and curated activities. Specific inclusions vary by package. Detailed itineraries are provided upon inquiry."
+      answer:
+        "Package inclusions vary by destination, but usually include hotel stay, transfers, sightseeing, selected meals, and complete travel assistance from our team.",
     },
     {
       id: 4,
-      question: "Do you offer customized packages?",
-      answer: "Absolutely! We specialize in bespoke travel experiences. Whether it's a corporate retreat, wellness journey, or special celebration, our team can customize every detail to match your vision and budget."
+      question: "Do you assist with visa processing?",
+      answer:
+        "Yes, we provide visa guidance and documentation support for applicable destinations and help streamline the process for a smoother travel experience.",
     },
     {
       id: 5,
-      question: "What is your cancellation policy?",
-      answer: "Our cancellation policy varies by package and booking terms. Generally, cancellations made 30 days before departure receive a full refund. We encourage travel insurance for added protection."
+      question: "How early should I book my trip?",
+      answer:
+        "We recommend booking at least 3 to 6 weeks in advance for better pricing, hotel availability, and smooth travel planning, especially during peak seasons.",
     },
     {
       id: 6,
-      question: "Do you provide visa assistance?",
-      answer: "Yes, we offer visa guidance and can connect you with trusted partners for visa applications. While we don't process visas directly, our team ensures smooth travel documentation for all our guests."
+      question: "Can you arrange corporate retreats?",
+      answer:
+        "Yes, we specialize in corporate retreats, M.I.C.E. events, incentive travel, team outings, and wellness-based business experiences.",
     },
     {
       id: 7,
-      question: "What is included in MICE services?",
-      answer: "Our MICE (Meetings, Incentives, Conferences, Exhibitions) services cover venue selection, accommodation, transportation, team-building activities, and full event management for corporate groups."
+      question: "Do you provide airport transfers?",
+      answer:
+        "Yes, airport pickup and drop services are available in most of our packages. The exact transfer details depend on the selected destination and package type.",
     },
     {
       id: 8,
-      question: "How do I get in touch with your team?",
-      answer: "You can reach us via WhatsApp, email, or our live chat feature. Click the WhatsApp icon at the bottom-right to connect with our team members directly. We typically respond within minutes!"
-    }
-  ]
+      question: "Can I book for a group or family?",
+      answer:
+        "Absolutely. We provide family packages, friends group tours, student groups, and corporate group arrangements with personalized pricing and support.",
+    },
+    {
+      id: 9,
+      question: "What is your cancellation policy?",
+      answer:
+        "Cancellation terms depend on the destination, airline, hotel, and supplier policies. Our team shares the applicable cancellation terms before booking confirmation.",
+    },
+    {
+      id: 10,
+      question: "Do you help with wellness retreats?",
+      answer:
+        "Yes, we curate wellness retreats including yoga, mindfulness, nature stays, healing experiences, and corporate wellness programs at selected destinations.",
+    },
+    {
+      id: 11,
+      question: "Can I modify my itinerary later?",
+      answer:
+        "In many cases yes, subject to availability and supplier terms. Our team always tries to accommodate changes wherever possible.",
+    },
+    {
+      id: 12,
+      question: "How can I contact your team?",
+      answer:
+        "You can contact us through the website contact form, WhatsApp, phone, or email. Our team will assist you with destination selection and package planning.",
+    },
+  ];
+
+  const leftFaqs = faqs.slice(0, 6);
+  const rightFaqs = faqs.slice(6, 12);
 
   const toggleAccordion = (id) => {
-    setOpenId(openId === id ? null : id)
-  }
+    setOpenId(openId === id ? null : id);
+  };
+
+  const FAQItem = ({ faq }) => {
+    const isOpen = openId === faq.id;
+
+    return (
+      <div
+        className={`rounded-2xl border bg-white/95 backdrop-blur-sm transition-all duration-300 overflow-hidden ${
+          isOpen
+            ? "border-[#28bccf]/50 shadow-[0_14px_40px_rgba(40,188,207,0.16)]"
+            : "border-white/60 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:border-[#28bccf]/30"
+        }`}
+      >
+        <button
+          onClick={() => toggleAccordion(faq.id)}
+          className="w-full flex items-start justify-between gap-4 px-5 py-5 text-left"
+        >
+          <div className="flex items-start gap-3">
+            <div
+              className={`mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                isOpen
+                  ? "bg-[#28bccf] text-white"
+                  : "bg-[#28bccf]/10 text-[#159aac]"
+              }`}
+            >
+              {String(faq.id).padStart(2, "0")}
+            </div>
+
+            <h3 className="text-[15px] sm:text-base font-semibold leading-6 text-slate-800">
+              {faq.question}
+            </h3>
+          </div>
+
+          <div
+            className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+              isOpen
+                ? "bg-[#28bccf] border-[#28bccf] text-white"
+                : "bg-white border-slate-200 text-[#159aac]"
+            }`}
+          >
+            {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+          </div>
+        </button>
+
+        <div
+          className={`grid transition-all duration-300 ease-in-out ${
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="px-5 pb-5 pt-0">
+              <div className="ml-11 pr-2">
+                <p className="text-sm sm:text-[15px] leading-7 text-slate-600">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <section className="w-full bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <p
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold mb-4"
-            style={{
-              backgroundColor: "rgba(40, 188, 207, 0.10)",
-              color: "#28bccf",
-            }}
-          >
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: "#28bccf" }}
-            />
-            Have Questions?
-          </p>
+    <section className="relative w-full overflow-hidden bg-[#f7fcfc] py-16 sm:py-20 lg:py-24">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-10 left-[-80px] h-72 w-72 rounded-full bg-[#28bccf]/10 blur-3xl" />
+        <div className="absolute bottom-10 right-[-80px] h-72 w-72 rounded-full bg-[#0f8b8d]/10 blur-3xl" />
+      </div>
 
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Everything you need to know about our services, packages, and travel experiences
-          </p>
-        </div>
+      <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto_1fr] gap-8 xl:gap-10 items-center">
+          {/* Left FAQs */}
+          <div className="space-y-5 order-2 xl:order-1">
+            {leftFaqs.map((faq) => (
+              <FAQItem key={faq.id} faq={faq} />
+            ))}
+          </div>
 
-        {/* Accordion */}
-        <div className="space-y-3">
-          {faqs.map((faq) => (
-            <div
-              key={faq.id}
-              className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:border-[#28bccf] hover:shadow-md"
-            >
-              {/* Accordion Header */}
-              <button
-                onClick={() => toggleAccordion(faq.id)}
-                className="w-full px-6 py-4 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors duration-200"
-              >
-                <h3 className="text-left font-semibold text-gray-900 text-base sm:text-lg">
-                  {faq.question}
-                </h3>
-                <div className="flex-shrink-0 ml-4">
-                  {openId === faq.id ? (
-                    <Minus
-                      size={24}
-                      className="text-[#28bccf] transition-transform duration-300"
-                    />
-                  ) : (
-                    <Plus
-                      size={24}
-                      className="text-[#28bccf] transition-transform duration-300"
-                    />
-                  )}
-                </div>
-              </button>
+          {/* Center Circle */}
+          <div className="order-1 xl:order-2 flex justify-center">
+            <div className="relative flex items-center justify-center">
+              <div className="w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[480px] rounded-full border-2 border-[#28bccf]/25 flex items-center justify-center bg-white/30 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,139,141,0.10)]" />
+              <div className="absolute w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] lg:w-[335px] lg:h-[435px] rounded-full border-2 border-[#28bccf]/40 bg-white/90 backdrop-blur-md shadow-[0_18px_50px_rgba(40,188,207,0.18)] flex items-center justify-center p-6 sm:p-8">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center rounded-full border border-[#28bccf]/20 bg-[#28bccf]/10 px-4 py-1.5 text-sm font-semibold text-[#159aac]">
+                    FAQs
+                  </div>
 
-              {/* Accordion Content */}
-              <div
-                className="overflow-hidden transition-all duration-300 ease-in-out"
-                style={{
-                  maxHeight: openId === faq.id ? '500px' : '0',
-                  opacity: openId === faq.id ? 1 : 0,
-                }}
-              >
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                    {faq.answer}
+                  <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[34px] font-bold leading-tight text-slate-900">
+                    Answers to your
+                    <span className="block text-[#159aac]">travel questions</span>
+                  </h2>
+
+                  <p className="mt-4 text-sm sm:text-[15px] leading-6 text-slate-600 max-w-[240px] sm:max-w-[260px] mx-auto">
+                    Find quick answers about bookings, destinations, packages,
+                    visa support, and custom travel planning.
                   </p>
+
+                  <div className="mt-5 pt-5 border-t border-slate-200/70">
+                    <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+                      Still need help?
+                    </h3>
+
+                    <a
+                      href="/contact"
+                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#28bccf] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1eaabd] hover:shadow-[0_12px_30px_rgba(40,188,207,0.28)]"
+                    >
+                      Contact Team
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">
-            Didn't find what you're looking for?
-          </p>
-          <a
-            href="#"
-            className="inline-block px-8 py-3 bg-[#28bccf] text-white font-semibold rounded-lg hover:bg-[#1fa8b8] transition-all duration-300 hover:shadow-lg"
-          >
-            Contact Our Team
-          </a>
+          {/* Right FAQs */}
+          <div className="space-y-5 order-3">
+            {rightFaqs.map((faq) => (
+              <FAQItem key={faq.id} faq={faq} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default FAQAccordion
+export default FAQAccordion;

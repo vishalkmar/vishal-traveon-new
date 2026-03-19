@@ -3,10 +3,10 @@
  export default function MiceTourOffering() {
 
      const offerings = [
-    {img: "/mice/team.avif", title: 'Team-Building Experiences', desc: 'Experiential programs focused on collaboration, problem solving, and trust-building.' },
+    {img: "/mice/teambuilding.jpg", title: 'Team-Building Experiences', desc: 'Experiential programs focused on collaboration, problem solving, and trust-building.' },
     { img: "/mice/wellness.jpg", title: 'Wellness & Knowledge Sessions', desc: '' },
-    { img: "/mice/stratagic.webp", title: 'Strategic Workshops & Knowledge Sessions', desc: '' },
-    {img: "/mice/cultural.webp", title: 'Cultural & Experiential Activities', desc: '' },
+    { img: "/mice/knowledge.jpg", title: 'Strategic Workshops & Knowledge Sessions', desc: '' },
+    {img: "/mice/cultural.jpg", title: 'Cultural & Experiential Activities', desc: '' },
   ];
 
   return(<>

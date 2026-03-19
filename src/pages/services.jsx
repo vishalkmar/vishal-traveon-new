@@ -184,7 +184,7 @@ const Services = () => {
       "Local guides & experiences",
       "Flexible itineraries",
     ],
-    to: "/packages/curated",
+    to: "/packages",
   },
   {
     icon: Users,
@@ -196,7 +196,7 @@ const Services = () => {
       "Strategic venue & vendor curation",
       "Flawless on-site coordination",
     ],
-    to: "/m-i-c-e",
+    to: "/mice",
   },
   {
     icon: Briefcase,
@@ -302,7 +302,7 @@ const Services = () => {
         <div className="max-w-6xl mx-auto px-4">
           <Reveal>
             <p className="mx-auto max-w-4xl text-center text-gray-700 text-lg md:text-xl mb-10">
-            At Traveon Ventures, we run flawless M.I.C.E, craft immersive wellness retreats, and enable business expansion — with quality and responsibility at the core.
+            At Traveon Ventures, we run <b>flawless M.I.C.E,</b>  craft immersive <b></b> wellness retreats, and enable business expansion — with quality and responsibility at the core.
             </p>
 
             
@@ -317,37 +317,40 @@ const Services = () => {
       </section>
 
       {/* Values */}
-      <section className="bg-gradient-to-b from-white to-gray-100 py-16 md:py-20 mt-10">
-        <div className="max-w-6xl mx-auto px-4">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-[#003B4A]">
-              Why Choose Traveon Ventures
-            </h2>
-          </Reveal>
+     {/* Values */}
+<section className="bg-gradient-to-b from-white to-gray-100 py-16 md:py-20 mt-10">
+  <div className="max-w-6xl mx-auto px-4">
+    <Reveal>
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-[#003B4A]">
+        Why Choose Traveon Ventures
+      </h2>
+    </Reveal>
 
-          {/* Use a local variable for the icon component to avoid JSX parser quirks */}
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {values.map((v, i) => {
-              const IconV = v.icon;
-              return (
-                <Reveal key={v.title} delay={i * 90}>
-                  <div className="group relative rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100
-                                  transition-transform hover:-translate-y-1">
-                    <div
-                      className="mb-4 inline-grid place-items-center size-12 rounded-xl text-white shadow-md
-                                 bg-gradient-to-br from-[#0f8fa0] via-[#28bccf] to-[#5ed6e3]"
-                    >
-                      {IconV ? <IconV className="size-6" /> : null}
-                    </div>
-                    <h3 className="text-lg font-semibold text-[#003B4A]">{v.title}</h3>
-                    <p className="mt-2 text-gray-600">{v.description}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+    {/* Use a local variable for the icon component to avoid JSX parser quirks */}
+    <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-stretch">
+      {values.map((v, i) => {
+        const IconV = v.icon;
+        return (
+          <Reveal key={v.title} delay={i * 90}>
+            <div
+              className="group relative rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100
+                         transition-transform hover:-translate-y-1 h-full"
+            >
+              <div
+                className="mb-4 inline-grid place-items-center size-12 rounded-xl text-white shadow-md
+                           bg-gradient-to-br from-[#0f8fa0] via-[#28bccf] to-[#5ed6e3]"
+              >
+                {IconV ? <IconV className="size-6" /> : null}
+              </div>
+              <h3 className="text-lg font-semibold text-[#003B4A]">{v.title}</h3>
+              <p className="mt-2 text-gray-600">{v.description}</p>
+            </div>
+          </Reveal>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* CTA */}
       <section className="bg-white py-16">
@@ -365,13 +368,7 @@ const Services = () => {
           <Reveal delay={220}>
             <div className="mt-8 flex items-center justify-center gap-4">
               <PrimaryButton to="/contact">Get in Touch</PrimaryButton>
-              <Link
-                to="/services"
-                className="inline-flex h-12 items-center rounded-full px-6 font-semibold text-[#003B4A]
-                           bg-gray-100 hover:bg-gray-200 transition-colors"
-              >
-                Explore Services
-              </Link>
+            
             </div>
           </Reveal>
         </div>

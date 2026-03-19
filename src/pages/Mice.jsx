@@ -32,31 +32,19 @@ export default function Mice() {
 
   return (
     <div className="min-h-screen  bg-background">
-      {/* Simple Hero section */}
+      {/* Hero section with video background */}
       <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden flex items-center justify-center">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('/mice/team.avif')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            M.I.C.E Events & Experiences
-          </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Creating unforgettable business and corporate experiences through seamlessly managed meetings, incentives, conferences, and events worldwide.
-          </p>
-          <a
-            href="#offerings"
-            className="inline-flex items-center bg-[#28bccf] text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300"
-          >
-            Explore Our Services
-          </a>
-        </div>
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover -z-20"
+        >
+          <source src="/mice/micevideo.mp4" type="video/mp4" />
+        </video>
+
       </section>
 
       <TrustedBy />

@@ -544,29 +544,35 @@ export default function AboutUs() {
             <div className="w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/2 border-t border-white/60" />
           </div>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-            {[
-              { img: "/team/shakshi.jpeg", name: "Sakshi Garg", role: "V.P. Bussiness Development" },
-              { img: "/team/pooja.jpg", name: "Pooja Goyal", role: "Bussiness Development Manager" },
-              { img: "/team/himanshu.jpeg", name: "Himanshu Vashist", role: "Operations Associate" },
-              { img: "/team/deepanshu.jpg", name: "Deepanshu Vashist", role: "Operations Associate" },
-              { img: "/team/bhumi.jpg", name: "Bhumi Thakur", role: "Graphic Designer" },
-              { img: "/team/vishal.png", name: "Vishal Kumar", role: "Full Stack Developer" },
-            ].map((card, idx) => (
-              <div key={idx} className="flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2">
-                <img src={card.img} alt={`card-${idx}`} className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0" />
-                <div className="text-center sm:text-left">
-                  <h5 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-                    {card.name}
-                  </h5>
-                  <p className="text-white/80 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-                    {card.role}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
+          <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-8 px-4">
+  {[
+    { img: "/team/shakshi.jpeg", name: "Sakshi Garg", role: "V.P. Bussiness Development" },
+    { img: "/team/pooja.jpg", name: "Pooja Goyal", role: "Bussiness Development Manager" },
+    { img: "/team/himanshu.jpeg", name: "Himanshu Vashist", role: "Operations Associate" },
+    { img: "/team/deepanshu.jpg", name: "Deepanshu Vashist", role: "Operations Associate" },
+    { img: "/team/bhumi.jpg", name: "Bhumi Thakur", role: "Graphic Designer" },
+    { img: "/team/vishal.png", name: "Vishal Kumar", role: "Full Stack Developer" },
+  ].map((card, idx) => (
+    <div
+      key={idx}
+      className="w-full sm:w-[320px] lg:w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
+    >
+      <img
+        src={card.img}
+        alt={card.name}
+        className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0"
+      />
+      <div className="text-center sm:text-left">
+        <h5 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
+          {card.name}
+        </h5>
+        <p className="text-white/80 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
+          {card.role}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
           {/* 3rd centered row */}
           <div className="mt-8 flex justify-center">
             <div className="flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2 max-w-xs">

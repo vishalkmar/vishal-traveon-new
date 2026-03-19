@@ -92,19 +92,19 @@ export default function HomePagePackages(){
     {/* ✅ Destination Carousel */}
 <div
   className="mb-10 rounded-[28px] p-4 sm:p-6 ring-1 ring-black/5 shadow-sm"
-  style={{ background: "linear-gradient(135deg, rgba(57, 198, 216, 0.08) 0%, rgba(47, 184, 211, 0.06) 100%)" }}
+  style={{ background: " #23A8CC"}}
 >
   <div className="flex flex-col items-center gap-5">
     <div className="text-center">
-      <div className="text-sm font-semibold text-slate-700">Explore Packages</div>
+      <div className="text-sm font-semibold text-white">Explore Packages</div>
       <div className="mt-1 text-2xl sm:text-4xl font-extrabold text-slate-900">
         Choose your{" "}
         <span
-          className="bg-clip-text text-transparent"
-          style={{
-            backgroundImage:
-              "linear-gradient(90deg, #39C6D8 0%, #2FB8D3 50%, #23A8CC 100%)",
-          }}
+          className="text-white"
+          // style={{
+          //   backgroundImage:
+          //     "linear-gradient(90deg, #1fb7cb 0%, #2FB8D3 50%, #23A8CC 100%)",
+          // }}
         >
           Destination
         </span>
@@ -125,9 +125,9 @@ export default function HomePagePackages(){
               key={d.id}
               onClick={() => setActiveTab(d.id)}
               className={`relative flex flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 items-center gap-4 rounded-2xl p-5 text-left transition-all duration-300 ring-1 shadow-md
-                ${isActive ? "bg-white ring-emerald-200/50 shadow-lg shadow-sky-200/50" : "bg-white/70 ring-black/5 hover:bg-white hover:shadow-md"}`}
+                ${isActive ? "bg-white" : "bg-white"}`}
             >
-              {isActive && (
+              {/* {isActive && (
                 <span
                   className="absolute inset-0 -z-10 rounded-2xl opacity-50"
                   style={{
@@ -136,7 +136,7 @@ export default function HomePagePackages(){
                     filter: "blur(16px)",
                   }}
                 />
-              )}
+              )} */}
 
               {/* image */}
               <span className="h-16 w-16 overflow-hidden rounded-full bg-white p-1 flex-shrink-0">
@@ -156,11 +156,11 @@ export default function HomePagePackages(){
                 </div>
               </div>
 
-              <span className="ml-auto grid h-10 w-10 place-items-center rounded-full bg-slate-50 ring-1 ring-black/5 flex-shrink-0">
+              {/* <span className="ml-auto grid h-10 w-10 place-items-center rounded-full bg-slate-50 ring-1 ring-black/5 flex-shrink-0">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
-              </span>
+              </span> */}
             </button>
           );
         })}

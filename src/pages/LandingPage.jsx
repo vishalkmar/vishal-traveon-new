@@ -30,6 +30,7 @@ import PopularDestinations from "../Components/PopularDestinations.jsx";
 
 import HomePagePackages from "../Components/packages/HomePagePackages";
 import FAQAccordion from "../Components/FAQAccordion.jsx";
+import Gallery from "../Components/HomeGallery.jsx";
 
 const FadeIn = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -162,6 +163,7 @@ export default function LandingPage() {
           {/* <Why /> */}
           {/* <HomePageEvents /> */}
           {/* <Transform /> */}
+          <Gallery/>
           <PopularDestinations />
           <FAQAccordion/>
        

@@ -6,7 +6,7 @@ export default function OurApproachMice(){
     {
       title: 'Consultation & Planning',
       description: 'Understand your goals, team dynamics, and desired outcomes',
-      img: "/mice/planing.png",
+      img: "/mice/consulting.jpg",
     },
     {
       title: 'Customized Itinerary',
@@ -16,12 +16,12 @@ export default function OurApproachMice(){
     {
       title: 'Execution & Support',
       description: 'Professional on-ground management and seamless',
-      img: "/mice/support.png",
+      img: "/mice/management.jpg",
     },
     {
       title: 'Evaluation & Feedback',
       description: 'Measure impact and ensure lasting benefits for your team',
-      img: "/mice/feedback.avif",
+      img: "/mice/feedback.jpg",
     },
   ];
 
@@ -69,7 +69,7 @@ export default function OurApproachMice(){
                   style={{ borderRadius: 16, background: 'transparent' }}
                 >
                   <div className="relative w-full h-full aspect-[3/4]">
-                    <img src={step.img} alt={step.title} className="w-full h-full object-cover block" />
+                    <img src={step.img} alt={step.title} className="block w-full h-full object-cover"  />
 
                     {/* Top or Bottom content overlay — use light semi-transparent gradient so text is black (no white band). */}
                     {isTop ? (
