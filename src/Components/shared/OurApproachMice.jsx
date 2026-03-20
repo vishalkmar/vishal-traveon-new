@@ -6,17 +6,17 @@ export default function OurApproachMice(){
     {
       title: 'Consultation & Planning',
       description: 'Understand your goals, team dynamics, and desired outcomes',
-      img: "/mice/consulting.jpg",
+      img: "/mice/PLANNING.jpg",
     },
     {
       title: 'Customized Itinerary',
       description: 'Curate workshops, activities, wellness sessions, and',
-      img: "/mice/itenary.png",
+      img: "/mice/ITINERARY.jpg",
     },
     {
       title: 'Execution & Support',
       description: 'Professional on-ground management and seamless',
-      img: "/mice/management.jpg",
+      img: "/mice/SUPPORT.jpg",
     },
     {
       title: 'Evaluation & Feedback',

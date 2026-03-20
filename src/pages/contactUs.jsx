@@ -63,7 +63,7 @@ const WhatsAppSection = () => (
       <span>Chat on WhatsApp</span>
     </a>
     <p className="text-sm text-gray-500 mt-2">
-      Available Monday to Friday, 9:00 AM - 6:00 PM IST
+      Available Monday to Friday, 10:00 AM - 6:00 PM 
     </p>
   </div>
 );

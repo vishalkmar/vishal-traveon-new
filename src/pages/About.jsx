@@ -7,42 +7,27 @@ export default function AboutUs() {
   const carouselItems = [
     {
       image: "/iccictimages/ic2.jpg",
-      title: "ICCICT 2026",
-      date: "22 - 23 January 2026 (Hybrid Mode)",
-      subtitle:
-        "International Conference on Computational Intelligence and Computing Technologies & AI (ICCICT 2026) — uniting researchers, industry experts, and innovators.",
-      link: "/iccict",
-      location: "India International Centre, Lodhi Estate, New Delhi, India",
-      buttonText: "Know more",
+      title: "About Traveon",
+      link:"/packages",
+      buttonText: "Explore Packages",
     },
     {
       image: "/coursera/12.jpg",
-      title: "Coursera Offsite",
-      date: "17-18 NOV 2025",
-      subtitle:
-        "A seamlessly managed 2-day offsite conference for Coursera at Lemon Tree Tarudhan Valley with complete end-to-end arrangements.",
-      link: "/coursera",
-      location: "Lemon Tree Tarudhan Valley",
-      buttonText: "Know more",
+      title: "About Traveon",
+      link:"/packages",
+      buttonText: "Explore Packages",
     },
     {
       image: "/google-wellness/13.jpg",
-      title: "GOOGLE WELLNESS RETREAT",
-      date: "16 SEPTEMBER 2025",
-      subtitle:
-        "A peaceful wellness retreat at Google, Gurgaon, designed to relax, recharge, and restore inner balance.",
-      link: "/google-offset",
-      location: "Gurgaon, Delhi",
-      buttonText: "Know more",
+     title: "About Traveon",
+      link:"/packages",
+      buttonText: "Explore Packages",
     },
     {
       image: "/ibiea/21.jpg",
-      title: "IBIEA 2025",
-      subtitle: "A prestigious International Business Innovation & Excellence Awards 2025 2025 event in Oman, bringing together awards, international travel, and curated experiences for 50 participants.",
-      date: "May 29, 2025",
-      location: "Grand Hyatt Muscat, Oman",
-      link: "/ibiea",
-      buttonText: "Learn More",
+       title: "About Traveon",
+      link:"/packages",
+      buttonText: "Explore Packages",
     },
   ];
 
@@ -104,135 +89,70 @@ export default function AboutUs() {
 
       {/* TRUSTED BY */}
       <TrustedBy />
+{/* WHO WE ARE */}
+<section
+  className="w-full relative overflow-hidden py-[30px]"
+  style={{ background: "linear-gradient(135deg, #0f8b8d 0%, #00C5C5 100%)" }}
+>
+  <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
 
-      {/* WHO WE ARE */}
-      <section
-        className="w-full relative overflow-hidden py-[30px]"
-        style={{ background: "linear-gradient(135deg, #0f8b8d 0%, #00C5C5 100%)" }}
-      >
-        <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
-          <h2
-            className="text-white mb-8"
-            style={{
-              fontFamily: "Lato",
-              fontWeight: 300,
-              fontSize: "48px",
-              lineHeight: "54px",
-              textAlign: "center",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "Lato, sans-serif",
-                color: "#000",
-                fontWeight: 700,
-                fontSize: "48px",
-                lineHeight: "54px",
-              }}
-            >
-              —— Who{" "}
-            </span>
-            <span
-              style={{
-                fontFamily: "Lato, sans-serif",
-                fontWeight: 700,
-                fontStyle: "italic",
-                fontSize: "56px",
-                lineHeight: "54px",
-              }}
-            >
-              We
-            </span>
-            <span
-              style={{
-                fontFamily: "Lato, sans-serif",
-                fontWeight: 700,
-                fontStyle: "normal",
-                fontSize: "48px",
-                lineHeight: "54px",
-              }}
-            >
-              {" "}
-              Are ——
-            </span>
-          </h2>
+    {/* ✅ FIXED HEADING */}
+    <h2
+      className="text-white mb-8 text-center whitespace-nowrap leading-none"
+      style={{
+        fontFamily: "Lato, sans-serif",
+        fontSize: "clamp(22px, 5vw, 48px)",
+        fontWeight: 700,
+      }}
+    >
+      <span style={{ color: "#000" }}>Who </span>
+      <span style={{ fontStyle: "italic" }}>We </span>
+      <span>Are</span>
+    </h2>
 
-          <p
-            className="text-white mx-auto mb-12 px-4 sm:px-0 text-base sm:text-lg md:text-xl leading-relaxed sm:leading-7"
-            style={{
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 400,
-              textAlign: "center",
-              maxWidth: "680px",
-            }}
-          >
-            Born from a vision of weaving wellness, adventure, and purpose into everyday living,
-            Traveon is more than a retreat planner — we’re architects of transformation.
-            <br />
-            <br />
-            We draw inspiration from alchemy of ancient wisdom and modern wellness science. From
-            meditation practices taught by elders, to evidence-backed techniques for mental clarity,
-            every facet of our retreats is crafted with deep intention.
-            <br />
-            <br />
-            We are guides, facilitators, companions — walking alongside those who come to us
-            carrying stress, burnout, or simply a longing for more meaning. And when they leave, we
-            hope they carry away calm, clarity, and a renewed sense of possibility.
-          </p>
+    <p
+      className="text-white mx-auto mb-12 px-4 sm:px-0 text-base sm:text-lg md:text-xl leading-relaxed sm:leading-7"
+      style={{
+        fontFamily: "Lato, sans-serif",
+        fontWeight: 400,
+        textAlign: "center",
+        maxWidth: "680px",
+      }}
+    >
+      Born from a vision of weaving wellness, adventure, and purpose into everyday living,
+      Traveon is more than a retreat planner — we’re architects of transformation.
+      <br /><br />
+      We draw inspiration from alchemy of ancient wisdom and modern wellness science. From
+      meditation practices taught by elders, to evidence-backed techniques for mental clarity,
+      every facet of our retreats is crafted with deep intention.
+      <br /><br />
+      We are guides, facilitators, companions — walking alongside those who come to us
+      carrying stress, burnout, or simply a longing for more meaning. And when they leave, we
+      hope they carry away calm, clarity, and a renewed sense of possibility.
+    </p>
 
-          {/* Left Image Stack */}
-          <div className="hidden lg:block absolute left-0 bottom-4 transform lg:-translate-x-28 lg:translate-y-14 xl:-translate-x-36 2xl:-translate-x-44 z-0 pointer-events-none">
-            <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
-              <img
-                src="/community-tour/1.jpg"
-                alt="Image 21"
-                className="absolute w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-cover rounded-lg transform rotate-6"
-              />
-              <img
-                src="/coursera/10.jpg"
-                alt="Image 23"
-                className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg transform rotate-6 -top-12 left-20 md:-top-16 md:left-24 lg:-top-20 lg:left-28"
-              />
-              <img
-                src="/oman/banner2.jpg"
-                alt="Image 24"
-                className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg transform rotate-3 top-16 left-16"
-              />
-              <img
-                src="/seychelles/2.jpg"
-                alt="Team 1"
-                className="absolute w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 object-cover rounded-lg transform rotate-6 md:rotate-12 top-24 left-28"
-              />
-            </div>
-          </div>
+    {/* LEFT IMAGES */}
+    <div className="hidden lg:block absolute left-0 bottom-4 transform lg:-translate-x-28 lg:translate-y-14 xl:-translate-x-36 2xl:-translate-x-44 z-0 pointer-events-none">
+      <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
+        <img src="/community-tour/1.jpg" className="absolute w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-cover rounded-lg rotate-6" />
+        <img src="/coursera/10.jpg" className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg rotate-6 -top-12 left-20" />
+        <img src="/oman/banner2.jpg" className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg rotate-3 top-16 left-16" />
+        <img src="/seychelles/2.jpg" className="absolute w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 object-cover rounded-lg rotate-6 top-24 left-28" />
+      </div>
+    </div>
 
-          {/* Right Image Stack */}
-          <div className="hidden lg:block absolute right-0 bottom-4 transform lg:translate-x-28 lg:translate-y-14 xl:translate-x-36 2xl:translate-x-44 z-0 pointer-events-none">
-            <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
-              <img
-                src="/iccictimages/ic1.jpg"
-                alt="Image 31"
-                className="absolute w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-cover rounded-lg transform -rotate-6"
-              />
-              <img
-                src="/iccictimages/ic2.jpg"
-                alt="Program 23"
-                className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg transform rotate-6 -top-16 right-8"
-              />
-              <img
-                src="/iccictimages/ic3.jpg"
-                alt="Program 24"
-                className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg transform -rotate-3 top-16 right-16"
-              />
-              <img
-                src="/iccictimages/ic4.jpg"
-                alt="Image 24"
-                className="absolute w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 object-cover rounded-lg transform -rotate-6 top-24 right-28"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* RIGHT IMAGES */}
+    <div className="hidden lg:block absolute right-0 bottom-4 transform lg:translate-x-28 lg:translate-y-14 xl:translate-x-36 2xl:translate-x-44 z-0 pointer-events-none">
+      <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
+        <img src="/iccictimages/ic1.jpg" className="absolute w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-cover rounded-lg -rotate-6" />
+        <img src="/iccictimages/ic2.jpg" className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg rotate-6 -top-16 right-8" />
+        <img src="/iccictimages/ic3.jpg" className="absolute w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-cover rounded-lg -rotate-3 top-16 right-16" />
+        <img src="/iccictimages/ic4.jpg" className="absolute w-40 h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 object-cover rounded-lg -rotate-6 top-24 right-28" />
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* SHORT WHITE CALLOUT */}
       <section className="w-full bg-white py-8 md:py-12">
@@ -246,6 +166,7 @@ export default function AboutUs() {
       </section>
 
 {/* ✅ HOW IT STARTED (FIXED: viewport-bound images) */}
+{/* ✅ HOW IT STARTED */}
 <section className="w-full bg-white relative overflow-hidden pb-[100px]">
   <style>{`
     .about-blob{
@@ -275,63 +196,66 @@ export default function AboutUs() {
 
     {/* Center content (60% width) */}
     <div className="w-full lg:w-3/5 lg:mx-auto py-12 relative z-10 px-6 sm:px-10">
-    <div className="flex items-start justify-center">
-      <div className="flex-1 max-w-3xl mx-auto text-center">
-        <h3
-          style={{
-            fontFamily: "Lato, sans-serif",
-            fontSize: "40px",
-            color: "#000",
-            fontStyle: "italic",
-            fontWeight: 700,
-          }}
-        >
-          —— How it <span className="text-[#27b2d9]">Started</span> ——
-        </h3>
-
-        <div style={{ marginTop: 18, color: "#000" }}>
-          <p
-            className="text-base md:text-lg leading-7"
+      <div className="flex items-start justify-center">
+        <div className="flex-1 max-w-3xl mx-auto text-center">
+          <h3
+            className="whitespace-nowrap text-center leading-none"
             style={{
               fontFamily: "Lato, sans-serif",
-              fontWeight: 400,
-              letterSpacing: "-4%",
+              fontSize: "clamp(24px, 5vw, 40px)",
+              fontWeight: 700,
+              color: "#000",
             }}
           >
-            The world keeps moving fast. Deadlines, targets, notifications — the noise often drowns
-            out what matters most. We started Retreats by Traveon because we saw how much people
-            longed for stillness, for real connections, for a chance to rest and remember who they
-            are… beyond their roles, beyond their to-do lists.
-          </p>
+            <span style={{ fontStyle: "italic" }}>How it </span>
+            <span className="text-[#27b2d9]" style={{ fontStyle: "italic" }}>
+              Started
+            </span>
+          </h3>
 
-          <p
-            className="mt-6 text-base md:text-lg leading-7"
-            style={{
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 400,
-              letterSpacing: "-4%",
-            }}
-          >
-            Our founders spent years exploring wellness modalities — retreats, silent walks, breath
-            work, group sharing circles, mindfulness practices, nature immersion — learning from
-            guides, healers, coaches, and communities.
-          </p>
+          <div style={{ marginTop: 18, color: "#000" }}>
+            <p
+              className="text-base md:text-lg leading-7"
+              style={{
+                fontFamily: "Lato, sans-serif",
+                fontWeight: 400,
+                letterSpacing: "-0.04em",
+              }}
+            >
+              The world keeps moving fast. Deadlines, targets, notifications — the noise often drowns
+              out what matters most. We started Retreats by Traveon because we saw how much people
+              longed for stillness, for real connections, for a chance to rest and remember who they
+              are… beyond their roles, beyond their to-do lists.
+            </p>
 
-          <p
-            className="mt-6 text-base md:text-lg leading-7"
-            style={{
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 400,
-              letterSpacing: "-4%",
-            }}
-          >
-            What emerged was a clear truth: profound transformation isn’t a luxury. It’s a
-            necessity. So, we built this space — retreats that go beyond luxury or escape —
-            experiences that invite awakening, belonging, and growth.
-          </p>
+            <p
+              className="mt-6 text-base md:text-lg leading-7"
+              style={{
+                fontFamily: "Lato, sans-serif",
+                fontWeight: 400,
+                letterSpacing: "-0.04em",
+              }}
+            >
+              Our founders spent years exploring wellness modalities — retreats, silent walks, breath
+              work, group sharing circles, mindfulness practices, nature immersion — learning from
+              guides, healers, coaches, and communities.
+            </p>
+
+            <p
+              className="mt-6 text-base md:text-lg leading-7"
+              style={{
+                fontFamily: "Lato, sans-serif",
+                fontWeight: 400,
+                letterSpacing: "-0.04em",
+              }}
+            >
+              What emerged was a clear truth: profound transformation isn’t a luxury. It’s a
+              necessity. So, we built this space — retreats that go beyond luxury or escape —
+              experiences that invite awakening, belonging, and growth.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
     </div>
 
     {/* Right container (20% width) */}
@@ -345,6 +269,8 @@ export default function AboutUs() {
     </div>
   </div>
 </section>
+
+
       {/* IMAGE CTA */}
       <section
         className="relative flex items-center justify-center bg-cover bg-center py-20 sm:py-28"
@@ -358,10 +284,10 @@ export default function AboutUs() {
           </h2>
 
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center bg-[#27b2d9] gap-3 px-10 py-4 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform text-lg sm:text-xl"
           >
-            CTA's
+            Contact Us
             <ArrowRight className="w-6 h-6" />
           </a>
         </div>
@@ -475,121 +401,224 @@ export default function AboutUs() {
         </div>
       </section>
 
+
+
       {/* TEAM */}
-      <section
-        className="w-full mb-[100px] relative text-white overflow-hidden py-10 sm:py-16"
-        style={{ background: "linear-gradient(135deg, #0f8b8d 0%, #00C5C5 100%)" }}
-      >
-        <div className="absolute top-0 left-0 w-full" aria-hidden>
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-20">
-            <path d="M0 80 C360 0 1080 0 1440 80 L1440 0 L0 0 Z" fill="white" />
-          </svg>
+    <section
+  className="w-full mb-[100px] relative text-white overflow-hidden py-10 sm:py-16"
+  style={{ background: "linear-gradient(135deg, #0f8b8d 0%, #00C5C5 100%)" }}
+>
+  <div className="absolute top-0 left-0 w-full" aria-hidden>
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-20">
+      <path d="M0 80 C360 0 1080 0 1440 80 L1440 0 L0 0 Z" fill="white" />
+    </svg>
+  </div>
+
+  <div className="relative max-w-7xl mx-auto px-6 pt-10">
+    <h2
+      className="text-3xl md:text-4xl font-semibold mb-4 text-center mx-auto"
+      style={{ fontFamily: "Lato, sans-serif" }}
+    >
+      <span style={{ color: "#000" }}>Meet </span>
+      <span style={{ color: "#eef3f5" }}>Our Team</span>
+    </h2>
+
+    <p
+      className="text-white/90 max-w-3xl mx-auto text-center mb-8"
+      style={{ fontFamily: "Lato, sans-serif" }}
+    >
+      A multidisciplinary leadership team combining travel, wellness and
+      experience-design expertise. We craft thoughtful retreats and experiences
+      that bring people together.
+    </p>
+
+    <div className="max-w-7xl mx-auto mb-8 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <img
+            src="/team/piyush.jpg"
+            alt="Dr. Piyush Bhardwaj"
+            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
+          />
+          <div className="text-center">
+            <h4
+              className="text-white font-semibold"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              Dr. Piyush Bhardwaj
+            </h4>
+            <p
+              className="text-white/90 mt-2 text-sm"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              With 15 years of experience in technology, data science and
+              academic research, Dr. Piyush brings expertise in building
+              data-driven engagement platforms and program design.
+            </p>
+          </div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-10">
-          <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-center mx-auto" style={{ fontFamily: "Lato, sans-serif" }}>
-            <span style={{ color: "#000" }}>Meet </span>
-            <span style={{ color: "#eef3f5" }}>Our Team</span>
-          </h2>
-
-          <p className="text-white/90 max-w-3xl mx-auto text-center mb-8" style={{ fontFamily: "Lato, sans-serif" }}>
-            A multidisciplinary leadership team combining travel, wellness and experience-design expertise.
-            We craft thoughtful retreats and experiences that bring people together.
-          </p>
-
-          <div className="max-w-7xl mx-auto mb-8 px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-              <div className="flex flex-col items-center gap-4 text-center">
-                <img src="/team/piyush.jpg" alt="Dr. Piyush Bhardwaj" className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg" />
-                <div className="text-center">
-                  <h4 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-                    Dr. Piyush Bhardwaj
-                  </h4>
-                  <p className="text-white/90 mt-2 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-                    With 15 years of experience in technology, data science and academic research, Dr. Piyush brings
-                    expertise in building data-driven engagement platforms and program design.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-4 text-center">
-                <img src="/team/abhineet.jpg" alt="Mr. Abhineet Gupta" className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg" />
-                <div className="text-center">
-                  <h4 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-                    Mr. Abhineet Gupta
-                  </h4>
-                  <p className="text-white/90 mt-2 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-                    A seasoned business strategist with 14 years of experience across travel and hospitality, Abhineet
-                    leads commercial strategy and partnerships.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-4 text-center">
-                <img src="/team/ajit.png" alt="Mr. Ajit Waghe" className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg" />
-                <div className="text-center">
-                  <h4 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-                    Mr. Ajit Waghe
-                  </h4>
-                  <p className="text-white/90 mt-2 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-                    Senior aviation expert with 22+ years at Oman Air, Swissair and KLM. Specializes in loyalty programs,
-                    pricing strategies, and revenue optimization. Spearheads Traveon's expansion in the Middle East.
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div className="flex flex-col items-center gap-4 text-center">
+          <img
+            src="/team/abhineet.jpg"
+            alt="Mr. Abhineet Gupta"
+            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
+          />
+          <div className="text-center">
+            <h4
+              className="text-white font-semibold"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              Mr. Abhineet Gupta
+            </h4>
+            <p
+              className="text-white/90 mt-2 text-sm"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              A seasoned business strategist with 14 years of experience across
+              travel and hospitality, Abhineet leads commercial strategy and
+              partnerships.
+            </p>
           </div>
+        </div>
 
-          <div className="mt-10 flex justify-between">
-            <div className="w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/2 border-t border-white/60" />
+        <div className="flex flex-col items-center gap-4 text-center">
+          <img
+            src="/team/ajit.png"
+            alt="Mr. Ajit Waghe"
+            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
+          />
+          <div className="text-center">
+            <h4
+              className="text-white font-semibold"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              Mr. Ajit Waghe
+            </h4>
+            <p
+              className="text-white/90 mt-2 text-sm"
+              style={{ fontFamily: "Lato, sans-serif" }}
+            >
+              Senior aviation expert with 22+ years at Oman Air, Swissair and
+              KLM. Specializes in loyalty programs, pricing strategies, and
+              revenue optimization. Spearheads Traveon's expansion in the Middle
+              East.
+            </p>
           </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-8 px-4">
-  {[
-    { img: "/team/shakshi.jpeg", name: "Sakshi Garg", role: "V.P. Bussiness Development" },
-    { img: "/team/pooja.jpg", name: "Pooja Goyal", role: "Bussiness Development Manager" },
-    { img: "/team/himanshu.jpeg", name: "Himanshu Vashist", role: "Operations Associate" },
-    { img: "/team/deepanshu.jpg", name: "Deepanshu Vashist", role: "Operations Associate" },
-    { img: "/team/bhumi.jpg", name: "Bhumi Thakur", role: "Graphic Designer" },
-    { img: "/team/vishal.png", name: "Vishal Kumar", role: "Full Stack Developer" },
-  ].map((card, idx) => (
-    <div
-      key={idx}
-      className="w-full sm:w-[320px] lg:w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
-    >
-      <img
-        src={card.img}
-        alt={card.name}
-        className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0"
-      />
-      <div className="text-center sm:text-left">
-        <h5 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-          {card.name}
-        </h5>
-        <p className="text-white/80 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-          {card.role}
-        </p>
+        </div>
       </div>
     </div>
-  ))}
-</div>
-          {/* 3rd centered row */}
-          <div className="mt-8 flex justify-center">
-            <div className="flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2 max-w-xs">
-              <img src="/team/priyal.jpg" alt="Team Member" className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0 bg-white/20" />
-              <div className="text-center sm:text-left">
-                <h5 className="text-white font-semibold" style={{ fontFamily: "Lato, sans-serif" }}>
-                   Priyal Arora
-                </h5>
-                <p className="text-white/80 text-sm" style={{ fontFamily: "Lato, sans-serif" }}>
-                 Business Development Executive
-                </p>
-              </div>
+
+    <div className="mt-10 flex justify-between">
+      <div className="w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/2 border-t border-white/60" />
+    </div>
+
+    {/* Team cards rows */}
+    <div className="mt-8 px-4">
+      {/* First 6 cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8 justify-items-center">
+        {[
+          {
+            img: "/team/shakshi.jpeg",
+            name: "Sakshi Garg",
+            role: "V.P. Bussiness Development",
+          },
+          {
+            img: "/team/pooja.jpg",
+            name: "Pooja Goyal",
+            role: "Bussiness Development Manager",
+          },
+          {
+            img: "/team/shobha.jpg",
+            name: "Shubha Sharma",
+            role: "Operations Associate",
+          },
+          {
+            img: "/team/himanshu.jpeg",
+            name: "Himanshu Vashist",
+            role: "Operations Associate",
+          },
+          {
+            img: "/team/deepanshu.jpg",
+            name: "Deepanshu Vashist",
+            role: "Operations Associate",
+          },
+          {
+            img: "/team/bhumi.jpg",
+            name: "Bhumi Thakur",
+            role: "Graphic Designer",
+          },
+        ].map((card, idx) => (
+          <div
+            key={idx}
+            className="w-full max-w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
+          >
+            <img
+              src={card.img}
+              alt={card.name}
+              className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0"
+            />
+            <div className="text-center sm:text-left">
+              <h5
+                className="text-white font-semibold"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {card.name}
+              </h5>
+              <p
+                className="text-white/80 text-sm"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {card.role}
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
 
+      {/* Last 2 cards in same row */}
+      <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-8">
+        {[
+          {
+            img: "/team/vishal.png",
+            name: "Vishal Kumar",
+            role: "Full Stack Developer",
+          },
+          {
+            img: "/team/priyal.jpg",
+            name: "Priyal Arora",
+            role: "Business Development Executive",
+          },
+        ].map((card, idx) => (
+          <div
+            key={idx}
+            className="w-full sm:w-[320px] lg:w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
+          >
+            <img
+              src={card.img}
+              alt={card.name}
+              className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0 bg-white/20"
+            />
+            <div className="text-center sm:text-left">
+              <h5
+                className="text-white font-semibold"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {card.name}
+              </h5>
+              <p
+                className="text-white/80 text-sm"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {card.role}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-[#28bccf] to-[#28bccf] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -302,7 +302,7 @@ const Services = () => {
         <div className="max-w-6xl mx-auto px-4">
           <Reveal>
             <p className="mx-auto max-w-4xl text-center text-gray-700 text-lg md:text-xl mb-10">
-            At Traveon Ventures, we run <b>flawless M.I.C.E,</b>  craft immersive <b></b> wellness retreats, and enable business expansion — with quality and responsibility at the core.
+            At Traveon Ventures, we run <b>flawless M.I.C.E,</b>  craft immersive <b>wellness retreats</b> , and enable <b>strategic business expansion</b> — with quality and responsibility at the core.
             </p>
 
             

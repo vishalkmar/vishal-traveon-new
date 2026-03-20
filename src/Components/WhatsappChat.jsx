@@ -7,24 +7,32 @@ const WhatsappChat = () => {
   const teamMembers = [
     {
       id: 1,
-      name: "Manya Arora",
-      phone: "919540111207",
-      message: "Hi, I would like to know more about your wellness retreat packages.",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
+      name: "Bali FDT",
+      phone: "919540111307",
+      message: "Hello! Can I get more info on this Bali tour ?",
+ image: "/whatsapp/bali.jpg",
     },
     {
       id: 2,
-      name: "Sujal Rawat",
+      name: "Canton Fair",
       phone: "919540111307",
-      message: "Hi, I'm interested in your corporate event planning services.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
+      message: "Hello! Can I get more info on this Canton Fair package ?",
+     image: "/whatsapp/canton.jpg",
     },
     {
       id: 3,
-      name: "Riya Bansal",
-      phone: "919540111207",
-      message: "Hi, Can you provide details about your travel packages and MICE services?",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop",
+      name: "Vietnam",
+      phone: "919540111307",
+      message: "Hello! Can I get more info on this Vietnam package ?",
+      image: "/whatsapp/viatnam.jpg",
+    },
+
+    {
+      id: 4,
+      name: "Oman",
+      phone: "919540111307",
+      message: "Hello! Can I get more info on this Oman tour package ?",
+      image: "/whatsapp/oman.jpg",
     },
   ]
 
