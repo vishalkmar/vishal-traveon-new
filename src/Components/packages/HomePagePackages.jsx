@@ -10,7 +10,7 @@ export default function HomePagePackages() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/v1/packages/`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/packages/`);
         if (!res.ok) throw new Error("API error");
 
         const jsondata = await res.json();

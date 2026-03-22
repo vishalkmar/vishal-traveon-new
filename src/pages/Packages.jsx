@@ -69,7 +69,7 @@ export default function Packages() {
     const fetchPackages = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://traveon-backend-production.up.railway.app/packages");
+        const response = await fetch("https//traveon-backend-production.up.railway.app/packages");
         if (!response.ok) throw new Error("Failed to fetch packages");
         const data = await response.json();
         setPackages(data);
