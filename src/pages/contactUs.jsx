@@ -3,8 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
 import { FaYoutube, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
-const backendUrl =
-  (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api/v1";
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const ContactInfo = ({ icon: Icon, title, content }) => (
   <div className="flex items-start space-x-4">

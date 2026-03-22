@@ -14,7 +14,7 @@ export default function PackagesIndex() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/v1/packages/"); // if your endpoint is /pack, change here
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/v1/packages/`); // if your endpoint is /pack, change here
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
         console.log("API packages:", jsondata);

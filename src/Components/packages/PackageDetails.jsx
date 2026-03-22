@@ -48,7 +48,7 @@ export default function PackageDetailsPage() {
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:4000/api/v1/packages/${packageId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/v1/packages/${packageId}`);
         if (!res.ok) throw new Error("Package not found");
         let jsondata = await res.json();
 
