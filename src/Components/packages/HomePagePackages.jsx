@@ -14,6 +14,7 @@ export default function HomePagePackages() {
         if (!res.ok) throw new Error("API error");
 
         const jsondata = await res.json();
+       
 
         const packagesArray = Array.isArray(jsondata?.data)
           ? jsondata.data
@@ -35,6 +36,7 @@ export default function HomePagePackages() {
     oman: ["oman", "untold"],
     vietnam: ["vietnam"],
     seychelles: ["seychelles"],
+    thailand: ["thailand"],
   };
 
   const getFilteredPackagesByTab = (tab) => {
@@ -43,8 +45,13 @@ export default function HomePagePackages() {
     const keywords = filterMap[tab] || [];
 
     return apiPackages.filter((pkg) => {
-      const title = pkg?.title?.toLowerCase?.() || "";
-      return keywords.some((keyword) => title.includes(keyword));
+      // Check multiple fields for matching: name, destinations, PackageSearchSting
+      const pkgName = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
+      const pkgDestinations = (pkg?.destinations || "").toLowerCase();
+      const pkgSearchString = (pkg?.PackageSearchSting || "").toLowerCase();
+      const searchText = `${pkgName} ${pkgDestinations} ${pkgSearchString}`;
+      
+      return keywords.some((keyword) => searchText.includes(keyword.toLowerCase()));
     });
   };
 
@@ -117,6 +124,11 @@ export default function HomePagePackages() {
       id: "seychelles",
       label: "Seychelles",
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkNrvrayOh3_KK5g6TqL3LaMME900OUGdmvA&s",
+    },
+    {
+      id: "thailand",
+      label: "Thailand",
+      img: "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-18/256/1365.png",
     },
   ];
 

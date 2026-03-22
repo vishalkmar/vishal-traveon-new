@@ -8,18 +8,30 @@ import { useEffect, useState } from "react";
 export default function PackagesIndex() {
   const [apiPackages, setApiPackages] = useState([]);
 
+  // Filter states
+  const [priceFilter, setPriceFilter] = useState(36000);
+  const [durationFilter, setDurationFilter] = useState(""); // single select - e.g., "4N"
+  const [flightFilter, setFlightFilter] = useState(""); // single select - e.g., "With Flight Holidays"
+  const [monthFilter, setMonthFilter] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [sortBy, setSortBy] = useState("recommended");
 
-
+  const filterMap = {
+    oman: ["oman", "untold"],
+    vietnam: ["vietnam"],
+    seychelles: ["seychelles"],
+    thailand: ["thailand"],
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/packages/`); // if your endpoint is /pack, change here
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/packages/`);
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
         console.log("API packages:", jsondata);
 
-        // Unwrap data if the API returns { success: true, data: [...] }
         const packagesArray = Array.isArray(jsondata?.data)
           ? jsondata.data
           : (Array.isArray(jsondata) ? jsondata : [jsondata?.data].filter(Boolean));
@@ -33,17 +45,234 @@ export default function PackagesIndex() {
     fetchData();
   }, []);
 
+  // Helper: Extract month NUMBER from date string (0-11)
+  const getMonthNumberFromDate = (dateStr) => {
+    if (!dateStr) return -1;
+    try {
+      const date = new Date(dateStr);
+      return date.getMonth(); // Returns 0-11
+    } catch {
+      return -1;
+    }
+  };
+
+  // Helper: Convert month name ("Jan", "Feb", etc.) to month number (0-11)
+  const getMonthNumberFromName = (monthName) => {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return monthNames.indexOf(monthName);
+  };
+
+  // Helper: Get travel month numbers from package dates (0-11)
+  const getPackageTravelMonths = (pkg) => {
+    const months = new Set();
+    
+    // FromDate object structure: { "20260731": { "FromDate": "2026-07-31", ... }, ... }
+    const fromDateObj = pkg?.longJsonInfo?.package?.FromDate;
+    if (fromDateObj && typeof fromDateObj === "object") {
+      // Extract from keys (YYYYMMDD format) - month is at positions 4-5 (0-based)
+      Object.keys(fromDateObj).forEach((key) => {
+        if (key.length >= 6) {
+          const monthStr = key.substring(4, 6); // e.g., "07" from "20260731"
+          const monthNum = parseInt(monthStr) - 1; // Convert to 0-11 (07 -> 6 for July)
+          if (monthNum >= 0 && monthNum <= 11) {
+            months.add(monthNum);
+          }
+        }
+        // Also try the FromDate nested field
+        if (fromDateObj[key]?.FromDate) {
+          const monthNum = getMonthNumberFromDate(fromDateObj[key].FromDate);
+          if (monthNum >= 0) months.add(monthNum);
+        }
+      });
+    }
+    
+    // Try direct date fields
+    if (pkg?.travelDates && Array.isArray(pkg.travelDates)) {
+      pkg.travelDates.forEach((d) => {
+        const monthNum = getMonthNumberFromDate(d);
+        if (monthNum >= 0) months.add(monthNum);
+      });
+    }
+    if (pkg?.startDate) {
+      const monthNum = getMonthNumberFromDate(pkg.startDate);
+      if (monthNum >= 0) months.add(monthNum);
+    }
+    if (pkg?.fromDate) {
+      const monthNum = getMonthNumberFromDate(pkg.fromDate);
+      if (monthNum >= 0) months.add(monthNum);
+    }
+    
+    return Array.from(months); // Return array of month numbers
+  };
+
+  // Helper: Get travel dates from package (for date exact match)
+  const getPackageTravelDates = (pkg) => {
+    const dates = [];
+    
+    // Try FromDate object structure
+    const fromDateObj = pkg?.longJsonInfo?.package?.FromDate;
+    if (fromDateObj && typeof fromDateObj === "object") {
+      Object.values(fromDateObj).forEach((dateEntry) => {
+        if (dateEntry?.FromDate) dates.push(dateEntry.FromDate);
+      });
+    }
+    
+    // Try direct date fields
+    if (pkg?.travelDates && Array.isArray(pkg.travelDates)) {
+      dates.push(...pkg.travelDates);
+    }
+    if (pkg?.startDate) dates.push(pkg.startDate);
+    if (pkg?.fromDate) dates.push(pkg.fromDate);
+    
+    return dates.filter(d => d); // Remove empty values
+  };
+
+  // Main filter function (used by all carousels and search filters)
+  const applyAllFilters = (pkgs, destination) => {
+    if (!Array.isArray(pkgs) || pkgs.length === 0) return [];
+
+    let filtered = pkgs.filter((pkg) => {
+      // 1. Filter by destination
+      const keywords = filterMap[destination] || [];
+      const pkgName = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
+      const pkgDestinations = (pkg?.destinations || "").toLowerCase();
+      const pkgSearchString = (pkg?.PackageSearchSting || "").toLowerCase();
+      const searchText = `${pkgName} ${pkgDestinations} ${pkgSearchString}`;
+      
+      if (!keywords.some((keyword) => searchText.includes(keyword.toLowerCase()))) return false;
+
+      // 2. Filter by package name search (if provided)
+      if (searchName.trim()) {
+        if (!pkgName.includes(searchName.toLowerCase())) return false;
+      }
+
+      // 3. Filter by price
+      const minPrice = parseFloat(pkg?.minPrice) || 0;
+      if (minPrice > priceFilter) return false;
+
+      // 4. Filter by nights/duration (single select)
+      if (durationFilter) {
+        const pkgNights = pkg?.nights || 0;
+        const durationNum = parseInt(durationFilter);
+        if (pkgNights !== durationNum) return false;
+      }
+
+      // 5. Filter by flights (check Inclusions field - single select)
+      if (flightFilter) {
+        const inclusions = (pkg?.longJsonInfo?.package?.Inclusions || "").toLowerCase();
+        const hasFlights = inclusions.includes("flight");
+        
+        if (flightFilter === "With Flight Holidays" && !hasFlights) return false;
+        if (flightFilter === "Without Flight Holidays" && hasFlights) return false;
+      }
+
+      // 6. Filter by travel date or month
+      if (selectedDate) {
+        const travelDates = getPackageTravelDates(pkg);
+        const exact = travelDates.includes(selectedDate);
+        
+        if (exact) return true; // Exact match found
+        
+        // Try month fallback using month numbers
+        const selectedMonthNum = getMonthNumberFromDate(selectedDate);
+        if (selectedMonthNum >= 0) {
+          const monthMatch = travelDates.some((d) => getMonthNumberFromDate(d) === selectedMonthNum);
+          if (!monthMatch) return false;
+        }
+      }
+
+      // 7. Filter by month (from sidebar) - STRICT filter, only show if month matches
+      if (monthFilter) {
+        const pkgMonths = getPackageTravelMonths(pkg);
+        const monthNum = getMonthNumberFromName(monthFilter);
+        
+        // Only show packages that have the selected month
+        if (monthNum >= 0) {
+          if (!pkgMonths.includes(monthNum)) return false;
+        }
+      }
+
+      return true;
+    });
+
+    // Apply sorting
+    if (sortBy === "price_low") {
+      filtered = filtered.sort((a, b) => (parseFloat(a?.minPrice) || 0) - (parseFloat(b?.minPrice) || 0));
+    } else if (sortBy === "price_high") {
+      filtered = filtered.sort((a, b) => (parseFloat(b?.minPrice) || 0) - (parseFloat(a?.minPrice) || 0));
+    } else if (sortBy === "duration") {
+      filtered = filtered.sort((a, b) => (a?.nights || 0) - (b?.nights || 0));
+    } else if (sortBy === "date") {
+      filtered = filtered.sort((a, b) => {
+        const aDates = getPackageTravelDates(a);
+        const bDates = getPackageTravelDates(b);
+        const aDate = aDates[0] || "";
+        const bDate = bDates[0] || "";
+        return aDate.localeCompare(bDate);
+      });
+    }
+    // recommended (default) - no sorting
+
+    return filtered;
+  };
+
+  const getFilteredPackages = (destination) => {
+    return applyAllFilters(apiPackages, destination);
+  };
+
   return (
     <div className="min-h-screen pt-28">
-
-      <PackagesListingLayout pageTitle="Tour Packages" totalCount={284}>
-        <PackagesCarousel title="Oman Tour Packages" items={apiPackages} />
-        <PackagesCarousel title="Seychelles Tour Packages" items={apiPackages} />
-        <PackagesCarousel title="Viatnam Tour Packages" items={apiPackages} />
-        {/* <PackagesCarousel title="Customized Tour Packages" items={apiPackages} /> */}
-        <PackagesCarousel title="Group Tour Packages" items={apiPackages} />
+      <PackagesListingLayout 
+        pageTitle="Tour Packages" 
+        totalCount={284}
+        // Pass filter state
+        priceValue={priceFilter}
+        durationValue={durationFilter}
+        flightValue={flightFilter}
+        monthValue={monthFilter}
+        searchValue={searchName}
+        dateValue={selectedDate}
+        sortValue={sortBy}
+        // Pass callbacks
+        onPriceChange={setPriceFilter}
+        onDurationChange={setDurationFilter}
+        onFlightChange={setFlightFilter}
+        onMonthChange={setMonthFilter}
+        onSearchChange={setSearchName}
+        onDateChange={setSelectedDate}
+        onSortChange={setSortBy}
+      >
+        {/* Show carousels only if they have items */}
+        {(() => {
+          const omanItems = getFilteredPackages("oman");
+          const seychellesItems = getFilteredPackages("seychelles");
+          const vietnamItems = getFilteredPackages("vietnam");
+          const thailandItems = getFilteredPackages("thailand");
+          
+          const totalItems = omanItems.length + seychellesItems.length + vietnamItems.length + thailandItems.length;
+          
+          if (totalItems === 0) {
+            return (
+              <div className="rounded-2xl bg-white p-12 ring-1 ring-black/10 text-center">
+                <svg className="mx-auto h-12 w-12 text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <p className="text-lg font-semibold text-slate-900">No packages found</p>
+                <p className="text-sm text-slate-600 mt-1">Try adjusting your filters or search criteria</p>
+              </div>
+            );
+          }
+          
+          return (
+            <>
+              {omanItems.length > 0 && <PackagesCarousel title="Oman Tour Packages" items={omanItems} />}
+              {seychellesItems.length > 0 && <PackagesCarousel title="Seychelles Tour Packages" items={seychellesItems} />}
+              {vietnamItems.length > 0 && <PackagesCarousel title="Vietnam Tour Packages" items={vietnamItems} />}
+              {thailandItems.length > 0 && <PackagesCarousel title="Thailand Tour Packages" items={thailandItems} />}
+            </>
+          );
+        })()}
       </PackagesListingLayout>
-
     </div>
   );
 }

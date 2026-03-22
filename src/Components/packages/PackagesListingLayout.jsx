@@ -17,62 +17,100 @@ const THEME = {
 export default function PackagesListingLayout({
   pageTitle = "Europe Tour Packages",
   totalCount = 284,
-  children, // main content (carousels / cards)
+  children,
+  // Filter callbacks
+  onPriceChange,
+  onDurationChange,
+  onFlightChange,
+  onMonthChange,
+  onSearchChange,
+  onDateChange,
+  onSortChange,
+  // Filter values (controlled from parent)
+  priceValue = 36000,
+  durationValue = {},
+  flightValue = {},
+  monthValue = "",
+  searchValue = "",
+  dateValue = "",
+  sortValue = "recommended",
 }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // sample filter state
-  const [price, setPrice] = useState(36000);
-  const [duration, setDuration] = useState({ "2N": false, "3N": false, "4N": false });
-  const [packageType, setPackageType] = useState({
-    "Without Flight Holidays": false,
-    "With Flight Holidays": false,
-    "Group Holidays": false,
-  });
-  const [months, setMonths] = useState("");  // single select instead of object
+  // Create handler functions that use callbacks if provided, else update local state
+  const handlePriceChange = (val) => {
+    if (onPriceChange) onPriceChange(val);
+  };
 
-  const [sortBy, setSortBy] = useState("recommended");
+  const handleDurationChange = (dur) => {
+    // Toggle single select (click again to deselect)
+    if (onDurationChange) {
+      onDurationChange(durationValue === dur ? "" : dur);
+    }
+  };
 
-  // Search/filter header states
-  const [searchName, setSearchName] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState(""); // single select now
+  const handleFlightChange = (flight) => {
+    // Toggle single select (click again to deselect)
+    if (onFlightChange) {
+      onFlightChange(flightValue === flight ? "" : flight);
+    }
+  };
+
+  const handleMonthChange = (val) => {
+    if (onMonthChange) onMonthChange(val);
+  };
+
+  const handleSearchChange = (val) => {
+    if (onSearchChange) onSearchChange(val);
+  };
+
+  const handleDateChange = (val) => {
+    if (onDateChange) onDateChange(val);
+  };
+
+  const handleSortChange = (val) => {
+    if (onSortChange) onSortChange(val);
+  };
+
+  const handleClearAll = () => {
+    if (onPriceChange) onPriceChange(36000);
+    if (onDurationChange) onDurationChange("");
+    if (onFlightChange) onFlightChange("");
+    if (onMonthChange) onMonthChange("");
+    if (onSearchChange) onSearchChange("");
+    if (onDateChange) onDateChange("");
+    if (onSortChange) onSortChange("recommended");
+  };
 
   // Dummy handlers for searching/filtering
   const handleSearchPackage = (e) => {
     const value = e.target.value;
-    setSearchName(value);
+    handleSearchChange(value);
     console.log("Search package by name:", value);
   };
 
   const handleDateFilter = (e) => {
     const value = e.target.value;
-    setSelectedDate(value);
+    handleDateChange(value);
     console.log("Filter by date:", value);
   };
 
   const handleMonthFilterHeader = (e) => {
     const value = e.target.value;
-    setSelectedMonth(value);
+    handleMonthChange(value);
     console.log("Filter by month (header):", value);
   };
 
   const activeFiltersCount = useMemo(() => {
-    const boolCount = (obj) => Object.values(obj).filter(Boolean).length;
-    const count =
-      boolCount(duration) + boolCount(packageType) + (months ? 1 : 0);
+    let count = 0;
+    if (durationValue) count += 1;
+    if (flightValue) count += 1;
+    if (monthValue) count += 1;
     return count;
-  }, [duration, packageType, months]);
+  }, [durationValue, flightValue, monthValue]);
 
   const clearAll = () => {
-    setPrice(36000);
-    setDuration({ "2N": false, "3N": false, "4N": false });
-    setPackageType({
-      "Without Flight Holidays": false,
-      "With Flight Holidays": false,
-      "Group Holidays": false,
-    });
-    setMonths("");  // reset to empty string
+    handleClearAll();
   };
 
   const Sidebar = (
@@ -96,14 +134,14 @@ export default function PackagesListingLayout({
           <div>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-slate-800">Price Per Person</p>
-              <p className="text-sm text-slate-600">₹{price.toLocaleString("en-IN")}</p>
+              <p className="text-sm text-slate-600">₹{priceValue.toLocaleString("en-IN")}</p>
             </div>
             <input
               type="range"
               min={36000}
               max={88400}
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
+              value={priceValue}
+              onChange={(e) => handlePriceChange(Number(e.target.value))}
               className="mt-3 w-full accent-teal-500"
             />
             <div className="mt-1 flex justify-between text-xs text-slate-500">
@@ -116,29 +154,26 @@ export default function PackagesListingLayout({
 
           {/* Duration */}
           <FilterGroup title="Duration">
-            {["2N", "3N", "4N"].map((k) => (
-              <CheckboxRow
+            {["2N", "3N", "4N", "5N", "6N", "7N", "8N", "9N", "10N", "15N", "20N", "30N"].map((k) => (
+              <ChipToggle
                 key={k}
-                label={`${k}`}
-                checked={duration[k]}
-                onChange={(v) => setDuration((s) => ({ ...s, [k]: v }))}
+                label={k}
+                active={durationValue === k}
+                onToggle={() => handleDurationChange(k)}
               />
             ))}
-            <button type="button" className={`mt-2 text-sm ${THEME.accentText} hover:underline`}>
-              View more
-            </button>
           </FilterGroup>
 
           <Divider />
 
           {/* Package Type */}
           <FilterGroup title="Package Type">
-            {Object.keys(packageType).map((k) => (
-              <CheckboxRow
+            {["Without Flight Holidays", "With Flight Holidays"].map((k) => (
+              <ChipToggle
                 key={k}
                 label={k}
-                checked={packageType[k]}
-                onChange={(v) => setPackageType((s) => ({ ...s, [k]: v }))}
+                active={flightValue === k}
+                onToggle={() => handleFlightChange(k)}
               />
             ))}
           </FilterGroup>
@@ -148,9 +183,9 @@ export default function PackagesListingLayout({
           {/* Month of Travel */}
           <FilterGroup title="Month of Travel">
             <select
-              value={months}
+              value={monthValue}
               onChange={(e) => {
-                setMonths(e.target.value);
+                handleMonthChange(e.target.value);
                 console.log("Month filter (sidebar) selected:", e.target.value);
               }}
               className="w-full h-10 rounded-xl bg-white px-3 text-sm ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
@@ -170,18 +205,6 @@ export default function PackagesListingLayout({
             </select>
           </FilterGroup>
 
-          <div className="pt-2">
-            <button
-              type="button"
-              className={`w-full ${THEME.accentSolid} text-white font-semibold py-3 rounded-xl shadow-sm`}
-              onClick={() => setMobileFiltersOpen(false)}
-            >
-              Apply Filters
-            </button>
-            <p className="mt-2 text-xs text-slate-500">
-              Active filters: <span className="font-semibold">{activeFiltersCount}</span>
-            </p>
-          </div>
         </div>
       </div>
     </aside>
@@ -211,7 +234,7 @@ export default function PackagesListingLayout({
               <input
                 type="text"
                 placeholder="Search packages..."
-                value={searchName}
+                value={searchValue}
                 onChange={handleSearchPackage}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30 placeholder-slate-400"
               />
@@ -224,7 +247,7 @@ export default function PackagesListingLayout({
               </label>
               <input
                 type="date"
-                value={selectedDate}
+                value={dateValue}
                 onChange={handleDateFilter}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
               />
@@ -236,7 +259,7 @@ export default function PackagesListingLayout({
                 Month
               </label>
               <select
-                value={selectedMonth}
+                value={monthValue}
                 onChange={handleMonthFilterHeader}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
               >
@@ -261,9 +284,9 @@ export default function PackagesListingLayout({
                 Sort By
               </label>
               <select
-                value={sortBy}
+                value={sortValue}
                 onChange={(e) => {
-                  setSortBy(e.target.value);
+                  handleSortChange(e.target.value);
                   console.log("Sort by:", e.target.value);
                 }}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
@@ -271,10 +294,8 @@ export default function PackagesListingLayout({
                 <option value="recommended">Recommended</option>
                 <option value="price_low">Price: Low to High</option>
                 <option value="price_high">Price: High to Low</option>
-                <option value="rating">Rating</option>
-                <option value="duration">Duration</option>
                 <option value="date">Travel Date</option>
-                <option value="month">Month</option>
+                <option value="duration">Duration</option>
               </select>
             </div>
           </div>
@@ -329,12 +350,6 @@ export default function PackagesListingLayout({
 
             {/* Put your carousel/cards here */}
             {children}
-
-            <SectionHeader
-              title="Customized Tour Packages"
-              count={196}
-              subtitle="Top Packages Customized to your needs"
-            />
 
           </main>
         </div>
