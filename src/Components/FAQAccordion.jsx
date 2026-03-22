@@ -99,9 +99,9 @@ const FAQAccordion = () => {
       >
         <button
           onClick={() => toggleAccordion(faq.id)}
-          className="w-full flex items-start justify-between gap-4 px-5 py-5 text-left"
+          className="w-full flex items-start justify-between gap-4 px-4 sm:px-5 py-4 sm:py-5 text-left"
         >
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3 min-w-0">
             <div
               className={`mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                 isOpen
@@ -134,7 +134,7 @@ const FAQAccordion = () => {
           }`}
         >
           <div className="overflow-hidden">
-            <div className="px-5 pb-5 pt-0">
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
               <div className="ml-11 pr-2">
                 <p className="text-sm sm:text-[15px] leading-7 text-slate-600">
                   {faq.answer}
@@ -155,42 +155,54 @@ const FAQAccordion = () => {
       </div>
 
       <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto_1fr] gap-8 xl:gap-10 items-center">
-          {/* Left FAQs */}
-          <div className="space-y-5 order-2 xl:order-1">
+        {/* Main heading */}
+        <div className="text-center mb-10 sm:mb-12 lg:mb-14">
+          <span className="inline-block rounded-full border border-[#28bccf]/20 bg-[#28bccf]/10 px-5 py-2 text-sm font-semibold tracking-[0.18em] text-[#159aac] uppercase">
+            FAQs
+          </span>
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        {/* Desktop / larger tablets */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] gap-8 xl:gap-10 items-center">
+          <div className="space-y-5">
             {leftFaqs.map((faq) => (
               <FAQItem key={faq.id} faq={faq} />
             ))}
           </div>
 
-          {/* Center Circle */}
-          <div className="order-1 xl:order-2 flex justify-center">
+          <div className="flex justify-center">
             <div className="relative flex items-center justify-center">
-              <div className="w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[480px] rounded-full border-2 border-[#28bccf]/25 flex items-center justify-center bg-white/30 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,139,141,0.10)]" />
-              <div className="absolute w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] lg:w-[335px] lg:h-[435px] rounded-full border-2 border-[#28bccf]/40 bg-white/90 backdrop-blur-md shadow-[0_18px_50px_rgba(40,188,207,0.18)] flex items-center justify-center p-6 sm:p-8">
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center rounded-full border border-[#28bccf]/20 bg-[#28bccf]/10 px-4 py-1.5 text-sm font-semibold text-[#159aac]">
+              <div className="w-[360px] h-[480px] xl:w-[390px] xl:h-[510px] rounded-full border-2 border-[#28bccf]/25 flex items-center justify-center bg-white/30 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,139,141,0.10)]" />
+
+              <div className="absolute w-[315px] h-[430px] xl:w-[345px] xl:h-[460px] rounded-full border-2 border-[#28bccf]/40 bg-white/90 backdrop-blur-md shadow-[0_18px_50px_rgba(40,188,207,0.18)] flex items-center justify-center px-8 py-8">
+                <div className="text-center w-full max-w-[240px]">
+                  <div className="inline-flex items-center justify-center rounded-full border border-[#28bccf]/20 bg-[#28bccf]/10 px-5 py-2 text-sm font-semibold text-[#159aac]">
                     FAQs
                   </div>
 
-                  <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[34px] font-bold leading-tight text-slate-900">
+                  <h2 className="mt-4 text-[34px] font-bold leading-[1.15] text-slate-900">
                     Answers to your
-                    <span className="block text-[#159aac]">travel questions</span>
+                    <span className="block text-[#159aac]">
+                      travel questions
+                    </span>
                   </h2>
 
-                  <p className="mt-4 text-sm sm:text-[15px] leading-6 text-slate-600 max-w-[240px] sm:max-w-[260px] mx-auto">
+                  <p className="mt-4 text-[15px] leading-8 text-slate-600 max-w-[240px] mx-auto">
                     Find quick answers about bookings, destinations, packages,
                     visa support, and custom travel planning.
                   </p>
 
-                  <div className="mt-5 pt-5 border-t border-slate-200/70">
-                    <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+                  <div className="mt-5 pt-5 border-t border-slate-200/80">
+                    <h3 className="text-[17px] font-semibold text-slate-900">
                       Still need help?
                     </h3>
 
                     <a
                       href="/contact"
-                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#28bccf] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1eaabd] hover:shadow-[0_12px_30px_rgba(40,188,207,0.28)]"
+                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#28bccf] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1eaabd] hover:shadow-[0_12px_30px_rgba(40,188,207,0.28)]"
                     >
                       Contact Team
                     </a>
@@ -200,8 +212,61 @@ const FAQAccordion = () => {
             </div>
           </div>
 
-          {/* Right FAQs */}
-          <div className="space-y-5 order-3">
+          <div className="space-y-5">
+            {rightFaqs.map((faq) => (
+              <FAQItem key={faq.id} faq={faq} />
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile / tablet below lg */}
+        <div className="lg:hidden">
+          <div className="space-y-5">
+            {leftFaqs.map((faq) => (
+              <FAQItem key={faq.id} faq={faq} />
+            ))}
+          </div>
+
+          <div className="my-10 sm:my-12 flex justify-center">
+            <div className="relative flex items-center justify-center">
+              <div className="w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] rounded-full border-2 border-[#28bccf]/25 bg-white/30 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,139,141,0.10)]" />
+
+              <div className="absolute w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] rounded-full border-2 border-[#28bccf]/40 bg-white/95 backdrop-blur-md shadow-[0_18px_50px_rgba(40,188,207,0.18)] flex items-center justify-center px-5 py-5 sm:px-7 sm:py-7">
+                <div className="text-center w-full max-w-[205px] sm:max-w-[230px] flex flex-col items-center">
+                  <div className="inline-flex items-center justify-center rounded-full border border-[#28bccf]/20 bg-[#28bccf]/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-[#159aac]">
+                    FAQs
+                  </div>
+
+                  <h2 className="mt-3 sm:mt-4 text-[20px] sm:text-[28px] font-bold leading-[1.16] text-slate-900">
+                    Answers to your
+                    <span className="block text-[#159aac]">
+                      travel questions
+                    </span>
+                  </h2>
+
+                  <p className="mt-3 sm:mt-4 text-[13px] sm:text-[15px] leading-6 sm:leading-7 text-slate-600">
+                    Find quick answers about bookings, destinations, packages,
+                    visa support, and custom travel planning.
+                  </p>
+
+                  <div className="mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-slate-200/80 w-full">
+                    <h3 className="text-[15px] sm:text-[18px] font-semibold text-slate-900">
+                      Still need help?
+                    </h3>
+
+                    <a
+                      href="/contact"
+                      className="mt-3 sm:mt-4 inline-flex items-center justify-center rounded-full bg-[#28bccf] px-5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1eaabd] hover:shadow-[0_12px_30px_rgba(40,188,207,0.28)]"
+                    >
+                      Contact Team
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-5">
             {rightFaqs.map((faq) => (
               <FAQItem key={faq.id} faq={faq} />
             ))}

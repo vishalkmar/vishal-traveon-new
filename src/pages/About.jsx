@@ -514,109 +514,80 @@ export default function AboutUs() {
     </div>
 
     {/* Team cards rows */}
-    <div className="mt-8 px-4">
-      {/* First 6 cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8 justify-items-center">
-        {[
-          {
-            img: "/team/shakshi.jpeg",
-            name: "Sakshi Garg",
-            role: "V.P. Bussiness Development",
-          },
-          {
-            img: "/team/pooja.jpg",
-            name: "Pooja Goyal",
-            role: "Bussiness Development Manager",
-          },
-          {
-            img: "/team/shobha.jpg",
-            name: "Shubha Sharma",
-            role: "Operations Associate",
-          },
-          {
-            img: "/team/himanshu.jpeg",
-            name: "Himanshu Vashist",
-            role: "Operations Associate",
-          },
-          {
-            img: "/team/deepanshu.jpg",
-            name: "Deepanshu Vashist",
-            role: "Operations Associate",
-          },
-          {
-            img: "/team/bhumi.jpg",
-            name: "Bhumi Thakur",
-            role: "Graphic Designer",
-          },
-        ].map((card, idx) => (
-          <div
-            key={idx}
-            className="w-full max-w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
-          >
-            <img
-              src={card.img}
-              alt={card.name}
-              className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0"
-            />
-            <div className="text-center sm:text-left">
-              <h5
-                className="text-white font-semibold"
-                style={{ fontFamily: "Lato, sans-serif" }}
-              >
-                {card.name}
-              </h5>
-              <p
-                className="text-white/80 text-sm"
-                style={{ fontFamily: "Lato, sans-serif" }}
-              >
-                {card.role}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+    {/* Small team cards */}
+<div className="mt-8 px-4 sm:px-6">
+  <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 justify-items-center">
+    {[
+      {
+        img: "/team/shakshi.jpeg",
+        name: "Sakshi Garg",
+        role: "V.P. Business Development",
+      },
+      {
+        img: "/team/pooja.jpg",
+        name: "Pooja Goyal",
+        role: "Business Development Manager",
+      },
+      {
+        img: "/team/shobha.jpg",
+        name: "Shubha Sharma",
+        role: "Operations Associate",
+      },
+      {
+        img: "/team/himanshu.jpeg",
+        name: "Himanshu Vashist",
+        role: "Operations Associate",
+      },
+      {
+        img: "/team/deepanshu.jpg",
+        name: "Deepanshu Vashist",
+        role: "Operations Associate",
+      },
+      {
+        img: "/team/bhumi.jpg",
+        name: "Bhumi Thakur",
+        role: "Graphic Designer",
+      },
+      {
+        img: "/team/vishal.png",
+        name: "Vishal Kumar",
+        role: "Full Stack Developer",
+      },
+      {
+        img: "/team/priyal.jpg",
+        name: "Priyal Arora",
+        role: "Business Development Executive",
+      },
+    ].map((card, idx) => (
+      <div
+        key={idx}
+        className="w-full max-w-[260px] flex flex-col items-center justify-center text-center mx-auto"
+      >
+        <img
+          src={card.img}
+          alt={card.name}
+          className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-cover rounded-lg"
+        />
 
-      {/* Last 2 cards in same row */}
-      <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-8">
-        {[
-          {
-            img: "/team/vishal.png",
-            name: "Vishal Kumar",
-            role: "Full Stack Developer",
-          },
-          {
-            img: "/team/priyal.jpg",
-            name: "Priyal Arora",
-            role: "Business Development Executive",
-          },
-        ].map((card, idx) => (
-          <div
-            key={idx}
-            className="w-full sm:w-[320px] lg:w-[340px] flex flex-col sm:flex-row items-center gap-4 bg-transparent p-2"
+        <div className="mt-4 flex flex-col items-center justify-center">
+          <h5
+            className="text-white font-semibold text-base sm:text-lg leading-tight"
+            style={{ fontFamily: "Lato, sans-serif" }}
           >
-            <img
-              src={card.img}
-              alt={card.name}
-              className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md mx-auto sm:mx-0 bg-white/20"
-            />
-            <div className="text-center sm:text-left">
-              <h5
-                className="text-white font-semibold"
-                style={{ fontFamily: "Lato, sans-serif" }}
-              >
-                {card.name}
-              </h5>
-              <p
-                className="text-white/80 text-sm"
-                style={{ fontFamily: "Lato, sans-serif" }}
-              >
-                {card.role}
-              </p>
-            </div>
-          </div>
-        ))}
+            {card.name}
+          </h5>
+
+          <p
+            className="text-white/90 text-sm sm:text-base leading-snug mt-1 max-w-[220px]"
+            style={{ fontFamily: "Lato, sans-serif" }}
+          >
+            {card.role}
+          </p>
+        </div>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
   </div>
 </section>
       {/* CTA */}
