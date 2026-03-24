@@ -171,7 +171,7 @@ const Services = () => {
       "Nature Therapy",
       "Mindful Community Engagement"
     ],
-    to: "/packages/wellness",
+    to: "/packages",
 
   },
   {

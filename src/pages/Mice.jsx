@@ -1,10 +1,11 @@
 
 
-import React from "react";
+import React, { useState } from "react";
 import PreviousEventsMice from "../Components/PreviousEventsMice";
 import BussinessObjective from "../Components/BussinessObjective";
 import OurApproachMice from "../Components/shared/OurApproachMice";
 import Testimonials from "../Components/Testimonial";
+import MicePlanForm from "../Components/MicePlanForm";
 
 import TrustedBy from "../Components/TrustedBy";
 import {
@@ -27,6 +28,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import MiceTourOffering from "../Components/MiceTourOffering";
 
 export default function Mice() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const whatsappUrl =
     "https://wa.me/9540111307?text=Hi! I'm interested in planning a M.I.C.E tour.";
 
@@ -45,6 +48,18 @@ export default function Mice() {
           <source src="/mice/micevideo.mp4" type="video/mp4" />
         </video>
 
+        {/* CTA Button Below Video */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <button
+            onClick={() => setIsFormOpen(true)}
+            className="bg-white text-[#44B3C4] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
+          >
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+            </svg>
+            Plan Your M.I.C.E Now ?
+          </button>
+        </div>
       </section>
 
       <TrustedBy />
@@ -219,17 +234,20 @@ export default function Mice() {
 
         {/* Button */}
         <div className="mt-6 flex justify-center">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsFormOpen(true)}
             className="bg-white text-[#44B3C4] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg inline-flex items-center gap-3 hover:scale-105 hover:shadow-xl"
           >
-            <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
-            Plan Your M.I.C.E Tour
-          </a>
+            <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+            </svg>
+            Plan Your M.I.C.E Now ?
+          </button>
         </div>
       </div>
+
+      {/* Form Modal */}
+      <MicePlanForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
 
     </div>
   );

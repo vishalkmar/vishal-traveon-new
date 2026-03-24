@@ -18,19 +18,22 @@ const DESTINATIONS = [
     name: "Oman",
     desc: "Desert sunsets, wadis, and mountain escapes — calm luxury with rich culture.",
     image: "/oman/banner1.jpg",
-    link: "/packages/oman",
+    link: "/blogs/oman",
+   
   },
   {
     name: "Seychelles",
     desc: "Crystal beaches, island serenity, and slow mornings — perfect for a true reset.",
     image: "/seychelles/banner.jpg",
-    link: "/packages/seychelles",
+    link: "/blogs/seychelles",
+  
   },
   {
     name: "Vietnam",
     desc: "Heritage towns, scenic bays, and vibrant streets — nature + energy in one trip.",
     image: "/seychelles/viatnam.webp",
-    link: "/packages/vietnam",
+    link: "/blogs/vietnam",
+   
   },
 ];
 
@@ -75,7 +78,7 @@ export default function PopularDestinations({
             <ImageOverlayCard 
               key={d.name} 
               d={d} 
-              onNavigate={() => navigate(d.link)}
+              onNavigate={() => navigate(d.blogsLink || d.link)}
             />
           ))}
         </div>

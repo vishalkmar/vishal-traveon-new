@@ -6,8 +6,12 @@ import {
   Plane,
   Camera,
   Bus,
-  FileText
+  FileText,
+  Share2,
+  X as XIcon
 } from "lucide-react";
+import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaSnapchat, FaEnvelope, FaLink } from "react-icons/fa";
+import CustomizePackageForm from "../CustomizePackageForm";
 
 
 /**
@@ -28,6 +32,8 @@ export default function PackageDetailsPage() {
   const { id: packageId } = useParams();
   const [loading, setLoading] = useState(true);
   const [pkg, setPkg] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   const TABS = useMemo(
     () => [
@@ -67,12 +73,36 @@ export default function PackageDetailsPage() {
         const daysVal = nightsVal > 0 ? nightsVal + 1 : 0;
         const nightsDaysStr = nightsVal > 0 ? `${nightsVal}N / ${daysVal}D` : "";
 
+        // Function to clean repeated text from API
+        const cleanText = (text) => {
+          if (!text) return text;
+          // Remove HTML tags
+          let cleaned = String(text).replace(/<[^>]*>/g, '').trim();
+          
+          // Remove repeating patterns - take first occurrence + one more pattern
+          // E.g., "Oman Group Tour Group Tour 4 Nlgts 5 Days 4 Nlgts 5 Days..." -> "Oman Group Tour 4 Nlgts 5 Days"
+          const parts = cleaned.split(/\s+/);
+          const uniqueParts = [];
+          const seenPhrases = new Set();
+          
+          for (let i = 0; i < parts.length; i++) {
+            const phrase = parts.slice(i, i + 3).join(' ').toLowerCase();
+            if (seenPhrases.has(phrase) && uniqueParts.length > 5) {
+              break; // Stop when we start seeing repeats and have enough content
+            }
+            seenPhrases.add(phrase);
+            uniqueParts.push(parts[i]);
+          }
+          
+          return uniqueParts.join(' ').trim();
+        };
+
         // Itineraries formatting
         let its = [];
         if (outerPkg?.Itineraries?.Itinerary && Array.isArray(outerPkg.Itineraries.Itinerary)) {
           its = outerPkg.Itineraries.Itinerary.map((it, idx) => ({
-            day: (idx + 1), // Itineraries usually don't have day numbers easily exposed, default sequential
-            title: it.Title || `Day ${idx + 1}`,
+            day: (idx + 1),
+            title: cleanText(it.Title) || `Day ${idx + 1}`,
             bullets: [],
             note: "",
             image: ""
@@ -93,12 +123,16 @@ export default function PackageDetailsPage() {
 
         // --- Pass FULL hotel objects for rendering rich tabs ---
         if (hotels.length > 0) {
+          const cleanedHotels = hotels.map(h => ({
+            ...h,
+            Name: cleanText(h.Name)
+          }));
           itemsRow.push({
             key: "hotel",
             label: "Hotel",
             isRich: true,
             richType: "hotels",
-            details: hotels // pass the raw array of hotel objects
+            details: cleanedHotels // pass the cleaned array of hotel objects
           });
         }
 
@@ -140,7 +174,7 @@ export default function PackageDetailsPage() {
 
         const mappedPkg = {
           id: pObj.gtxPkgId || packageId,
-          title: outerPkg.Name || pObj.name || "Package",
+          title: cleanText(outerPkg.Name || pObj.name || "Package"),
           rating: includedHotel?.Star && includedHotel?.Star !== ".00" ? Number(includedHotel.Star) : 4.3,
           reviewsLabel: "(953)",
           nightsDays: nightsDaysStr,
@@ -155,8 +189,8 @@ export default function PackageDetailsPage() {
             flights: outerPkg?.FlightData?.length ? ["Flights are subject to availability"] : [],
             transfer: outerPkg?.TransferData?.length ? ["All transfers on SIC basis"] : [],
             visa: outerPkg?.VisaDetails && Object.values(outerPkg.VisaDetails)[0] ? Object.values(outerPkg.VisaDetails)[0] : [],
-            sightseeing: sightseeings.map(s => s.Title || s.Name) || [],
-            accommodation: hotels.map(h => `${h.Name} (${h.Star} Star)`),
+            sightseeing: sightseeings.map(s => cleanText(s.Title || s.Name)) || [],
+            accommodation: hotels.map(h => `${cleanText(h.Name)} (${h.Star} Star)`),
             meals: includedHotel?.MealTypeName ? [includedHotel.MealTypeName] : [],
             inclusionsExclusions: [
               "INCLUSIONS:",
@@ -205,7 +239,7 @@ export default function PackageDetailsPage() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen mt-[100px]">
+    <div className="bg-slate-50 min-h-screen pt-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Title row */}
         <div className="flex flex-col gap-2">
@@ -264,12 +298,19 @@ export default function PackageDetailsPage() {
           {/* Right */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-6 space-y-4">
-              <PriceCard pkg={pkg} />
-              <OffersCard />
+              <PriceCard pkg={pkg} onCustomize={() => setIsFormOpen(true)} isShareOpen={isShareOpen} setIsShareOpen={setIsShareOpen} packageId={packageId} />
+             
             </div>
           </div>
         </div>
       </div>
+
+      {/* Customize Package Form */}
+      <CustomizePackageForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        packageTitle={pkg?.title}
+      />
     </div>
   );
 }
@@ -835,7 +876,7 @@ function TermsTab({ terms = [] }) {
 
 /* -------------------- Right Cards -------------------- */
 
-function PriceCard({ pkg }) {
+function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId }) {
   return (
     <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
       <div className="text-right">
@@ -875,7 +916,13 @@ function PriceCard({ pkg }) {
         Book Now
       </button>
 
-
+      <button
+        type="button"
+        className="h-12 rounded-xl font-semibold text-[#44B3C4] bg-white border-2 border-[#44B3C4] shadow mt-3 w-full py-3 rounded-xl ring-1 ring-black/10 font-semibold hover:bg-[#44B3C4]/5 transition-all duration-300"
+        onClick={onCustomize}
+      >
+        Customize Your Package
+      </button>
 
       <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
         <button
@@ -885,50 +932,184 @@ function PriceCard({ pkg }) {
         >
           ⬇ Download PDF
         </button>
-        <button
-          type="button"
-          onClick={() => navigator?.share?.({ title: pkg.title })?.catch(() => { })}
-          className="hover:text-slate-900"
-        >
-          ↗ Share
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function OffersCard() {
-  return (
-    <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-slate-900">Offers</p>
-        <span
-          className="text-xs px-2 py-1 rounded-full ring-1"
-          style={{
-            background: "rgba(0,178,119,0.10)",
-            color: "#0f766e",
-            borderColor: "rgba(0,178,119,0.25)",
-          }}
-        >
-          Applicable after calculating price
-        </span>
-      </div>
-
-      <div className="mt-3">
-        <p className="text-xs text-slate-500 mb-2">Have a coupon code?</p>
-        <div className="flex gap-2">
-          <input
-            className={`h-11 flex-1 rounded-xl bg-white px-3 ring-1 ring-black/10 focus:outline-none ${BRAND.tealRing}`}
-            placeholder="Enter code"
-          />
+        <div className="relative">
           <button
-            className="h-11 px-4 rounded-xl text-white font-semibold hover:opacity-95"
-            style={{ background: BRAND.grad }}
+            type="button"
+            onClick={() => setIsShareOpen(!isShareOpen)}
+            className="hover:text-slate-900 flex items-center gap-1"
           >
-            Apply
+            <Share2 className="w-4 h-4" />
+            Share
           </button>
+          {isShareOpen && (
+            <ShareMenu 
+              title={pkg.title} 
+              packageId={packageId}
+              onClose={() => setIsShareOpen(false)}
+            />
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+function ShareMenu({ title, packageId, onClose }) {
+  const baseUrl = window.location.origin;
+  const packageUrl = `${baseUrl}/package/${packageId}`;
+  const encodedUrl = encodeURIComponent(packageUrl);
+  const encodedTitle = encodeURIComponent(title);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(packageUrl);
+    alert("Link copied to clipboard!");
+    onClose();
+  };
+
+  const shareOptions = [
+    {
+      name: "Facebook",
+      icon: FaFacebook,
+      color: "#1877F2",
+      onclick: () => {
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
+          "_blank"
+        );
+        onClose();
+      },
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      color: "#E4405F",
+      onclick: () => {
+        window.open(
+          `https://www.instagram.com/share?url=${encodedUrl}`,
+          "_blank"
+        );
+        onClose();
+      },
+    },
+    {
+      name: "WhatsApp",
+      icon: FaWhatsapp,
+      color: "#25D366",
+      onclick: () => {
+        window.open(
+          `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
+          "_blank"
+        );
+        onClose();
+      },
+    },
+    {
+      name: "LinkedIn",
+      icon: FaLinkedin,
+      color: "#0A66C2",
+      onclick: () => {
+        window.open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+          "_blank"
+        );
+        onClose();
+      },
+    },
+    {
+      name: "Twitter/X",
+      icon: FaLink,
+      color: "#000000",
+      onclick: () => {
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+          "_blank"
+        );
+        onClose();
+      },
+    },
+    {
+      name: "Email",
+      icon: FaEnvelope,
+      color: "#666",
+      onclick: () => {
+        window.location.href = `mailto:?subject=${encodedTitle}&body=Check out this package: ${packageUrl}`;
+        onClose();
+      },
+    },
+    {
+      name: "Copy Link",
+      icon: FaLink,
+      color: "#44B3C4",
+      onclick: handleCopyLink,
+    },
+  ];
+
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-bold text-slate-900">
+            Share
+          </h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-lg transition"
+          >
+            <XIcon className="w-6 h-6 text-slate-600" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-4 gap-6 items-center justify-center">
+          {shareOptions.slice(0, 4).map((option) => {
+            const Icon = option.icon;
+            return (
+              <button
+                key={option.name}
+                type="button"
+                onClick={option.onclick}
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-gray-100 transition group"
+                title={option.name}
+              >
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center text-white group-hover:scale-110 transition shadow-lg"
+                  style={{ backgroundColor: option.color }}
+                >
+                  <Icon className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-semibold text-gray-700 text-center line-clamp-2">
+                  {option.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-3 gap-6 items-center justify-center mt-6">
+          {shareOptions.slice(4).map((option) => {
+            const Icon = option.icon;
+            return (
+              <button
+                key={option.name}
+                type="button"
+                onClick={option.onclick}
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-gray-100 transition group"
+                title={option.name}
+              >
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center text-white group-hover:scale-110 transition shadow-lg"
+                  style={{ backgroundColor: option.color }}
+                >
+                  <Icon className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-semibold text-gray-700 text-center line-clamp-2">
+                  {option.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+

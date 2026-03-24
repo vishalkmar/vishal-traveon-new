@@ -15,6 +15,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import About from "./pages/About";
 import Terms from "./pages/Term";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import { Toaster } from "react-hot-toast";
 import ScrollToTop from "./Components/ScrollToTop";
 import WhatsappCTA from "./Components/WhatsappCTA";
@@ -45,6 +46,8 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 
 import PackagesIndex from "./pages/packagespages/PackagesIndex.jsx"
 import PackageDetailsPage from "./Components/packages/PackageDetails.jsx";
+import DestinationBlogs from "./pages/blogs/DestinationBlogs.jsx";
+import BlogDetail from "./pages/blogs/BlogDetail.jsx";
 
 
 
@@ -98,6 +101,7 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Terms />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
 
           <Route path="/packages/wellness" element={<RetreatsPackages />} />
           <Route
@@ -136,6 +140,10 @@ export default function App() {
            
             <Route path="/packages/:id" element={<PackageDetailsPage />} />
             <Route path="/packages" element={<PackagesIndex />} />
+
+            {/* Blog Routes */}
+            <Route path="/blogs/:destination" element={<DestinationBlogs />} />
+            <Route path="/blog/:destination/:slug" element={<BlogDetail />} />
 
 
           {/* NO HEADER / FOOTER ROUTES */}

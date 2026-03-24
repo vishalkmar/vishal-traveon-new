@@ -1,8 +1,8 @@
 function Terms() {
   return (
-    <section className="min-h-screen bg-gray-50 py-12">
+    <section className="min-h-screen bg-white py-8" style={{ marginTop: '150px' }}>
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow">
-        <h1 className="text-3xl font-bold mb-6 text-center">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-white bg-gray-800 -mx-8 -mt-8 px-8 py-6 rounded-t-lg">Privacy Policy</h1>
         <p className="mb-4 font-semibold">
           Privacy Policy for Traveon Ventures LLP
         </p>
@@ -13,7 +13,7 @@ function Terms() {
           information. This Privacy Policy outlines how we collect, use,
           disclose, and protect the information you provide to us through our
           website{" "}
-          <a href="https://traveon.in" className="text-blue-600 underline">
+          <a href="https://traveon.in" className="text-black underline hover:text-gray-700">
             https://traveon.in
           </a>
           . By using our website, you agree to the terms of this Privacy Policy.
@@ -142,7 +142,7 @@ function Terms() {
         </ul>
         <p className="mb-4">
           To exercise these rights, please contact us at{" "}
-          <a href="mailto:info@traveon.com" className="text-blue-600 underline">
+          <a href="mailto:info@traveon.com" className="text-black underline hover:text-gray-700">
             info@traveon.com
           </a>
           .
@@ -156,7 +156,7 @@ function Terms() {
           Traveon Ventures
           <br />
           Email:{" "}
-          <a href="mailto:info@traveon.in" className="text-blue-600 underline">
+          <a href="mailto:info@traveon.in" className="text-black underline hover:text-gray-700">
             info@traveon.in
           </a>
           <br />

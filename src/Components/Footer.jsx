@@ -5,10 +5,11 @@ const Footer = () => {
   const quickLinks = [
     { path: "/", label: "Home" },
     { path: "/services", label: "Services" },
-    { path: "/events", label: "Events" },
-    { path: "/contact", label: "Visa Services" },
+    { path: "/mice", label: "M.I.C.E" },
+    { path: "/packages", label: "Packages" },
     { path: "/contact", label: "Contact" },
     { path: "/privacy", label: "Privacy Policy" },
+    { path: "/terms", label: "Terms & Conditions" },
   ];
 
   const services = [

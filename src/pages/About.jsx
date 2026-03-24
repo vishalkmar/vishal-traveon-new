@@ -52,13 +52,13 @@ export default function AboutUs() {
             }`}
           >
             <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/60"></div>
+            {/* <div className="absolute inset-0 bg-black/60"></div> */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="max-w-5xl mx-auto text-center px-4">
                 <div className="transition-all duration-1000 transform opacity-100 translate-y-0">
-                  {item.date && <h2 className="text-2xl text-[#28bccf] font-semibold mb-2">{item.date} • {item.location}</h2>}
+                  {/* {item.date && <h2 className="text-2xl text-[#28bccf] font-semibold mb-2">{item.date} • {item.location}</h2>}
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{item.title}</h1>
-                  <p className="text-xl md:text-2xl text-white mb-6">{item.subtitle}</p>
+                  <p className="text-xl md:text-2xl text-white mb-6">{item.subtitle}</p> */}
                   {item.buttonText && item.link && (
                     <a
                       href={item.link}

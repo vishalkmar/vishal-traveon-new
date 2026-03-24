@@ -19,7 +19,7 @@ export default function PreviousEventsMice() {
                
      
                <div className="text-center mb-8">
-                 <h2 className="text-2xl sm:text-5xl font-bold text-gray-900">Previous <span className="text-[#0E8FA0] italic font-serif">Events</span> &  <span className="text-[#0E8FA0] italic font-serif">M.I.C.E</span></h2>
+                 <h2 className="text-2xl sm:text-5xl font-bold text-gray-900">Past <span className="text-[#0E8FA0] italic font-serif">Events</span> &  <span className="text-[#0E8FA0] italic font-serif">M.I.C.E</span></h2>
                  <p className="text-gray-600 my-3">Highlights & short previews from our recent events</p>
                </div>
      

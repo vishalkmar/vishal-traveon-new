@@ -152,7 +152,7 @@ function getIncludedTypes(pkg) {
 }
 
 function mapPackageData(item) {
-  console.log("Mapping item:", item?.id, item?.gtxPkgId, item);
+  // console.log("Mapping item:", item?.id, item?.gtxPkgId, item); // Removed to reduce console spam
   const pkg = item?.longJsonInfo?.package || {};
 
   const city = pkg?.Cities?.City?.[0] || {};

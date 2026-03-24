@@ -1,5 +1,5 @@
 export default function Hero({
- 
+
   title = (
     <>
       <i>Retreats</i> that Renew,
@@ -7,7 +7,7 @@ export default function Hero({
     </>
   ),
   subtitle =
-    "Immersive wellness, inspiring corporate offsites, community journeys, and MICE experiences—crafted by Retreats by Traveon.",
+  "Immersive wellness, inspiring corporate offsites, community journeys, and MICE experiences—crafted by Retreats by Traveon.",
   ctaText = "Explore Packages",
   ctaHref = "/packages",
   overlay = 0.45,
@@ -27,30 +27,21 @@ export default function Hero({
         className="absolute inset-0 w-full h-full object-cover -z-20"
       >
         <source src="/index.mp4" type="video/mp4" />
-        
+
       </video>
 
       {/* Overlay */}
-      <div aria-hidden className="absolute inset-0 -z-10">
+      {/* <div aria-hidden className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-black" style={{ opacity: overlay }} />
-      </div>
+      </div> */}
 
       <div
-        className={`relative z-10 mx-auto max-w-6xl px-4 sm:px-6 ${
-          center ? "text-center" : ""
-        }`}
+        className={`relative z-10 mx-auto max-w-6xl px-4 sm:px-6 ${center ? "text-center" : ""
+          }`}
       >
         <div className="pt-12 md:pt-24 lg:pt-36" />
 
-        {/* {showBadge && (
-          <div className="inline-flex items-center">
-            <div className="rounded-[30px] p-[2px] bg-gradient-to-r from-[#39C6D8] via-[#2FB8D3] to-[#23A8CC]">
-              <div className="flex items-center gap-2 rounded-[28px] bg-[linear-gradient(90deg,#001F24_0%,#002B33_100%)] px-4 py-2 text-white/95">
-                <span className="text-sm font-medium">{badge}</span>
-              </div>
-            </div>
-          </div>
-        )} */}
+      
 
         <div className="mt-8 w-full px-4 sm:px-0">
           <a
@@ -63,22 +54,7 @@ export default function Hero({
           </a>
         </div>
 
-        {/* Scroll cue */}
-        <div className="mt-6 flex justify-center">
-          <svg
-            width="15"
-            height="100"
-            viewBox="0 0 12 162"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.7931 1L5.7931 161M5.7931 1L12 1M5.7931 1L2.14577e-06 1M5.7931 161L12 161M5.7931 161L8.73992e-07 161"
-              stroke="#FFFFFF"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </div>
+
 
         <div className="pb-20 md:pb-22 lg:pb-24" />
       </div>
