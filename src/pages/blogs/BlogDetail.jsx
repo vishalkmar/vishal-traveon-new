@@ -115,15 +115,8 @@ export default function BlogDetail() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-40 border-b-4 border-[#44B3C4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h2 className="text-2xl font-bold text-slate-900">Traveon</h2>
-        </div>
-      </div>
-
       {/* Hero Image */}
-      <div className="relative h-96 overflow-hidden pt-20">
+      <div className="relative h-96 overflow-hidden">
         <img
           src={blog.image}
           alt={blog.title}

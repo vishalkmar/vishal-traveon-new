@@ -20,16 +20,9 @@ export default function DestinationBlogs() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-40 border-b-4 border-[#44B3C4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h2 className="text-2xl font-bold text-slate-900">Traveon</h2>
-        </div>
-      </div>
-
-      {/* Hero Section with top padding */}
-      <div className="bg-gradient-to-br from-[#44B3C4] to-[#2a96ab] text-white py-16 pt-24">
+    <div className="min-h-screen bg-slate-50 pt-20">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-[#44B3C4] to-[#2a96ab] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full mb-4">
             <span className="w-2 h-2 bg-white rounded-full"></span>

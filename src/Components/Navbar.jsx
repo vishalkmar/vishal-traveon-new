@@ -41,6 +41,9 @@ function Navbar() {
   
   // Force dark text on packages pages since they have white backgrounds
   const isPackagesPage = location.pathname.startsWith("/packages");
+  
+  // Force dark text on blog pages
+  const isBlogPage = location.pathname.startsWith("/blogs") || location.pathname.startsWith("/blog");
 
   const navLinks = [
     { path: "/", label: "Home" },
@@ -56,7 +59,7 @@ function Navbar() {
   const linkColor = (active) =>
     active
       ? "text-[#28bccf]"
-      : isPackagesPage
+      : isPackagesPage || isBlogPage
       ? "text-slate-600 hover:text-[#28bccf] font-medium"
       : scrolled
       ? "text-slate-600 hover:text-[#28bccf] font-medium"
@@ -65,7 +68,7 @@ function Navbar() {
   return (
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        isPackagesPage || scrolled ? "bg-white shadow-lg py-[25px]" : "bg-transparent py-[25px]"
+        isPackagesPage || isBlogPage || scrolled ? "bg-white shadow-lg py-[25px]" : "bg-transparent py-[25px]"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -149,9 +152,9 @@ function Navbar() {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X size={24} className={isPackagesPage || scrolled ? "text-slate-600" : "text-white"} />
+              <X size={24} className={isPackagesPage || isBlogPage || scrolled ? "text-slate-600" : "text-white"} />
             ) : (
-              <Menu size={24} className={isPackagesPage || scrolled ? "text-slate-600" : "text-white"} />
+              <Menu size={24} className={isPackagesPage || isBlogPage || scrolled ? "text-slate-600" : "text-white"} />
             )}
           </button>
         </div>
