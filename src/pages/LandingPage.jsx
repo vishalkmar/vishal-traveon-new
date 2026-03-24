@@ -114,7 +114,7 @@ export default function LandingPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${backendUrl}/v1/contact/submit`, {
+      const response = await fetch(`${backendUrl}/api/v1/contact/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
