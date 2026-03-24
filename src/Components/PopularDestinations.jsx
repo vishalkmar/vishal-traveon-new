@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Loader } from "lucide-react";
 
 /**
  * PopularDestinationsOverlay.jsx
@@ -7,42 +9,46 @@ import { useNavigate } from "react-router-dom";
  * - Bottom overlay text on image
  * - Dark shield/gradient so text is readable
  * - Clickable cards navigate to destination
+ * - Data fetched from API (dynamic)
  */
 
 const THEME = {
   teal: "#0f8b8d", // bluish/teal theme
 };
 
-const DESTINATIONS = [
-  {
-    name: "Oman",
-    desc: "Desert sunsets, wadis, and mountain escapes — calm luxury with rich culture.",
-    image: "/oman/banner1.jpg",
-    link: "/blogs/oman",
-   
-  },
-  {
-    name: "Seychelles",
-    desc: "Crystal beaches, island serenity, and slow mornings — perfect for a true reset.",
-    image: "/seychelles/banner.jpg",
-    link: "/blogs/seychelles",
-  
-  },
-  {
-    name: "Vietnam",
-    desc: "Heritage towns, scenic bays, and vibrant streets — nature + energy in one trip.",
-    image: "/seychelles/viatnam.webp",
-    link: "/blogs/vietnam",
-   
-  },
-];
-
 export default function PopularDestinations({
   title = "Popular Destination",
   subtitle = "Three destinations we craft with comfort, care, and flawless execution.",
-  items = DESTINATIONS,
 }) {
   const navigate = useNavigate();
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDestinations();
+  }, []);
+
+  const fetchDestinations = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/v1/destinations");
+      setDestinations(response.data.data || []);
+    } catch (error) {
+      console.error("Error fetching destinations:", error);
+      setDestinations([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="w-full bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14 flex items-center justify-center min-h-96">
+          <Loader className="w-8 h-8 text-[#0f8b8d] animate-spin" />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full bg-white">
@@ -74,11 +80,11 @@ export default function PopularDestinations({
 
         {/* Cards Grid */}
         <div className="mt-7 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
-          {items.map((d) => (
+          {destinations.map((destination) => (
             <ImageOverlayCard 
-              key={d.name} 
-              d={d} 
-              onNavigate={() => navigate(d.blogsLink || d.link)}
+              key={destination.id} 
+              destination={destination} 
+              onNavigate={() => navigate(`/blogs/${destination.slug}`)}
             />
           ))}
         </div>
@@ -87,7 +93,7 @@ export default function PopularDestinations({
   );
 }
 
-function ImageOverlayCard({ d, onNavigate }) {
+function ImageOverlayCard({ destination, onNavigate }) {
   return (
     <article 
       onClick={onNavigate}
@@ -95,8 +101,8 @@ function ImageOverlayCard({ d, onNavigate }) {
     >
       {/* Full Image */}
       <img
-        src={d.image}
-        alt={d.name}
+        src={destination.image}
+        alt={destination.name}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         loading="lazy"
       />
@@ -114,10 +120,10 @@ function ImageOverlayCard({ d, onNavigate }) {
             className="h-2.5 w-2.5 rounded-full"
             style={{ backgroundColor: THEME.teal }}
           />
-          <h3 className="text-lg font-semibold text-white">{d.name}</h3>
+          <h3 className="text-lg font-semibold text-white">{destination.name}</h3>
         </div>
 
-        <p className="mt-2 text-sm leading-relaxed text-white/85">{d.desc}</p>
+        <p className="mt-2 text-sm leading-relaxed text-white/85">{destination.description}</p>
 
         {/* tiny underline accent (not a button) */}
         <div className="mt-4">

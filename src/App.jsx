@@ -38,10 +38,12 @@ import Ibiea from "./pages/ibiea";
 import OmanTourPackageDetails from "./pages/OmanPackeForm.jsx";
 import AdminLogin from "./pages/Admin/AdminLogin.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
+import AdminBlogDashboard from "./Components/admin/AdminBlogDashboard.jsx";
 
 import OmanPage from "./pages/Oman_tour/OmanPage";
 import BookingDetailsPage from "./pages/Admin/BookingDetailsPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import AdminBlogs from "./pages/admin/AdminBlogs.jsx";
 
 
 import PackagesIndex from "./pages/packagespages/PackagesIndex.jsx"
@@ -64,10 +66,12 @@ function Layout({ children }) {
     "/admin-dashboard",
     "/oman-form",
     "/oman-tour",
+    "/admin/blogs",
+    "/admins/blogs",
   ];
 
-  // Also hide layout for booking details: starts with /admin/booking/
-  const isDetailsPage = location.pathname.startsWith("/admin/booking/");
+  // Also hide layout for booking details: starts with /admin/booking/ or /admins/
+  const isDetailsPage = location.pathname.startsWith("/admin/booking/") || location.pathname.startsWith("/admins/");
   const hideLayout =
     hideLayoutRoutes.includes(location.pathname) || isDetailsPage;
 
@@ -155,6 +159,8 @@ export default function App() {
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/blogs" element={<AdminBlogDashboard />} />
+            <Route path="/admins/blogs" element={<AdminBlogs />} />
             <Route
               path="/admin/booking/:type/:id"
               element={<BookingDetailsPage />}

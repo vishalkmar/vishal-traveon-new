@@ -14,6 +14,7 @@ import {
   XCircle,
   LayoutDashboard,
   Globe,
+  BookOpen,
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -485,7 +486,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <StatsCard
             title="Oman Packages"
             count={stats.tourCount}
@@ -521,6 +522,13 @@ const AdminDashboard = () => {
             icon={LayoutDashboard}
             colorClass="bg-cyan-500 shadow-cyan-500/30"
           />
+          <StatsCard
+            title="Blogs"
+            count={stats.blogCount}
+            subtitle="Live Syncing"
+            icon={BookOpen}
+            colorClass="bg-indigo-500 shadow-indigo-500/30"
+          />
         </div>
 
         <div className="flex flex-wrap gap-4 mb-10 justify-center md:justify-start">
@@ -529,10 +537,23 @@ const AdminDashboard = () => {
             { id: "Oman-visa-10-days", label: "10-Day Visas", icon: FileCheck },
             { id: "Oman-visa-30-days", label: "30-Day Visas", icon: FileCheck },
             { id: "Queries", label: "General Queries", icon: Mail },
+            { id: "Blogs", label: "Blogs", icon: BookOpen },
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                if (tab.id === "Blogs") {
+                  // Check authentication before navigating to blogs
+                  const token = localStorage.getItem("token");
+                  if (token) {
+                    navigate("/admin/blogs");
+                  } else {
+                    navigate("/admin");
+                  }
+                } else {
+                  setActiveTab(tab.id);
+                }
+              }}
               className={`flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-black uppercase tracking-widest transition-all ${
                 activeTab === tab.id
                   ? "bg-cyan-500 text-white shadow-2xl shadow-cyan-500/40 translate-y-[-2px]"
