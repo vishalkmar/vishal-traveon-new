@@ -99,7 +99,7 @@ const ContactUs = () => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
     try {
-      const response = await fetch(`${backendUrl}/contact/submit`, {
+      const response = await fetch(`${backendUrl}/api/v1/contact/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
