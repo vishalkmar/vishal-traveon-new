@@ -6,22 +6,22 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-export default function AddBlogModal({ onClose, onSuccess, editingId }) {
+export default function AddBlogModal({ onClose, onSuccess, editingId, initialData, isEdit }) {
   const [formData, setFormData] = useState({
-    title: "",
-    destinationId: "",
-    images: [],
-    excerpt: "",
-    content: "",
-    author: "Admin",
-    category: "Travel",
-    readTime: "5 min read",
+    title: initialData?.title || "",
+    destinationId: initialData?.destinationId || "",
+    images: initialData?.images || [],
+    excerpt: initialData?.excerpt || "",
+    content: initialData?.content || "",
+    author: initialData?.author || "Admin",
+    category: initialData?.category || "Travel",
+    readTime: initialData?.readTime || "5 min read",
   });
 
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState(initialData?.images || []);
   const [error, setError] = useState("");
   const [wordCountExcerpt, setWordCountExcerpt] = useState(0);
   const [wordCountContent, setWordCountContent] = useState(0);
@@ -33,7 +33,7 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
 
   const fetchDestinations = async () => {
     try {
-      const response = await axios.get(`${API_BASE}/v1/destinations`);
+      const response = await axios.get(`${API_BASE}/api/v1/destinations`);
       setDestinations(response.data.data || []);
     } catch (error) {
       console.error("Error fetching destinations:", error);
@@ -116,11 +116,22 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
       uploadFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
       try {
-        const uploadResponse = await axios.post(
+        const uploadResponse = await fetch(
           `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-          uploadFormData
+          {
+            method: "POST",
+            body: uploadFormData,
+          }
         );
-        uploadedUrls.push(uploadResponse.data.secure_url);
+
+        if (!uploadResponse.ok) {
+          const errorData = await uploadResponse.json();
+          console.error("Cloudinary error response:", errorData);
+          throw new Error(errorData.error?.message || "Upload failed");
+        }
+
+        const uploadData = await uploadResponse.json();
+        uploadedUrls.push(uploadData.secure_url);
       } catch (uploadErr) {
         console.error("Cloudinary upload error:", uploadErr);
         throw new Error("Failed to upload image");
@@ -184,7 +195,7 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
       const uploadedUrls = await uploadImagesToCloudinary();
 
       // Save to backend
-      const token = localStorage.getItem("adminToken");
+      const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
       const payload = {
         title: formData.title.trim(),
         destinationId: formData.destinationId,
@@ -197,12 +208,12 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
         date: new Date().toISOString().split("T")[0],
       };
 
-      if (editingId) {
-        await axios.patch(`${API_BASE}/v1/blogs/${editingId}`, payload, {
+      if (isEdit || editingId) {
+        await axios.put(`${API_BASE}/api/v1/blog/${initialData?.id || editingId}`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
-        await axios.post(`${API_BASE}/v1/blogs`, payload, {
+        await axios.post(`${API_BASE}/api/v1/blog`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -222,7 +233,9 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-8 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900">Add New Blog</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {isEdit ? "Edit Blog" : "Add New Blog"}
+          </h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-lg transition"
@@ -430,6 +443,8 @@ export default function AddBlogModal({ onClose, onSuccess, editingId }) {
                 <Loader className="w-5 h-5 animate-spin" />
                 {uploading ? "Uploading images..." : "Saving..."}
               </>
+            ) : isEdit ? (
+              "Update Blog"
             ) : (
               "Add Blog"
             )}

@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { X, Upload, Loader } from "lucide-react";
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-export default function AddDestinationModal({ onClose, onSuccess, editingId }) {
+export default function AddDestinationModal({ onClose, onSuccess, editingId, initialData, isEdit }) {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
+    name: initialData?.name || "",
+    description: initialData?.description || "",
     image: null,
   });
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(initialData?.image || null);
   const [error, setError] = useState("");
   const [wordCount, setWordCount] = useState(0);
 
@@ -80,7 +80,7 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId }) {
       return;
     }
 
-    if (!formData.image && !editingId) {
+    if (!formData.image && !isEdit && !editingId) {
       setError("Image is required");
       return;
     }
@@ -96,35 +96,46 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId }) {
         uploadFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
         try {
-          const uploadResponse = await axios.post(
+          const uploadResponse = await fetch(
             `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-            uploadFormData
+            {
+              method: "POST",
+              body: uploadFormData,
+            }
           );
-          imageUrl = uploadResponse.data.secure_url;
+
+          if (!uploadResponse.ok) {
+            const errorData = await uploadResponse.json();
+            console.error("Cloudinary error response:", errorData);
+            throw new Error(errorData.error?.message || "Upload failed");
+          }
+
+          const uploadData = await uploadResponse.json();
+          imageUrl = uploadData.secure_url;
         } catch (uploadErr) {
           console.error("Cloudinary upload error:", uploadErr);
-          setError("Failed to upload image. Check console and env variables.");
+          setError(`Failed to upload image: ${uploadErr.message}`);
           setLoading(false);
           return;
         }
       }
 
       // Save to backend
-      const token = localStorage.getItem("adminToken");
+      const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
       const payload = {
         name: formData.name.trim(),
         description: formData.description.trim(),
         ...(imageUrl && { image: imageUrl }),
       };
 
-      if (editingId) {
+      if (isEdit || editingId) {
         await axios.patch(
-          `${API_BASE}/v1/destinations/${editingId}`,
+          `${API_BASE}/api/v1/destinations/${initialData?.id || editingId}`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        await axios.post(`${API_BASE}/v1/destinations`, payload, {
+        await axios.post(`${API_BASE}/api/v1/destinations`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -143,7 +154,9 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId }) {
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900">Add New City</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {isEdit ? "Edit Destination" : "Add New Destination"}
+          </h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-lg transition"
@@ -249,6 +262,8 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId }) {
                 <Loader className="w-5 h-5 animate-spin" />
                 Saving...
               </>
+            ) : isEdit ? (
+              "Update Destination"
             ) : (
               "Add Destination"
             )}

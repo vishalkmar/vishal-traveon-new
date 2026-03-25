@@ -925,13 +925,13 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
       </button>
 
       <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
-        <button
+        {/* <button
           type="button"
           onClick={() => alert("Download PDF (placeholder)")}
           className="hover:text-slate-900"
         >
           ⬇ Download PDF
-        </button>
+        </button> */}
         <div className="relative">
           <button
             type="button"
