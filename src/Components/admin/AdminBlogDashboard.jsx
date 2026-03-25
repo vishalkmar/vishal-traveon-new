@@ -41,7 +41,7 @@ export default function AdminDashboardContent() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/api/v1/blog`);
+      const response = await fetch(`https://traveon-backend-production.up.railway.app/api/v1/blog`);
       const data = await response.json();
       if (data.success) {
         setBlogs(data.data || []);
