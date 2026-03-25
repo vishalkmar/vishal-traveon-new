@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaPhone } from "react-icons/fa";
+import { Loader } from "lucide-react";
 import { backendUrl } from "../../apiConfig/config";
 
 export function getActivitiesForPackage(pkg) {
@@ -85,8 +86,14 @@ export default function Packages() {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center">
+            <Loader className="w-16 h-16 text-[#44B3C4] animate-spin" />
+          </div>
+          <p className="mt-4 text-lg font-semibold text-slate-700">Loading Packages...</p>
+          <p className="text-sm text-slate-500 mt-2">Please wait while we fetch the best packages for you</p>
+        </div>
       </div>
     );
 

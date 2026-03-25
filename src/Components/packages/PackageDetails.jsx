@@ -8,7 +8,8 @@ import {
   Bus,
   FileText,
   Share2,
-  X as XIcon
+  X as XIcon,
+  Loader
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaSnapchat, FaEnvelope, FaLink } from "react-icons/fa";
 import CustomizePackageForm from "../CustomizePackageForm";
@@ -227,12 +228,13 @@ export default function PackageDetailsPage() {
 
   if (loading || !pkg) {
     return (
-      <div className="min-h-[60vh] grid place-items-center bg-slate-50">
-        <div className="rounded-2xl bg-white p-6 ring-1 ring-black/10">
-          <div className="h-3 w-44 bg-slate-200 rounded mb-3" />
-          <div className="h-3 w-72 bg-slate-200 rounded mb-2" />
-          <div className="h-3 w-56 bg-slate-200 rounded" />
-          <p className="mt-4 text-sm text-slate-500">Loading package...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center mb-4">
+            <Loader className="w-16 h-16 text-[#44B3C4] animate-spin" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Loading Package Details</h2>
+          <p className="text-slate-600">Please wait while we fetch the package information...</p>
         </div>
       </div>
     );
@@ -916,9 +918,19 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
         Book Now
       </button>
 
+      {/* OR Divider */}
+      <div className="relative my-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-slate-300"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-3 bg-white text-slate-600 font-medium">OR</span>
+        </div>
+      </div>
+
       <button
         type="button"
-        className="h-12 rounded-xl font-semibold text-[#44B3C4] bg-white border-2 border-[#44B3C4] shadow mt-3 w-full py-3 rounded-xl ring-1 ring-black/10 font-semibold hover:bg-[#44B3C4]/5 transition-all duration-300"
+        className="h-12 rounded-xl font-semibold text-[#44B3C4] bg-white border-2 border-[#44B3C4] shadow w-full py-3 rounded-xl ring-1 ring-black/10 font-semibold hover:bg-[#44B3C4]/5 transition-all duration-300"
         onClick={onCustomize}
       >
         Customize Your Package
