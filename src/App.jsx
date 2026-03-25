@@ -43,7 +43,7 @@ import AdminBlogDashboard from "./Components/admin/AdminBlogDashboard.jsx";
 import OmanPage from "./pages/Oman_tour/OmanPage";
 import BookingDetailsPage from "./pages/Admin/BookingDetailsPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import AdminBlogs from "./pages/admin/AdminBlogs.jsx";
+import AdminBlogs from "./pages/Admin/AdminBlogs.jsx";
 
 
 import PackagesIndex from "./pages/packagespages/PackagesIndex.jsx"
