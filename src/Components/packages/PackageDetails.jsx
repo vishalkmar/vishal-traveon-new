@@ -29,6 +29,225 @@ const BRAND = {
   tealRing: "focus:ring-4 focus:ring-emerald-500/20",
 };
 
+const HOTEL_CARD_FALLBACK_IMG =
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80";
+
+/** Cities list from API (supports Cities/cities and single vs array City). */
+function getCitiesArray(outerPkg) {
+  const wrap = outerPkg?.Cities ?? outerPkg?.cities;
+  if (!wrap) return [];
+  const list = wrap.City ?? wrap.city;
+  if (!list) return [];
+  return Array.isArray(list) ? list : [list];
+}
+
+/** `longJsonInfo` may be an object or a JSON string; normalize to `package` payload. */
+function parseLongJsonPackage(pObj) {
+  let lj = pObj?.longJsonInfo;
+  if (lj == null) return {};
+  if (typeof lj === "string") {
+    try {
+      lj = JSON.parse(lj);
+    } catch {
+      return {};
+    }
+  }
+  const pkg = lj?.package ?? lj;
+  return pkg && typeof pkg === "object" ? pkg : {};
+}
+
+function isUsableImageUrl(u) {
+  if (u == null) return false;
+  const s = String(u).trim();
+  return s.length > 0 && s !== "0" && !/^undefined$/i.test(s);
+}
+
+/** Resolve hotel image from MainImg / Images / alternate keys (API shapes vary). */
+function firstHotelImageUrl(h) {
+  if (!h) return "";
+  const tryList = [h.MainImg, h.mainImg, h.Image, h.image];
+  if (Array.isArray(h.Images)) tryList.push(...h.Images);
+  if (Array.isArray(h.images)) tryList.push(...h.images);
+  for (const u of tryList) {
+    if (isUsableImageUrl(u)) return String(u).trim();
+  }
+  return "";
+}
+
+function hotelDedupeKey(h) {
+  if (h?.RefHotelId != null && String(h.RefHotelId).trim() !== "") return `ref:${h.RefHotelId}`;
+  const name = plainTextFromApi(h?.Name || "").toLowerCase();
+  return `city:${h?.CityId ?? "?"}|${name}`;
+}
+
+/** Merge hotels from longJson + root `data.cities`; prefer row that has image / richer name. */
+function dedupeHotelsMerge(list) {
+  const m = new Map();
+  for (const h of list) {
+    const k = hotelDedupeKey(h);
+    const prev = m.get(k);
+    if (!prev) {
+      m.set(k, { ...h });
+      continue;
+    }
+    const imgP = firstHotelImageUrl(prev);
+    const imgN = firstHotelImageUrl(h);
+    const merged = { ...prev, ...h };
+    merged.MainImg = imgP || imgN || merged.MainImg;
+    const nameP = plainTextFromApi(prev.Name || "");
+    const nameN = plainTextFromApi(h.Name || "");
+    merged.Name = nameP.length >= nameN.length ? prev.Name : h.Name;
+    merged._CityTitle = prev._CityTitle || h._CityTitle;
+    const imgs = [
+      ...(Array.isArray(prev.Images) ? prev.Images : []),
+      ...(Array.isArray(h.Images) ? h.Images : []),
+    ];
+    if (imgs.length) merged.Images = imgs;
+    m.set(k, merged);
+  }
+  return [...m.values()];
+}
+
+function collectHotelsFromCities(cities) {
+  const out = [];
+  for (const city of cities) {
+    const block = city?.Hotels ?? city?.hotels;
+    const raw = block?.Hotel ?? block?.hotel;
+    if (!raw) continue;
+    const arr = Array.isArray(raw) ? raw : [raw];
+    for (const h of arr) out.push({ ...h, _CityTitle: city?.Title ?? city?.title });
+  }
+  return out;
+}
+
+/** All hotels: `package.Cities` (long JSON) + top-level `data.cities` (Railway / B2C often duplicates). */
+function collectAllHotelsFromPackage(pObj, outerPkg) {
+  const fromLong = collectHotelsFromCities(getCitiesArray(outerPkg));
+  const fromRoot = collectHotelsFromCities(getCitiesArray({ Cities: pObj?.cities }));
+  return dedupeHotelsMerge([...fromLong, ...fromRoot]);
+}
+
+/** Prefer long-json cities but fill missing cities from `data.cities` (same package id). */
+function mergeCityListsById(pObj, outerPkg) {
+  const a = getCitiesArray(outerPkg);
+  const b = getCitiesArray({ Cities: pObj?.cities });
+  const all = [...a, ...b];
+  if (!all.length) return [];
+
+  const byId = new Map();
+  const titleNorm = (c) => String(c?.Title ?? c?.title ?? "").trim().toLowerCase();
+
+  const mergeInto = (k, c, existing) => {
+    const next = existing ? { ...existing, ...c } : { ...c };
+    byId.set(k, next);
+  };
+
+  for (const c of all) {
+    const id = String(c?.CityId ?? "").trim();
+    if (id && id !== "0") {
+      const k = `id:${id}`;
+      mergeInto(k, c, byId.get(k));
+      continue;
+    }
+    const tn = titleNorm(c);
+    let hitKey = null;
+    if (tn) {
+      for (const [k, v] of byId) {
+        if (titleNorm(v) === tn) {
+          hitKey = k;
+          break;
+        }
+      }
+    }
+    if (hitKey) mergeInto(hitKey, c, byId.get(hitKey));
+    else {
+      const k = tn ? `title:${tn}` : `orphan:${byId.size + 1}`;
+      mergeInto(k, c, byId.get(k));
+    }
+  }
+  return [...byId.values()];
+}
+
+function collectSightseeingsFromCities(cities) {
+  const out = [];
+  for (const city of cities) {
+    const block = city?.SightSeeings ?? city?.sightSeeings;
+    const raw = block?.SightSeeing ?? block?.sightSeeing;
+    if (!raw) continue;
+    const arr = Array.isArray(raw) ? raw : [raw];
+    out.push(...arr);
+  }
+  return out;
+}
+
+function sightSeeingHasUsableImage(ss) {
+  const u = ss?.Image;
+  return u != null && String(u).trim() !== "" && String(u).trim() !== "0";
+}
+
+/** One card per logical sightseeing (longJson + data.cities often duplicate the same city twice). */
+function dedupeSightseeings(list) {
+  const m = new Map();
+  for (const ss of list) {
+    const ref = ss?.RefSSId != null && String(ss.RefSSId).trim() !== "" ? String(ss.RefSSId) : null;
+    const titleKey = String(ss?.Title ?? ss?.Name ?? "")
+      .trim()
+      .toLowerCase();
+    const cityPart = String(ss?.CityId ?? ss?.CityName ?? "").trim().toLowerCase();
+    const key = ref != null ? `ref:${ref}` : `t:${cityPart}|${titleKey}`;
+
+    const prev = m.get(key);
+    if (!prev) {
+      m.set(key, ss);
+      continue;
+    }
+    const merged = { ...prev, ...ss };
+    if (sightSeeingHasUsableImage(prev) && !sightSeeingHasUsableImage(ss)) merged.Image = prev.Image;
+    else if (sightSeeingHasUsableImage(ss)) merged.Image = ss.Image;
+    m.set(key, merged);
+  }
+  return [...m.values()];
+}
+
+/**
+ * Decodes HTML entities, including double-encoded strings (&amp;bull; → •).
+ * Use for any API string shown as plain text in this page.
+ */
+function decodeHtmlEntitiesDeep(raw) {
+  if (raw == null || raw === "") return "";
+  let s = String(raw);
+  const maxPasses = 12;
+  for (let i = 0; i < maxPasses; i++) {
+    const prev = s;
+    if (typeof document !== "undefined") {
+      const ta = document.createElement("textarea");
+      ta.innerHTML = s;
+      s = ta.value;
+    }
+    s = s
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&#160;/g, " ")
+      .replace(/&bull;/gi, "•")
+      .replace(/&#8226;/g, "•")
+      .replace(/&ndash;/gi, "–")
+      .replace(/&mdash;/gi, "—")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+    if (s === prev) break;
+  }
+  return s.replace(/\u00a0/g, " ");
+}
+
+/** Plain text: decode entities + strip tags + normalize spaces. */
+function plainTextFromApi(raw) {
+  if (raw == null || raw === "") return "";
+  const decoded = decodeHtmlEntitiesDeep(raw);
+  return decoded.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
 export default function PackageDetailsPage() {
   const { id: packageId } = useParams();
   const [loading, setLoading] = useState(true);
@@ -60,70 +279,43 @@ export default function PackageDetailsPage() {
 
         // Unwrap data exactly like index page
         const pObj = jsondata?.data ? jsondata.data : jsondata;
-        const outerPkg = pObj?.longJsonInfo?.package || {};
+        const outerPkg = parseLongJsonPackage(pObj);
 
         if (!mounted) return;
 
         // Map variables locally inside useEffect to construct our standard state shape
-        const city = outerPkg?.Cities?.City?.[0] || {};
-        const hotels = city?.Hotels?.Hotel || [];
+        const cities = mergeCityListsById(pObj, outerPkg);
+        const city = cities[0] || {};
+        const hotels = collectAllHotelsFromPackage(pObj, outerPkg);
+        const sightseeings = dedupeSightseeings(collectSightseeingsFromCities(cities));
         const includedHotel = hotels.find((h) => h?.IsIncluded) || hotels[0] || null;
 
         const nightsVal = Number(pObj?.nights) || 0;
         const daysVal = nightsVal > 0 ? nightsVal + 1 : 0;
         const nightsDaysStr = nightsVal > 0 ? `${nightsVal}N / ${daysVal}D` : "";
 
-        // Function to clean repeated text from API
-        const cleanText = (text) => {
-          if (!text) return text;
-          // Remove HTML tags
-          let cleaned = String(text).replace(/<[^>]*>/g, '').trim();
-          
-          // Remove repeating patterns - take first occurrence + one more pattern
-          // E.g., "Oman Group Tour Group Tour 4 Nlgts 5 Days 4 Nlgts 5 Days..." -> "Oman Group Tour 4 Nlgts 5 Days"
-          const parts = cleaned.split(/\s+/);
-          const uniqueParts = [];
-          const seenPhrases = new Set();
-          
-          for (let i = 0; i < parts.length; i++) {
-            const phrase = parts.slice(i, i + 3).join(' ').toLowerCase();
-            if (seenPhrases.has(phrase) && uniqueParts.length > 5) {
-              break; // Stop when we start seeing repeats and have enough content
-            }
-            seenPhrases.add(phrase);
-            uniqueParts.push(parts[i]);
-          }
-          
-          return uniqueParts.join(' ').trim();
-        };
+        const cleanText = (text) => plainTextFromApi(text);
 
-        // Helper to decode HTML entities and rip out bullets (moved here to use in itinerary mapping)
         const parseToBullets = (text) => {
           if (!text) return [];
-          let decoded = String(text)
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;bull;/g, '')  // Remove &amp;bull; first (encoded version)
-            .replace(/&bull;/g, '')     // Remove &bull; 
-            .replace(/•/g, '')           // Remove actual bullet character
-            .replace(/&amp;nbsp;/g, ' ')
-            .replace(/&amp;/g, '&')
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, "'");
+          let decoded = decodeHtmlEntitiesDeep(String(text));
 
+          const scrub = (s) => plainTextFromApi(String(s).replace(/<[^>]*>/gm, " ").trim());
           if (decoded.includes('<li>') || decoded.includes('<li ')) {
             const items = decoded.split(/<li[^>]*>/i);
             items.shift();
-            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
-          } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
-            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
-          } else if (decoded.includes('\n')) {
-            return decoded.split(/\n/).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
-          } else if (decoded.includes('<p>')) {
-            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
-          } else {
-            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
+            return items.map((i) => scrub(i)).filter((i) => i && !i.match(/^[•\-\*]*$/));
           }
+          if (decoded.includes('<br/>') || decoded.includes('<br>')) {
+            return decoded.split(/<br\s*\/?>/i).map((i) => scrub(i)).filter((i) => i && !i.match(/^[•\-\*]*$/));
+          }
+          if (decoded.includes('\n')) {
+            return decoded.split(/\n/).map((i) => scrub(i)).filter((i) => i && !i.match(/^[•\-\*]*$/));
+          }
+          if (decoded.includes('<p>')) {
+            return decoded.split(/<p[^>]*>/i).map((i) => scrub(i)).filter((i) => i && !i.match(/^[•\-\*]*$/));
+          }
+          return [scrub(decoded)].filter((i) => i && !i.match(/^[•\-\*]*$/));
         };
 
         // Itineraries formatting - now with Program parsing
@@ -152,9 +344,10 @@ export default function PackageDetailsPage() {
 
         // --- Pass FULL hotel objects for rendering rich tabs ---
         if (hotels.length > 0) {
-          const cleanedHotels = hotels.map(h => ({
+          const cleanedHotels = hotels.map((h) => ({
             ...h,
-            Name: cleanText(h.Name)
+            Name: cleanText(h.Name),
+            _CityTitle: h._CityTitle ? plainTextFromApi(h._CityTitle) : h._CityTitle,
           }));
           itemsRow.push({
             key: "hotel",
@@ -165,15 +358,18 @@ export default function PackageDetailsPage() {
           });
         }
 
-        // --- Pass FULL Sightseeing objects ---
-        const sightseeings = city?.SightSeeings?.SightSeeing || [];
         if (sightseeings.length > 0) {
           itemsRow.push({
             key: "sightseeing",
             label: "Sightseeing",
             isRich: true,
             richType: "sightseeing",
-            details: sightseeings
+            details: sightseeings.map((ss) => ({
+              ...ss,
+              Title: ss.Title != null ? plainTextFromApi(ss.Title) : ss.Title,
+              Name: ss.Name != null ? plainTextFromApi(ss.Name) : ss.Name,
+              CityName: ss.CityName != null ? plainTextFromApi(ss.CityName) : ss.CityName,
+            })),
           });
         }
 
@@ -189,15 +385,21 @@ export default function PackageDetailsPage() {
           rating: includedHotel?.Star && includedHotel?.Star !== ".00" ? Number(includedHotel.Star) : 4.3,
           reviewsLabel: "(953)",
           nightsDays: nightsDaysStr,
-          routeLine: (pObj?.destinations ? pObj.destinations.split(',').join(' • ') : outerPkg?.DestinationPlaces || ""),
+          routeLine: plainTextFromApi(
+            pObj?.destinations ? pObj.destinations.split(",").join(" • ") : outerPkg?.DestinationPlaces || ""
+          ),
           gallery: {
-            hero: outerPkg?.ImgThumbnail || includedHotel?.MainImg || "",
+            hero:
+              outerPkg?.ImgThumbnail ||
+              firstHotelImageUrl(includedHotel) ||
+              "",
             thumbs: [
-              includedHotel?.MainImg || sightseeings?.[3]?.Image,  // Hotel image, fallback to 4th sightseeing if not available
+              ...hotels.map((h) => firstHotelImageUrl(h)).filter(isUsableImageUrl),
+              sightseeings?.[3]?.Image,
               sightseeings?.[0]?.Image,
               sightseeings?.[1]?.Image,
-              sightseeings?.[2]?.Image
-            ].filter(Boolean)
+              sightseeings?.[2]?.Image,
+            ].filter(isUsableImageUrl),
           },
           inclusions: itemsRow,
           itinerary: its,
@@ -217,9 +419,26 @@ export default function PackageDetailsPage() {
               : pkgTxt.includes("visa")
                 ? ["Visa Included in this tour. Our expert visa consultants will guide you through the entire application process with complete documentation support."]
                 : [],
-            sightseeing: sightseeings.map(s => cleanText(s.Title || s.Name)) || [],
-            accommodation: hotels.map(h => `${cleanText(h.Name)} (${h.Star} Star)`),
-            meals: includedHotel?.MealTypeName ? [includedHotel.MealTypeName] : [],
+            sightseeing: sightseeings.map((s) => cleanText(s.Title || s.Name)).filter(Boolean),
+            accommodation: hotels.map((h) => {
+              const name = cleanText(h.Name);
+              const n = Number(h.Star);
+              const star =
+                h.Star != null &&
+                String(h.Star).trim() !== "" &&
+                h.Star !== ".00" &&
+                !Number.isNaN(n) &&
+                n > 0
+                  ? `${n.toFixed(2)} Star`
+                  : null;
+              const cityLbl = h._CityTitle ? ` — ${plainTextFromApi(h._CityTitle)}` : "";
+              return star ? `${name} (${star})${cityLbl}` : `${name}${cityLbl}`;
+            }),
+            meals: (() => {
+              const m = [...new Set(hotels.map((h) => h.MealTypeName).filter(Boolean))];
+              if (m.length) return m;
+              return includedHotel?.MealTypeName ? [includedHotel.MealTypeName] : [];
+            })(),
             inclusionsExclusions: [
               "INCLUSIONS:",
               ...parseToBullets(inclusionText),
@@ -236,7 +455,7 @@ export default function PackageDetailsPage() {
           },
           inclusionsText: pObj?.inclusionsText || inclusionText || "",
           details: outerPkg?.details || pObj?.details || "",
-          preString: `Hi, I want to enquire about ${outerPkg.Name} (${nightsDaysStr})`
+          preString: `Hi, I want to enquire about ${cleanText(outerPkg.Name || pObj.name || "Package")} (${nightsDaysStr})`
         };
 
         setPkg(mappedPkg);
@@ -276,7 +495,7 @@ export default function PackageDetailsPage() {
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-              {pkg.title}
+              {plainTextFromApi(pkg.title)}
             </h1>
             {/* <div className="flex items-center gap-2 text-sm text-slate-600">
               <span className="font-semibold">{pkg.rating}</span>
@@ -291,7 +510,7 @@ export default function PackageDetailsPage() {
               {pkg.nightsDays}
             </span>
             <span className="text-slate-400">|</span>
-            <p className="text-slate-600">{pkg.routeLine}</p>
+            <p className="text-slate-600">{plainTextFromApi(pkg.routeLine)}</p>
           </div>
         </div>
 
@@ -338,7 +557,7 @@ export default function PackageDetailsPage() {
       <CustomizePackageForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        packageTitle={pkg?.title}
+        packageTitle={plainTextFromApi(pkg?.title || "")}
       />
     </div>
   );
@@ -358,7 +577,7 @@ function GallerySection({ pkg }) {
       {/* Inclusions Text */}
       {pkg.inclusionsText && (
         <div className="bg-slate-50 border-b border-slate-200 p-4">
-          <p className="text-xs text-slate-600 font-medium">{pkg.inclusionsText}</p>
+          <p className="text-xs text-slate-600 font-medium">{plainTextFromApi(pkg.inclusionsText)}</p>
         </div>
       )}
       
@@ -478,26 +697,27 @@ function InclusionIconRow({ items, active, onChange }) {
 
         {activeObj?.isRich && activeObj?.richType === "hotels" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {parsedDetails.map((hotel, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden flex flex-col">
+            {parsedDetails.map((hotel, idx) => {
+              const hotelImg = firstHotelImageUrl(hotel) || HOTEL_CARD_FALLBACK_IMG;
+              const starNum = Number(hotel.Star);
+              return (
+              <div
+                key={hotel.RefHotelId != null ? `h-${hotel.RefHotelId}-${idx}` : idx}
+                className="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden flex flex-col"
+              >
                 {/* Hotel Image */}
                 <div className="relative h-40 bg-slate-200">
-                  {(hotel.Images && hotel.Images.length > 0) || hotel.MainImg ? (
-                    <img
-                      src={hotel.MainImg || hotel.Images[0]}
-                      alt={hotel.Name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" }} // fallback
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-400">
-                      <Hotel className="h-10 w-10 opacity-20" />
-                    </div>
-                  )}
-                  {/* Star Badge */}
-                  {hotel.Star && hotel.Star !== ".00" && (
+                  <img
+                    src={hotelImg}
+                    alt={hotel.Name || "Hotel"}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = HOTEL_CARD_FALLBACK_IMG;
+                    }}
+                  />
+                  {hotel.Star && hotel.Star !== ".00" && !Number.isNaN(starNum) && starNum > 0 && (
                     <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-slate-800 shadow-sm flex items-center gap-1">
-                      {parseInt(hotel.Star)} <span className="text-amber-500">★</span>
+                      {Math.round(starNum)} <span className="text-amber-500">★</span>
                     </div>
                   )}
                 </div>
@@ -505,7 +725,13 @@ function InclusionIconRow({ items, active, onChange }) {
                 {/* Hotel Info */}
                 <div className="p-3 flex-1 flex flex-col">
                   <h4 className="font-bold text-slate-900 text-base leading-tight mb-1">{hotel.Name}</h4>
-                  {hotel.Location?.Address && (
+                  {hotel._CityTitle && (
+                    <p className="text-xs text-slate-500 mb-1">
+                      <span className="text-emerald-600 mr-1">📍</span>
+                      {hotel._CityTitle}
+                    </p>
+                  )}
+                  {hotel.Location?.Address && hotel.Location.Address !== "0" && (
                     <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-2">
                       <span className="text-emerald-600 mr-1">📍</span>{hotel.Location.Address}
                     </p>
@@ -520,22 +746,27 @@ function InclusionIconRow({ items, active, onChange }) {
                   </div>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         ) : activeObj?.isRich && activeObj?.richType === "sightseeing" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
-            {parsedDetails
-              .filter((ss) => ss.Image && ss.Image !== "0") // Filter out placeholder images
-              .map((ss, idx) => (
+            {parsedDetails.map((ss, idx) => {
+              const sightImg =
+                ss.Image && ss.Image !== "0"
+                  ? ss.Image
+                  : "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80";
+              const sightTitle = plainTextFromApi(ss.Title || ss.Name || "");
+              return (
                 <div
-                  key={idx}
+                  key={ss.RefSSId != null ? `${ss.RefSSId}-${idx}` : idx}
                   className="group bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer"
                 >
                   {/* Sightseeing Image */}
                   <div className="relative h-48 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                     <img
-                      src={ss.Image}
-                      alt={ss.Title || ss.Name || "Sightseeing"}
+                      src={sightImg}
+                      alt={sightTitle || "Sightseeing"}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         e.target.src = "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80";
@@ -557,24 +788,25 @@ function InclusionIconRow({ items, active, onChange }) {
                   {/* Sightseeing Info - Title Only */}
                   <div className="p-4 flex flex-col gap-2">
                     <h4 className="font-bold text-slate-900 text-base leading-tight line-clamp-2">
-                      {ss.Title || ss.Name}
+                      {sightTitle || "Sightseeing"}
                     </h4>
                     {ss.CityName && (
                       <p className="text-xs text-slate-600 font-medium flex items-center gap-1">
                         <span className="text-emerald-600">📍</span>
-                        <span className="line-clamp-1">{ss.CityName}</span>
+                        <span className="line-clamp-1">{plainTextFromApi(ss.CityName)}</span>
                       </p>
                     )}
                   </div>
                 </div>
-              ))}
+              );
+            })}
           </div>
         ) : (
           <div className="mt-2 text-sm text-slate-600 space-y-1">
             {parsedDetails.map((line, index) => (
               <div key={index} className="flex gap-2">
                 <span className="text-emerald-600">•</span>
-                <span>{line}</span>
+                <span>{plainTextFromApi(String(line))}</span>
               </div>
             ))}
           </div>
@@ -651,7 +883,7 @@ function ItineraryTab({ itinerary = [] }) {
                     Day {d.day}
                   </span>
                   <span className="text-sm font-semibold text-slate-900">
-                    {d.title}
+                    {plainTextFromApi(d.title)}
                   </span>
                 </div>
                 <span className="text-slate-500">{open ? "−" : "+"}</span>
@@ -676,7 +908,7 @@ function ItineraryTab({ itinerary = [] }) {
                       {Array.isArray(d.bullets) && d.bullets.length > 0 && (
                         <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
                           {d.bullets.map((b, i) => (
-                            <li key={i}>{b}</li>
+                            <li key={i}>{plainTextFromApi(String(b))}</li>
                           ))}
                         </ul>
                       )}
@@ -685,7 +917,7 @@ function ItineraryTab({ itinerary = [] }) {
                           <span className="font-semibold text-slate-700">
                             Note:
                           </span>{" "}
-                          {d.note}
+                          {plainTextFromApi(String(d.note))}
                         </p>
                       )}
                     </div>
@@ -748,7 +980,7 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
             <div className="bg-slate-50 p-5 rounded-xl ring-1 ring-black/5">
               <div className="flex justify-between items-start mb-4 pb-4 border-b border-black/10">
                 <div>
-                  <h4 className="text-lg font-bold text-slate-900">{content.VisaName || "Tourist Visa"}</h4>
+                  <h4 className="text-lg font-bold text-slate-900">{plainTextFromApi(content.VisaName || "Tourist Visa")}</h4>
                   <div className="flex gap-2 mt-2">
                     {content.VisaType && (
                       <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded">{content.VisaType}</span>
@@ -811,7 +1043,7 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
                           {inclusions.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm text-slate-700">
                               <span className="text-green-500 shrink-0 font-bold">•</span>
-                              <span>{item}</span>
+                              <span>{plainTextFromApi(String(item))}</span>
                             </li>
                           ))}
                         </ul>
@@ -827,7 +1059,7 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
                           {exclusions.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm text-slate-700">
                               <span className="text-red-500 shrink-0 font-bold">•</span>
-                              <span>{item}</span>
+                              <span>{plainTextFromApi(String(item))}</span>
                             </li>
                           ))}
                         </ul>
@@ -842,7 +1074,7 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
               {content.map((line, i) => (
                 <li key={i} className="flex gap-3 text-sm text-slate-700">
                   <span className="text-teal-500 shrink-0 font-bold">•</span>
-                  <span>{line}</span>
+                  <span>{plainTextFromApi(String(line))}</span>
                 </li>
               ))}
             </ul>
@@ -1005,7 +1237,7 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
           borderColor: "rgba(0,178,119,0.18)",
         }}
       >
-        <p className="font-semibold text-slate-900">{pkg.title}</p>
+        <p className="font-semibold text-slate-900">{plainTextFromApi(pkg.title)}</p>
         <p className="text-xs text-slate-600">{pkg.pricing.points}</p>
       </div>
 
@@ -1079,7 +1311,7 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
           </button>
           {isShareOpen && (
             <ShareMenu 
-              title={pkg.title} 
+              title={plainTextFromApi(pkg.title)} 
               packageId={packageId}
               onClose={() => setIsShareOpen(false)}
             />
