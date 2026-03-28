@@ -103,6 +103,9 @@ export default function PackageDetailsPage() {
           let decoded = String(text)
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>')
+            .replace(/&amp;bull;/g, '')  // Remove &amp;bull; first (encoded version)
+            .replace(/&bull;/g, '')     // Remove &bull; 
+            .replace(/•/g, '')           // Remove actual bullet character
             .replace(/&amp;nbsp;/g, ' ')
             .replace(/&amp;/g, '&')
             .replace(/&quot;/g, '"')
@@ -111,13 +114,15 @@ export default function PackageDetailsPage() {
           if (decoded.includes('<li>') || decoded.includes('<li ')) {
             const items = decoded.split(/<li[^>]*>/i);
             items.shift();
-            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
           } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
-            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
+          } else if (decoded.includes('\n')) {
+            return decoded.split(/\n/).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
           } else if (decoded.includes('<p>')) {
-            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
           } else {
-            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
+            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(i => i && !i.match(/^[•\-\*]*$/)).filter(Boolean);
           }
         };
 
@@ -188,7 +193,7 @@ export default function PackageDetailsPage() {
           gallery: {
             hero: outerPkg?.ImgThumbnail || includedHotel?.MainImg || "",
             thumbs: [
-              includedHotel?.MainImg,
+              includedHotel?.MainImg || sightseeings?.[3]?.Image,  // Hotel image, fallback to 4th sightseeing if not available
               sightseeings?.[0]?.Image,
               sightseeings?.[1]?.Image,
               sightseeings?.[2]?.Image
@@ -273,11 +278,11 @@ export default function PackageDetailsPage() {
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
               {pkg.title}
             </h1>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+            {/* <div className="flex items-center gap-2 text-sm text-slate-600">
               <span className="font-semibold">{pkg.rating}</span>
               <span className="text-amber-500">★</span>
               <span>{pkg.reviewsLabel}</span>
-            </div>
+            </div> */}
           </div>
 
           <div className="text-sm text-slate-600 flex flex-wrap items-center gap-3">
