@@ -146,9 +146,12 @@ export default function PackagesIndex() {
       
       if (!keywords.some((keyword) => searchText.includes(keyword.toLowerCase()))) return false;
 
-      // 2. Filter by package name search (if provided)
+      // 2. Filter by package name and country search (if provided)
       if (searchName.trim()) {
-        if (!pkgName.includes(searchName.toLowerCase())) return false;
+        const searchLower = searchName.toLowerCase();
+        const matchesName = pkgName.includes(searchLower);
+        const matchesCountry = pkgCountry.includes(searchLower);
+        if (!matchesName && !matchesCountry) return false;
       }
 
       // 3. Filter by price
@@ -232,11 +235,13 @@ export default function PackagesIndex() {
     }
   }, [isLoading, apiPackages]);
 
+
   return (
     <div className="min-h-screen pt-28">
       <PackagesListingLayout 
         pageTitle="Tour Packages" 
-        totalCount={284}
+        totalCount={apiPackages.length}
+        
         // Pass filter state
         priceValue={priceFilter}
         durationValue={durationFilter}
@@ -278,10 +283,10 @@ export default function PackagesIndex() {
           
           return (
             <>
-              {omanItems.length > 0 && <PackagesCarousel title="Oman Tour Packages" items={omanItems} />}
-              {seychellesItems.length > 0 && <PackagesCarousel title="Seychelles Tour Packages" items={seychellesItems} />}
-              {vietnamItems.length > 0 && <PackagesCarousel title="Vietnam Tour Packages" items={vietnamItems} />}
-              {thailandItems.length > 0 && <PackagesCarousel title="Thailand Tour Packages" items={thailandItems} />}
+              {omanItems.length > 0 && <PackagesCarousel title={`Oman Tour Packages (${omanItems.length})`} items={omanItems} />}
+              {seychellesItems.length > 0 && <PackagesCarousel title={`Seychelles Tour Packages (${seychellesItems.length})`} items={seychellesItems} />}
+              {vietnamItems.length > 0 && <PackagesCarousel title={`Vietnam Tour Packages (${vietnamItems.length})`} items={vietnamItems} />}
+              {thailandItems.length > 0 && <PackagesCarousel title={`Thailand Tour Packages (${thailandItems.length})`} items={thailandItems} />}
             </>
           );
         })()}

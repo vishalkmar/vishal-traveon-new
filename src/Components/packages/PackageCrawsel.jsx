@@ -371,26 +371,8 @@ function PackageCard({ item, sizes, cardClassName }) {
       {/* Hover Overlay (Darker full cover) */}
       <div className="absolute inset-0 bg-black/80 transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
 
-      {/* TOP RIGHT: Rating & Heart (Always Visible) */}
+      {/* TOP RIGHT: Heart Icon Only */}
       <div className="absolute right-4 top-4 z-40 flex items-center gap-3">
-        {(item.rating != null || item.reviewsLabel) && (
-          <div className="flex items-center gap-1 text-white drop-shadow-md">
-            {item.rating != null && (
-              <span className="text-[17px] font-bold">
-                {item.rating?.toFixed ? item.rating.toFixed(1) : item.rating}
-              </span>
-            )}
-            {item.rating != null && (
-              <span className="text-[#FFC107] -mt-0.5">
-                <StarIcon />
-              </span>
-            )}
-            {item.reviewsLabel && (
-              <span className="text-[15px] font-semibold">{item.reviewsLabel}</span>
-            )}
-          </div>
-        )}
-
         <button 
           type="button" 
           className="text-white hover:text-[#39C6D8] transition-colors drop-shadow-md z-50 pointer-events-auto" 

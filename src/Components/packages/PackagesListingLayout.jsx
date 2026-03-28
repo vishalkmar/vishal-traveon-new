@@ -17,6 +17,7 @@ const THEME = {
 export default function PackagesListingLayout({
   pageTitle = "Europe Tour Packages",
   totalCount = 284,
+  // bestSellingCount = 0,
   children,
   isLoading = false,
   // Filter callbacks
@@ -153,17 +154,31 @@ export default function PackagesListingLayout({
 
           <Divider />
 
-          {/* Duration */}
-          <FilterGroup title="Duration">
-            {["2N", "3N", "4N", "5N", "6N", "7N", "8N", "9N", "10N", "15N", "20N", "30N"].map((k) => (
-              <ChipToggle
-                key={k}
-                label={k}
-                active={durationValue === k}
-                onToggle={() => handleDurationChange(k)}
-              />
-            ))}
-          </FilterGroup>
+          {/* Duration - Dropdown */}
+          <div>
+            <label className="text-sm font-semibold text-slate-800 mb-2 block">Duration</label>
+            <select
+              value={durationValue}
+              onChange={(e) => {
+                handleDurationChange(e.target.value);
+              }}
+              className="w-full h-10 rounded-xl bg-white px-3 text-sm ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
+            >
+              <option value="">All Durations</option>
+              <option value="2N">2 Nights</option>
+              <option value="3N">3 Nights</option>
+              <option value="4N">4 Nights</option>
+              <option value="5N">5 Nights</option>
+              <option value="6N">6 Nights</option>
+              <option value="7N">7 Nights</option>
+              <option value="8N">8 Nights</option>
+              <option value="9N">9 Nights</option>
+              <option value="10N">10 Nights</option>
+              <option value="15N">15 Nights</option>
+              <option value="20N">20 Nights</option>
+              <option value="30N">30 Nights</option>
+            </select>
+          </div>
 
           <Divider />
 
@@ -179,32 +194,7 @@ export default function PackagesListingLayout({
             ))}
           </FilterGroup>
 
-          <Divider />
 
-          {/* Month of Travel */}
-          <FilterGroup title="Month of Travel">
-            <select
-              value={monthValue}
-              onChange={(e) => {
-                handleMonthChange(e.target.value);
-                console.log("Month filter (sidebar) selected:", e.target.value);
-              }}
-              className="w-full h-10 rounded-xl bg-white px-3 text-sm ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
-            >
-              <option value="">Select Month</option>
-              <option value="Feb">February</option>
-              <option value="Mar">March</option>
-              <option value="Apr">April</option>
-              <option value="May">May</option>
-              <option value="Jun">June</option>
-              <option value="Jul">July</option>
-              <option value="Aug">August</option>
-              <option value="Sep">September</option>
-              <option value="Oct">October</option>
-              <option value="Nov">November</option>
-              <option value="Dec">December</option>
-            </select>
-          </FilterGroup>
 
         </div>
       </div>
@@ -225,8 +215,8 @@ export default function PackagesListingLayout({
             <span className="text-slate-900 font-medium">{pageTitle}</span>
           </div>
 
-          {/* Search Filter Bar - Responsive */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Search Filter Bar - 2 Columns (50% 50%) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {/* Search by Package Name */}
             <div className="relative">
               <label className="block text-xs font-semibold text-slate-600 mb-1">
@@ -239,44 +229,6 @@ export default function PackagesListingLayout({
                 onChange={handleSearchPackage}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30 placeholder-slate-400"
               />
-            </div>
-
-            {/* Filter by Date */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
-                Travel Date
-              </label>
-              <input
-                type="date"
-                value={dateValue}
-                onChange={handleDateFilter}
-                className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
-              />
-            </div>
-
-            {/* Filter by Month */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
-                Month
-              </label>
-              <select
-                value={monthValue}
-                onChange={handleMonthFilterHeader}
-                className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
-              >
-                <option value="">All Months</option>
-                <option value="Feb">February</option>
-                <option value="Mar">March</option>
-                <option value="Apr">April</option>
-                <option value="May">May</option>
-                <option value="Jun">June</option>
-                <option value="Jul">July</option>
-                <option value="Aug">August</option>
-                <option value="Sep">September</option>
-                <option value="Oct">October</option>
-                <option value="Nov">November</option>
-                <option value="Dec">December</option>
-              </select>
             </div>
 
             {/* Sort Filter */}
@@ -292,10 +244,10 @@ export default function PackagesListingLayout({
                 }}
                 className="w-full h-10 rounded-xl px-3 text-sm bg-white ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
               >
-                <option value="recommended">Recommended</option>
+                {/* <option value="recommended">Recommended</option> */}
                 <option value="price_low">Price: Low to High</option>
                 <option value="price_high">Price: High to Low</option>
-                <option value="date">Travel Date</option>
+                {/* <option value="date">Travel Date</option> */}
                 <option value="duration">Duration</option>
               </select>
             </div>
@@ -345,7 +297,7 @@ export default function PackagesListingLayout({
             {/* Example section heading */}
             <SectionHeader
               title="Best Selling International Tour Packages at EPIC Discounts"
-              count={13}
+              // count={bestSellingCount}
               subtitle="Best Selling Packages Curated Just for You"
             />
 
@@ -416,7 +368,7 @@ function SectionHeader({ title, count, subtitle }) {
     <div className="flex items-start justify-between gap-4">
       <div>
         <h2 className="text-lg sm:text-xl font-bold text-slate-900">
-          {title} <span className="text-slate-500 font-semibold">({count})</span>
+          {title} 
         </h2>
         {subtitle && <p className="text-sm text-slate-500 mt-1">{subtitle}</p>}
       </div>
