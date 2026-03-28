@@ -40,7 +40,6 @@ export default function PackageDetailsPage() {
     () => [
       { key: "itinerary", label: "ITINERARY" },
       { key: "package", label: "PACKAGE DETAILS" },
-      { key: "price", label: "CALCULATE PRICE" },
       { key: "terms", label: "TERMS & CONDITIONS" },
     ],
     []
@@ -98,13 +97,37 @@ export default function PackageDetailsPage() {
           return uniqueParts.join(' ').trim();
         };
 
-        // Itineraries formatting
+        // Helper to decode HTML entities and rip out bullets (moved here to use in itinerary mapping)
+        const parseToBullets = (text) => {
+          if (!text) return [];
+          let decoded = String(text)
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;nbsp;/g, ' ')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'");
+
+          if (decoded.includes('<li>') || decoded.includes('<li ')) {
+            const items = decoded.split(/<li[^>]*>/i);
+            items.shift();
+            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
+            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else if (decoded.includes('<p>')) {
+            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
+          } else {
+            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
+          }
+        };
+
+        // Itineraries formatting - now with Program parsing
         let its = [];
         if (outerPkg?.Itineraries?.Itinerary && Array.isArray(outerPkg.Itineraries.Itinerary)) {
           its = outerPkg.Itineraries.Itinerary.map((it, idx) => ({
             day: (idx + 1),
             title: cleanText(it.Title) || `Day ${idx + 1}`,
-            bullets: [],
+            bullets: parseToBullets(it.Program) || [],
             note: "",
             image: ""
           }));
@@ -155,24 +178,6 @@ export default function PackageDetailsPage() {
 
         if (itemsRow.length === 0) itemsRow.push({ key: "info", label: "Info", details: ["View detailed terms"] });
 
-        // Helper to decode HTML entities and rip out bullets
-        const parseToBullets = (text) => {
-          if (!text) return [];
-          let decoded = String(text).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ');
-
-          if (decoded.includes('<li>') || decoded.includes('<li ')) {
-            const items = decoded.split(/<li[^>]*>/i);
-            items.shift();
-            return items.map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-          } else if (decoded.includes('<br/>') || decoded.includes('<br>')) {
-            return decoded.split(/<br\s*\/?>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-          } else if (decoded.includes('<p>')) {
-            return decoded.split(/<p[^>]*>/i).map(i => i.replace(/<[^>]*>/gm, '').trim()).filter(Boolean);
-          } else {
-            return [decoded.replace(/<[^>]*>/gm, '').trim()].filter(Boolean);
-          }
-        };
-
         const mappedPkg = {
           id: pObj.gtxPkgId || packageId,
           title: cleanText(outerPkg.Name || pObj.name || "Package"),
@@ -182,14 +187,31 @@ export default function PackageDetailsPage() {
           routeLine: (pObj?.destinations ? pObj.destinations.split(',').join(' • ') : outerPkg?.DestinationPlaces || ""),
           gallery: {
             hero: outerPkg?.ImgThumbnail || includedHotel?.MainImg || "",
-            thumbs: [outerPkg?.ImgThumbnail, includedHotel?.MainImg].filter(Boolean)
+            thumbs: [
+              includedHotel?.MainImg,
+              sightseeings?.[0]?.Image,
+              sightseeings?.[1]?.Image,
+              sightseeings?.[2]?.Image
+            ].filter(Boolean)
           },
           inclusions: itemsRow,
           itinerary: its,
           packageDetails: {
-            flights: outerPkg?.FlightData?.length ? ["Flights are subject to availability"] : [],
-            transfer: outerPkg?.TransferData?.length ? ["All transfers on SIC basis"] : [],
-            visa: outerPkg?.VisaDetails && Object.values(outerPkg.VisaDetails)[0] ? Object.values(outerPkg.VisaDetails)[0] : [],
+            flights: outerPkg?.FlightData?.length 
+              ? outerPkg.FlightData.map(f => `${f.FlightNo || "Flight"} - ${f.Route || ""}`.trim()).filter(Boolean) 
+              : pkgTxt.includes("flight") 
+                ? ["Flights Included in this tour. All domestic and international flights are arranged as per itinerary with preferred airlines."] 
+                : ["Flights are not included in this package."],
+            transfer: outerPkg?.TransferData?.length 
+              ? outerPkg.TransferData.map(t => `${t.Description || "Transfer"}`.trim()).filter(Boolean)
+              : pkgTxt.includes("transfer") 
+                ? ["Transfers Included: All airport pickups, hotel transfers, and sightseeing transfers are included on shared basis. Private transfers available on request."] 
+                : [],
+            visa: outerPkg?.VisaDetails && Object.values(outerPkg.VisaDetails)[0] 
+              ? Object.values(outerPkg.VisaDetails)[0] 
+              : pkgTxt.includes("visa")
+                ? ["Visa Included in this tour. Our expert visa consultants will guide you through the entire application process with complete documentation support."]
+                : [],
             sightseeing: sightseeings.map(s => cleanText(s.Title || s.Name)) || [],
             accommodation: hotels.map(h => `${cleanText(h.Name)} (${h.Star} Star)`),
             meals: includedHotel?.MealTypeName ? [includedHotel.MealTypeName] : [],
@@ -203,10 +225,12 @@ export default function PackageDetailsPage() {
           rawTerms: outerPkg?.Terms || {}, // Pass raw object for new sub-tabs
           pricing: {
             price: pObj?.minPrice ? `₹${pObj.minPrice.toLocaleString('en-IN')} ` : "Price on Request",
-            note: "Starting price per adult",
+            note: "Per Person (Double Occupency)",
             oldPrice: null,
-            points: "Earn 500 Loyal Points"
+            points: nightsDaysStr
           },
+          inclusionsText: pObj?.inclusionsText || inclusionText || "",
+          details: outerPkg?.details || pObj?.details || "",
           preString: `Hi, I want to enquire about ${outerPkg.Name} (${nightsDaysStr})`
         };
 
@@ -241,7 +265,7 @@ export default function PackageDetailsPage() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-6">
+    <div className="bg-slate-50 min-h-screen pt-6 mt-[80px]" >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Title row */}
         <div className="flex flex-col gap-2">
@@ -292,8 +316,6 @@ export default function PackageDetailsPage() {
               />
             )}
 
-            {activeTab === "price" && <CalculatePriceTab />}
-
             {activeTab === "terms" && <TermsConditionsTab termsObj={pkg.rawTerms} />}
           </div>
 
@@ -328,17 +350,22 @@ function GallerySection({ pkg }) {
 
   return (
     <div className="rounded-2xl bg-white ring-1 ring-black/10 overflow-hidden">
-      <div className="p-4 flex items-center justify-between">
-        <span
-          className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full ring-1"
-          style={{
-            background: "rgba(0,178,119,0.10)",
-            color: "#0f766e",
-            borderColor: "rgba(0,178,119,0.25)",
-          }}
-        >
-          {pkg.tag || "Group Tour"}
-        </span>
+      {/* Inclusions Text */}
+      {pkg.inclusionsText && (
+        <div className="bg-slate-50 border-b border-slate-200 p-4">
+          <p className="text-xs text-slate-600 font-medium">{pkg.inclusionsText}</p>
+        </div>
+      )}
+      
+      <div className="p-4 flex items-center justify-between border-b border-slate-200">
+        <div className="flex items-center gap-3">
+          <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <span className="text-xs font-semibold text-slate-700">
+            {pkg.tag || "Group Tour"}
+          </span>
+        </div>
         <button className="text-sm text-slate-600 hover:text-slate-900">
           See All Photos
         </button>
@@ -491,39 +518,51 @@ function InclusionIconRow({ items, active, onChange }) {
             ))}
           </div>
         ) : activeObj?.isRich && activeObj?.richType === "sightseeing" ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-            {parsedDetails.map((ss, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden flex flex-col">
-                {/* Sightseeing Image */}
-                <div className="relative h-40 bg-slate-200">
-                  {ss.Image ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+            {parsedDetails
+              .filter((ss) => ss.Image && ss.Image !== "0") // Filter out placeholder images
+              .map((ss, idx) => (
+                <div
+                  key={idx}
+                  className="group bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer"
+                >
+                  {/* Sightseeing Image */}
+                  <div className="relative h-48 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                     <img
                       src={ss.Image}
                       alt={ss.Title || ss.Name || "Sightseeing"}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80" }} // fallback
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.src = "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80";
+                      }}
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-400">
-                      <Camera className="h-10 w-10 opacity-20" />
+                    {/* Image Icon Overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                      <svg
+                        className="h-12 w-12 text-white opacity-0 group-hover:opacity-75 transition-opacity duration-300"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+                      </svg>
                     </div>
-                  )}
-                </div>
+                  </div>
 
-                {/* Sightseeing Info */}
-                <div className="p-3 flex-1 flex flex-col">
-                  <h4 className="font-bold text-slate-900 text-base leading-tight mb-1">{ss.Title || ss.Name}</h4>
-                  {ss.CityName && (
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-2">
-                      <span className="text-emerald-600 mr-1">📍</span>{ss.CityName}
-                    </p>
-                  )}
-                  {ss.Description && (
-                    <p className="text-xs text-slate-600 mb-2 line-clamp-3">{String(ss.Description).replace(/<[^>]*>?/gm, '')}</p>
-                  )}
+                  {/* Sightseeing Info - Title Only */}
+                  <div className="p-4 flex flex-col gap-2">
+                    <h4 className="font-bold text-slate-900 text-base leading-tight line-clamp-2">
+                      {ss.Title || ss.Name}
+                    </h4>
+                    {ss.CityName && (
+                      <p className="text-xs text-slate-600 font-medium flex items-center gap-1">
+                        <span className="text-emerald-600">📍</span>
+                        <span className="line-clamp-1">{ss.CityName}</span>
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         ) : (
           <div className="mt-2 text-sm text-slate-600 space-y-1">
@@ -741,14 +780,63 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
                 </div>
               </div>
             </div>
+          ) : activeSub === "inclusionsExclusions" && Array.isArray(content) && content.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {(() => {
+                const inclusionsIndex = content.indexOf("INCLUSIONS:");
+                const exclusionsIndex = content.indexOf("EXCLUSIONS:");
+                
+                const inclusions = inclusionsIndex !== -1 
+                  ? content.slice(inclusionsIndex + 1, exclusionsIndex !== -1 ? exclusionsIndex : content.length)
+                  : [];
+                
+                const exclusions = exclusionsIndex !== -1
+                  ? content.slice(exclusionsIndex + 1)
+                  : [];
+
+                return (
+                  <>
+                    {inclusions.length > 0 && (
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="h-3 w-3 rounded-full bg-green-500 shrink-0" />
+                          <h4 className="text-sm font-bold text-slate-900">INCLUSIONS:</h4>
+                        </div>
+                        <ul className="space-y-2">
+                          {inclusions.map((item, i) => (
+                            <li key={i} className="flex gap-3 text-sm text-slate-700">
+                              <span className="text-green-500 shrink-0 font-bold">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {exclusions.length > 0 && (
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="h-3 w-3 rounded-full bg-red-500 shrink-0" />
+                          <h4 className="text-sm font-bold text-slate-900">EXCLUSIONS:</h4>
+                        </div>
+                        <ul className="space-y-2">
+                          {exclusions.map((item, i) => (
+                            <li key={i} className="flex gap-3 text-sm text-slate-700">
+                              <span className="text-red-500 shrink-0 font-bold">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
           ) : Array.isArray(content) && content.length > 0 ? (
             <ul className="space-y-2">
               {content.map((line, i) => (
                 <li key={i} className="flex gap-3 text-sm text-slate-700">
-                  <span
-                    className="mt-1 h-2 w-2 rounded-full shrink-0"
-                    style={{ background: BRAND.teal }}
-                  />
+                  <span className="text-teal-500 shrink-0 font-bold">•</span>
                   <span>{line}</span>
                 </li>
               ))}
@@ -766,6 +854,18 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
 function TermsConditionsTab({ termsObj }) {
   const validKeys = Object.keys(termsObj || {}).filter(k => termsObj[k] && String(termsObj[k]).trim() !== "");
   const [activeTerm, setActiveTerm] = useState(validKeys[0] || "");
+
+  // Helper to decode HTML entities
+  const decodeHtmlEntities = (html) => {
+    return String(html || "")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;nbsp;/g, ' ')
+      .replace(/&amp;#39;/g, "'")
+      .replace(/&amp;rsquo;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&amp;/g, '&');
+  };
 
   if (validKeys.length === 0) {
     return (
@@ -900,8 +1000,8 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
           borderColor: "rgba(0,178,119,0.18)",
         }}
       >
-        <p className="font-semibold text-slate-900">Earn</p>
-        <p className="text-sm text-slate-700">{pkg.pricing.points}</p>
+        <p className="font-semibold text-slate-900">{pkg.title}</p>
+        <p className="text-xs text-slate-600">{pkg.pricing.points}</p>
       </div>
 
       <button
@@ -935,6 +1035,25 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
       >
         Customize Your Package
       </button>
+
+      {pkg.details && (
+        <div className="mt-4 p-4 rounded-xl bg-slate-50 ring-1 ring-slate-200">
+          <p className="text-xs font-semibold text-slate-900 mb-2">About Destination</p>
+          <div 
+            className="text-xs text-slate-700 leading-relaxed "
+            dangerouslySetInnerHTML={{
+              __html: String(pkg.details || "")
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;nbsp;/g, ' ')
+                .replace(/&amp;/g, '&')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                .replace(/<[^>]*>/g, '')
+            }}
+          />
+        </div>
+      )}
 
       <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
         {/* <button

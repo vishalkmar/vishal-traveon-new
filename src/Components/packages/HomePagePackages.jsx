@@ -5,10 +5,12 @@ import PackagesCarousel from "../../Components/packages/PackageCrawsel.jsx";
 export default function HomePagePackages() {
   const [apiPackages, setApiPackages] = useState([]);
   const [activeTab, setActiveTab] = useState("oman");
+  const [isLoading, setIsLoading] = useState(true);
   const destinationRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/packages/`);
         if (!res.ok) throw new Error("API error");
@@ -26,6 +28,8 @@ export default function HomePagePackages() {
       } catch (error) {
         console.error("Error fetching packages:", error);
         setApiPackages([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -45,11 +49,12 @@ export default function HomePagePackages() {
     const keywords = filterMap[tab] || [];
 
     return apiPackages.filter((pkg) => {
-      // Check multiple fields for matching: name, destinations, PackageSearchSting
+      // Check multiple fields for matching: country (primary), name, destinations, PackageSearchString
+      const pkgCountry = (pkg?.countries || pkg?.country || "").toLowerCase();
       const pkgName = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
       const pkgDestinations = (pkg?.destinations || "").toLowerCase();
-      const pkgSearchString = (pkg?.PackageSearchSting || "").toLowerCase();
-      const searchText = `${pkgName} ${pkgDestinations} ${pkgSearchString}`;
+      const pkgSearchString = (pkg?.packageSearchString || pkg?.PackageSearchSting || "").toLowerCase();
+      const searchText = `${pkgCountry} ${pkgName} ${pkgDestinations} ${pkgSearchString}`;
       
       return keywords.some((keyword) => searchText.includes(keyword.toLowerCase()));
     });
@@ -209,28 +214,41 @@ export default function HomePagePackages() {
           </div>
         </div>
 
-        {activeTab === "oman" && (
-          <PackagesCarousel
-            title="Oman Tour Packages"
-            items={currentPackages}
-            onViewAll={() => (window.location.href = "/packages")}
-          />
-        )}
+        {isLoading ? (
+          <div className="space-y-4">
+            <div className="h-8 bg-gradient-to-r from-slate-200 to-slate-100 rounded-lg animate-pulse w-48"></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="rounded-3xl h-[460px] bg-slate-200 animate-pulse"></div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            {activeTab === "oman" && (
+              <PackagesCarousel
+                title="Oman Tour Packages"
+                items={currentPackages}
+                onViewAll={() => (window.location.href = "/packages")}
+              />
+            )}
 
-        {activeTab === "vietnam" && (
-          <PackagesCarousel
-            title="Vietnam Tour Packages"
-            items={currentPackages}
-            onViewAll={() => (window.location.href = "/packages")}
-          />
-        )}
+            {activeTab === "vietnam" && (
+              <PackagesCarousel
+                title="Vietnam Tour Packages"
+                items={currentPackages}
+                onViewAll={() => (window.location.href = "/packages")}
+              />
+            )}
 
-        {activeTab === "seychelles" && (
-          <PackagesCarousel
-            title="Seychelles Tour Packages"
-            items={currentPackages}
-            onViewAll={() => (window.location.href = "/packages")}
-          />
+            {activeTab === "seychelles" && (
+              <PackagesCarousel
+                title="Seychelles Tour Packages"
+                items={currentPackages}
+                onViewAll={() => (window.location.href = "/packages")}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

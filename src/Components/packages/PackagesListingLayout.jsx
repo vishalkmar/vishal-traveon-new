@@ -18,6 +18,7 @@ export default function PackagesListingLayout({
   pageTitle = "Europe Tour Packages",
   totalCount = 284,
   children,
+  isLoading = false,
   // Filter callbacks
   onPriceChange,
   onDurationChange,
@@ -27,7 +28,7 @@ export default function PackagesListingLayout({
   onDateChange,
   onSortChange,
   // Filter values (controlled from parent)
-  priceValue = 36000,
+  priceValue = 500000,
   durationValue = {},
   flightValue = {},
   monthValue = "",
@@ -73,7 +74,7 @@ export default function PackagesListingLayout({
   };
 
   const handleClearAll = () => {
-    if (onPriceChange) onPriceChange(36000);
+    if (onPriceChange) onPriceChange(500000);
     if (onDurationChange) onDurationChange("");
     if (onFlightChange) onFlightChange("");
     if (onMonthChange) onMonthChange("");
@@ -138,15 +139,15 @@ export default function PackagesListingLayout({
             </div>
             <input
               type="range"
-              min={36000}
-              max={88400}
+              min={0}
+              max={500000}
               value={priceValue}
               onChange={(e) => handlePriceChange(Number(e.target.value))}
               className="mt-3 w-full accent-teal-500"
             />
             <div className="mt-1 flex justify-between text-xs text-slate-500">
-              <span>₹36,000</span>
-              <span>₹88,400</span>
+              <span>₹0</span>
+              <span>₹5,00,000</span>
             </div>
           </div>
 
@@ -349,7 +350,22 @@ export default function PackagesListingLayout({
             />
 
             {/* Put your carousel/cards here */}
-            {children}
+            {isLoading ? (
+              <div className="space-y-8">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="space-y-4">
+                    <div className="h-8 bg-gradient-to-r from-slate-200 to-slate-100 rounded-lg animate-pulse w-64"></div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {[1, 2, 3].map((j) => (
+                        <div key={j} className="rounded-3xl h-[460px] bg-slate-200 animate-pulse"></div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              children
+            )}
 
           </main>
         </div>

@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 
 export default function PackagesIndex() {
   const [apiPackages, setApiPackages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Filter states
-  const [priceFilter, setPriceFilter] = useState(36000);
+  const [priceFilter, setPriceFilter] = useState(500000); // Increased to show all packages by default
   const [durationFilter, setDurationFilter] = useState(""); // single select - e.g., "4N"
   const [flightFilter, setFlightFilter] = useState(""); // single select - e.g., "With Flight Holidays"
   const [monthFilter, setMonthFilter] = useState("");
@@ -26,6 +27,7 @@ export default function PackagesIndex() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/packages/`);
         if (!res.ok) throw new Error("API error");
@@ -39,6 +41,8 @@ export default function PackagesIndex() {
         setApiPackages(packagesArray);
       } catch (error) {
         console.error("Error fetching packages:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -132,12 +136,13 @@ export default function PackagesIndex() {
     if (!Array.isArray(pkgs) || pkgs.length === 0) return [];
 
     let filtered = pkgs.filter((pkg) => {
-      // 1. Filter by destination
+      // 1. Filter by destination/country
       const keywords = filterMap[destination] || [];
+      const pkgCountry = (pkg?.countries || pkg?.country || "").toLowerCase();
       const pkgName = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
       const pkgDestinations = (pkg?.destinations || "").toLowerCase();
-      const pkgSearchString = (pkg?.PackageSearchSting || "").toLowerCase();
-      const searchText = `${pkgName} ${pkgDestinations} ${pkgSearchString}`;
+      const pkgSearchString = (pkg?.packageSearchString || pkg?.PackageSearchSting || "").toLowerCase();
+      const searchText = `${pkgCountry} ${pkgName} ${pkgDestinations} ${pkgSearchString}`;
       
       if (!keywords.some((keyword) => searchText.includes(keyword.toLowerCase()))) return false;
 
@@ -220,6 +225,13 @@ export default function PackagesIndex() {
     return applyAllFilters(apiPackages, destination);
   };
 
+  // Log filtered packages for debugging
+  useEffect(() => {
+    if (!isLoading && apiPackages.length > 0) {
+      // Removed debug logs - removed to keep console clean
+    }
+  }, [isLoading, apiPackages]);
+
   return (
     <div className="min-h-screen pt-28">
       <PackagesListingLayout 
@@ -241,6 +253,7 @@ export default function PackagesIndex() {
         onSearchChange={setSearchName}
         onDateChange={setSelectedDate}
         onSortChange={setSortBy}
+        isLoading={isLoading}
       >
         {/* Show carousels only if they have items */}
         {(() => {

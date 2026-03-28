@@ -174,11 +174,30 @@ function mapPackageData(item) {
   // Helper arrays for routes - map dest comma to space or keep clean
   const routeSummary = item?.destinations ? item.destinations.split(',').join(' • ') : pkg?.DestinationPlaces || "";
   
-  // Map itineraries from Itineraries.Itinerary array
+  // Extract priceDoubleOcc from pricing data
+  let priceDoubleOcc = null;
+  if (city?.pricingByRoomType && Array.isArray(city.pricingByRoomType)) {
+    const firstPricing = city.pricingByRoomType[0];
+    if (firstPricing?.priceDoubleOcc) {
+      priceDoubleOcc = `₹${Number(firstPricing.priceDoubleOcc).toLocaleString('en-IN')}`;
+    }
+  }
+
+  // Map itineraries from Itineraries.Itinerary array with Day and Title
+  let itinerariesArr = [];
   let itinerariesTextArr = [];
   if (pkg?.Itineraries?.Itinerary && Array.isArray(pkg.Itineraries.Itinerary)) {
-      itinerariesTextArr = pkg.Itineraries.Itinerary.map(it => it.Title).filter(t => t && t.trim() !== "");
+      itinerariesArr = pkg.Itineraries.Itinerary.map((it, idx) => ({
+        day: it.Day,
+        title: it.Title
+      }));
+      itinerariesTextArr = itinerariesArr.map(it => it.Title).filter(t => t && t.trim() !== "");
   }
+  
+  // Format itineraries for hover display: "day X : Title"
+  const itinerariesHoverText = itinerariesArr.slice(0, 5).map(it => `day ${it.day} : ${it.title}`).join('\n');
+  const showMoreItineraries = itinerariesArr.length > 5;
+  
   const itinerariesText = itinerariesTextArr.length > 0 
     ? itinerariesTextArr.join(', ') 
     // Fallback to top level dests if itinerary titles are empty
@@ -217,9 +236,9 @@ function mapPackageData(item) {
     routeSummary: `${nightsLabel ? nightsLabel.split('/')[0] + ' ' : ''}${routeSummary}`,
     pricing: {
       oldPrice: null,
-      price: item?.minPrice ? `₹${item.minPrice.toLocaleString('en-IN')} ` : null,
+      price: priceDoubleOcc || (item?.minPrice ? `₹${item.minPrice.toLocaleString('en-IN')} ` : null),
       discountLabel: item?.isFeatured ? "Featured" : "",
-      note: "Starting price per adult",
+      note: "Per Person (Double Occupency)",
     },
     pointsBanner: {
       badgeText: "SOTC",
@@ -228,6 +247,8 @@ function mapPackageData(item) {
     inclusions: inclusionsArr,
     itinerariesTitle: "itineraries",
     itinerariesText: itinerariesText,
+    itinerariesHoverText: itinerariesHoverText,
+    showMoreItineraries: showMoreItineraries,
     exclusionsText: "",
     bookingTerms: "",
     conditions: "",
@@ -262,7 +283,7 @@ export default function PackagesCarousel({
 
   const sizes = useMemo(
     () => ({
-      cardW: "w-[86%] sm:w-[50%] md:w-[45%] lg:w-[32%] xl:w-[28%] 2xl:w-[26%]", // slimmer cards like SOTC
+      cardW: "w-[calc(86%+40px)] sm:w-[calc(50%+40px)] md:w-[calc(45%+40px)] lg:w-[calc(32%+40px)] xl:w-[calc(28%+40px)] 2xl:w-[calc(26%+40px)]", // slimmer cards like SOTC + 40px
       cardH: "h-[460px] sm:h-[480px]", // height appropriate for portrait cards
     }),
     []
@@ -441,14 +462,6 @@ function PackageCard({ item, sizes, cardClassName }) {
         <div className="text-white/95 text-[15px] font-medium drop-shadow-sm mb-3">
           {item.pricing?.note || "Starting price per adult"}
         </div>
-
-        {/* Divider */}
-        <div className="h-px bg-white/40 w-full mb-3" />
-
-        {/* Route / Dest summary */}
-        <div className="text-white text-[15px] font-semibold drop-shadow-sm truncate">
-          {item.routeSummary}
-        </div>
       </div>
 
       {/* HOVER STATE: OVERLAY CONTENT */}
@@ -488,13 +501,19 @@ function PackageCard({ item, sizes, cardClassName }) {
           {/* Itineraries Text */}
           <div className="mt-5 text-white">
             <h4 className="text-[20px] font-medium tracking-tight mb-2 text-[#39C6D8]">{item.itinerariesTitle || "itineraries"}</h4>
-            <div className="text-[14px] font-medium text-white/90 leading-snug space-y-1 max-h-[100px] overflow-hidden">
-                {item.itinerariesText.split(',').map((itName, idx) => (
-                    <div key={idx} className="flex items-start gap-2 truncate">
+            <div className="text-[14px] font-medium text-white/90 leading-snug space-y-1 max-h-[150px] overflow-hidden">
+                {item.itinerariesHoverText?.split('\n').map((itLine, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
                         <span className="text-[#39C6D8] shrink-0 font-bold">•</span>
-                        <span className="truncate">{itName.trim()}</span>
+                        <span className="break-words">{itLine.trim()}</span>
                     </div>
                 ))}
+                {item.showMoreItineraries && (
+                    <div className="flex items-start gap-2">
+                        <span className="text-[#39C6D8] shrink-0 font-bold">•</span>
+                        <span className="italic text-white/70">more ...</span>
+                    </div>
+                )}
             </div>
           </div>
         </div>
