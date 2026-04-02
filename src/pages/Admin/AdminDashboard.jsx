@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import PackageConfiguration from "../../Components/Admin/PackageConfiguration";
+import PackageConfiguration from "../../Components/admin/PackageConfiguration";
 
 const API_URL =
   (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api";
