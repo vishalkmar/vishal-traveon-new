@@ -1,0 +1,2503 @@
+{
+  "success": true,
+  "message": "Package retrieved successfully",
+  "data": {
+    "id": "1a30821b-5837-4f90-bb27-5f3fa3324742",
+    "gtxPkgId": 114481,
+    "packRangeType": null,
+    "gtxPkgSourceId": 1,
+    "quadPrice": false,
+    "agencyId": 209265,
+    "isFeatured": true,
+    "displayIndex": 0,
+    "shortJsonInfo": null,
+    "packageSearchString": "Muscat,Middle East,Oman,Nizwa",
+    "destinations": "Muscat",
+    "destinationIds": "18762",
+    "countries": "Oman",
+    "countryIds": "165",
+    "minPrice": "40000.00",
+    "maxPrice": "40000.00",
+    "nights": 4,
+    "minPax": 1,
+    "pkgValidFrom": "2026-03-27",
+    "pkgValidTo": "2027-03-20",
+    "bookingValidUntil": "2027-03-20",
+    "isPublished": false,
+    "isActive": true,
+    "isMarkForDel": false,
+    "tpId": 114481,
+    "isCF": 0,
+    "url": null,
+    "isSharingPrice": 0,
+    "isFixPriceCalculate": "1",
+    "imgHeader": "0",
+    "isFixedDeparturePackage": false,
+    "isBusRoutePackage": false,
+    "imgThumbnail": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/package/images/magical-muscat-tour--star--nights--days_1773468845",
+    "bookingValidUntill": "2027-03-20",
+    "advBookingDays": 30,
+    "details": "&lt;p&gt;Muscat, the capital of Oman, is a captivating coastal city where traditional Arabian heritage blends beautifully with modern elegance. Surrounded by the majestic Al Hajar Mountains and the sparkling Arabian Sea, Muscat offers breathtaking scenery, historic forts, and a peaceful atmosphere that reflects the authentic charm of Oman.The city is home to remarkable landmarks such as the grand Sultan Qaboos Grand Mosque, one of the most beautiful mosques in the Middle East, and the elegant Royal Opera House Muscat, a center for art and culture. Visitors can also explore the famous Mutrah Souq, known for its traditional handicrafts, perfumes, spices, and souvenirs.Muscat is also known for its scenic corniche, pristine beaches, and historic forts such as Al Jalali Fort and Al Mirani Fort that overlook the harbor. With its warm hospitality, rich culture, and stunning landscapes, Muscat offers travelers a perfect blend of history, culture, relaxation, and natural beauty.&lt;/p&gt;\r\n",
+    "advBookingPercent": "10.00",
+    "priceRange": "70000 upto",
+    "markUpOnGTXNetworkPackage": "0.00",
+    "agencyIdB2C": 209265,
+    "agencyIdB2B": 209265,
+    "destinationPlaces": "Muscat",
+    "destinationPlacesSysId": 18762,
+    "sourcePlaces": "Muscat",
+    "sourcePlaceSysId": 18762,
+    "agencyName": "Traveon Ventures",
+    "name": "Magical Muscat Tour 4 Star 4 Nights 5 Days",
+    "tagLine1": null,
+    "tagLine2": null,
+    "allowMinPax": 1,
+    "groupSize": 0,
+    "source": {
+      "Value": "Readymade",
+      "SourceId": 1
+    },
+    "sourceId": 1,
+    "sourceValue": "Readymade",
+    "packageTypeObject": {
+      "Value": "International                                     ",
+      "TypeId": 3
+    },
+    "typeId": 3,
+    "typeValue": "International",
+    "supplier": {
+      "SupplierId": "30898",
+      "SupplierName": "Traveon Ventures"
+    },
+    "supplierId": "30898",
+    "supplierName": "Traveon Ventures",
+    "packageSpec": {
+      "Specification": "Daily Itinerary Based",
+      "SpecificationId": 1
+    },
+    "packageSpecification": "Daily Itinerary Based",
+    "packageSpecificationId": 1,
+    "inclusionsText": "Hotel,Breakfast & Lunch,Airport Transfers,Activity,Sightseeing,Visa,All Transfers",
+    "packageType": "Activites Tour",
+    "validity": {
+      "To": "2027-03-20",
+      "From": "2026-03-27"
+    },
+    "validFrom": "2026-03-27",
+    "validTo": "2027-03-20",
+    "cities": {
+      "City": [
+        {
+          "Title": "Muscat",
+          "CityId": 18762,
+          "Hotels": {
+            "Hotel": [
+              {
+                "Name": "Any 4 Star Hotel",
+                "Star": ".00",
+                "Brief": "",
+                "CityId": 18762,
+                "Images": [],
+                "Rating": ".00",
+                "MainImg": "",
+                "Location": {
+                  "Lat": "0",
+                  "Long": "0",
+                  "Address": "0"
+                },
+                "IsfromAPI": false,
+                "IsIncluded": true,
+                "RefHotelId": 456344,
+                "MealTypeName": "CP",
+                "RoomTypeName": "Deluxe",
+                "SupplierName": "Traveon Ventures",
+                "AccoAminities": [],
+                "SupplierSysId": 30898,
+                "priceaditionals": null,
+                "AccoAminitiesMask": ""
+              }
+            ]
+          },
+          "Activities": [],
+          "SightSeeings": {
+            "SightSeeing": [
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772023904.jpg",
+                "Title": "muscat city tour half day",
+                "CityId": 18762,
+                "RefSSId": 176342,
+                "CityName": "Muscat",
+                "Description": "&lt;h2 data-start=&quot;120&quot; data-end=&quot;202&quot;&gt;The &lt;strong data-start=&quot;4&quot; data-end=&quot;33&quot;&gt;Half Day Muscat City Tour&lt;/strong&gt; offers a perfect introduction to the capital of &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Oman&lt;/span&gt;, covering its key cultural and scenic attractions in around 4&ndash;5 hours. The tour includes a visit to the magnificent &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Sultan Qaboos Grand Mosque&lt;/span&gt;, followed by photo stops at the elegant &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Royal Opera House Muscat&lt;/span&gt; and the ceremonial &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Al Alam Palace&lt;/span&gt;. Guests then enjoy a scenic drive along the &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Mutrah Corniche&lt;/span&gt; and explore the vibrant &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Mutrah Souq&lt;/span&gt;, known for its traditional Omani handicrafts and souvenirs. The tour is conducted in a private air-conditioned vehicle with hotel pickup and drop-off, making it a comfortable and enriching city experience.&lt;/h2&gt;",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "0",
+                "Title": "Qurum Beach",
+                "CityId": 18762,
+                "RefSSId": 179756,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "0",
+                "Title": "Opera House (from Outside)",
+                "CityId": 18762,
+                "RefSSId": 179757,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772442510.jpg",
+                "Title": "Mutrah Fort",
+                "CityId": 18762,
+                "RefSSId": 179759,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "0",
+                "Title": "Mutrah Souq",
+                "CityId": 18762,
+                "RefSSId": 179758,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 1,
+                "Long": 1,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772280271.jpg",
+                "Title": "Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort, Nizwa Souq, Jebel Akhdar Mountains",
+                "CityId": 18762,
+                "RefSSId": 179760,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "0",
+                "Title": "Sultan Qaboos Mosque",
+                "CityId": 18762,
+                "RefSSId": 179755,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772280338.jpg",
+                "Title": "Costal Tour To SUR - Wadi Shab, Wadi Tiwi, Bimmah Sinkhole and Fins Beach",
+                "CityId": 18762,
+                "RefSSId": 179763,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1773404881.jpg",
+                "Title": "Leisure Day (No Sightseeing)",
+                "CityId": 18762,
+                "RefSSId": 183155,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              },
+              {
+                "Lat": 0,
+                "Long": 0,
+                "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1773468244.jpg",
+                "Title": "Departure (No Sightseeing)",
+                "CityId": 18762,
+                "RefSSId": 183194,
+                "CityName": "Muscat",
+                "Description": "",
+                "CurrencyType": 0,
+                "SupplierName": "Traveon Ventures",
+                "SupplierSysId": 30898,
+                "priceaditionals": null
+              }
+            ]
+          }
+        }
+      ],
+      "desc": null
+    },
+    "discountCode": [],
+    "transfers": null,
+    "otherServices": null,
+    "itineraries": {
+      "Itinerary": [
+        {
+          "Day": 1,
+          "Title": "Arrival",
+          "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Airport to Hotel transfer&lt;/li&gt;\r\n\t&lt;li&gt;Check-in to Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Half day Muscat city tour -&lt;/li&gt;\r\n\t&lt;li&gt;Qurum Beach,&lt;/li&gt;\r\n\t&lt;li&gt;Opera House (from Outside),&lt;/li&gt;\r\n\t&lt;li&gt;Mutrah Souq,&lt;/li&gt;\r\n\t&lt;li&gt;Mutrah Fort.&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "ItineraryId": "904409",
+          "ItineraryItem": [
+            {
+              "Id": 18762,
+              "Type": "CITY",
+              "Items": []
+            },
+            {
+              "Id": 0,
+              "Type": "HOTEL",
+              "Items": [
+                {
+                  "Id": 3,
+                  "Item": [
+                    {
+                      "Id": 456344,
+                      "IsIncluded": true,
+                      "MEALTYPENAME": "CP",
+                      "ROOMTYPENAME": "Deluxe",
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": "Deluxe"
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "ACTIVITY",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [],
+                  "Type": null
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "SIGHTSEEING",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [
+                    {
+                      "Id": 176342,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    },
+                    {
+                      "Id": 179756,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    },
+                    {
+                      "Id": 179757,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    },
+                    {
+                      "Id": 179759,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    },
+                    {
+                      "Id": 179758,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": null
+                }
+              ]
+            }
+          ],
+          "MealPlanInclude": ""
+        },
+        {
+          "Day": 2,
+          "Title": "Full Day Nizwa and Jebel Akhdar Tour",
+          "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort,Nizwa Souq,&lt;/li&gt;\r\n\t&lt;li&gt;Jebel Akhdar Mountains&lt;/li&gt;\r\n\t&lt;li&gt;Sultan Qaboos Mosque,&lt;/li&gt;\r\n\t&lt;li&gt;Drop at Hotel&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "ItineraryId": "904410",
+          "ItineraryItem": [
+            {
+              "Id": 18762,
+              "Type": "CITY",
+              "Items": []
+            },
+            {
+              "Id": 0,
+              "Type": "HOTEL",
+              "Items": [
+                {
+                  "Id": 3,
+                  "Item": [
+                    {
+                      "Id": 456344,
+                      "IsIncluded": true,
+                      "MEALTYPENAME": "CP",
+                      "ROOMTYPENAME": "Deluxe",
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": "Deluxe"
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "ACTIVITY",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [],
+                  "Type": null
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "SIGHTSEEING",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [
+                    {
+                      "Id": 179760,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    },
+                    {
+                      "Id": 179755,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": null
+                }
+              ]
+            }
+          ],
+          "MealPlanInclude": "Breakfast"
+        },
+        {
+          "Day": 3,
+          "Title": "Leisure Day ",
+          "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast At Hotel&amp;nbsp;&lt;/li&gt;\r\n\t&lt;li&gt;Day At Leisure&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "ItineraryId": "904411",
+          "ItineraryItem": [
+            {
+              "Id": 18762,
+              "Type": "CITY",
+              "Items": []
+            },
+            {
+              "Id": 0,
+              "Type": "HOTEL",
+              "Items": [
+                {
+                  "Id": 3,
+                  "Item": [
+                    {
+                      "Id": 456344,
+                      "IsIncluded": true,
+                      "MEALTYPENAME": "CP",
+                      "ROOMTYPENAME": "Deluxe",
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": "Deluxe"
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "ACTIVITY",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [],
+                  "Type": null
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "SIGHTSEEING",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [
+                    {
+                      "Id": 183155,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": null
+                }
+              ]
+            }
+          ],
+          "MealPlanInclude": "Breakfast"
+        },
+        {
+          "Day": 4,
+          "Title": "Coastal Tour To SUR",
+          "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Costal Tour To SUR - Wadi Shab, Wadi Tiwi, Bimmah Sinkhole and Fins Beach&lt;/li&gt;\r\n\t&lt;li&gt;Drop at Hotel&lt;br /&gt;\r\n\t&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "ItineraryId": "904412",
+          "ItineraryItem": [
+            {
+              "Id": 18762,
+              "Type": "CITY",
+              "Items": []
+            },
+            {
+              "Id": 0,
+              "Type": "HOTEL",
+              "Items": [
+                {
+                  "Id": 3,
+                  "Item": [
+                    {
+                      "Id": 456344,
+                      "IsIncluded": true,
+                      "MEALTYPENAME": "CP",
+                      "ROOMTYPENAME": "Deluxe",
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": "Deluxe"
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "ACTIVITY",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [],
+                  "Type": null
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "SIGHTSEEING",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [
+                    {
+                      "Id": 179763,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": null
+                }
+              ]
+            }
+          ],
+          "MealPlanInclude": "Breakfast"
+        },
+        {
+          "Day": 5,
+          "Title": "Departure ",
+          "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Checkout From Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Airport Transfer From Hotel&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "ItineraryId": "904413",
+          "ItineraryItem": [
+            {
+              "Id": 18762,
+              "Type": "CITY",
+              "Items": []
+            },
+            {
+              "Id": 0,
+              "Type": "HOTEL",
+              "Items": [
+                {
+                  "Id": 3,
+                  "Type": "Deluxe"
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "ACTIVITY",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [],
+                  "Type": null
+                }
+              ]
+            },
+            {
+              "Id": 0,
+              "Type": "SIGHTSEEING",
+              "Items": [
+                {
+                  "Id": 0,
+                  "Item": [
+                    {
+                      "Id": 183194,
+                      "IsIncluded": true,
+                      "MasterIntSysId": 0
+                    }
+                  ],
+                  "Type": null
+                }
+              ]
+            }
+          ],
+          "MealPlanInclude": ""
+        }
+      ]
+    },
+    "citiesBySequence": [
+      {
+        "CityId": "18762",
+        "EndDay": 5,
+        "MinDay": 1,
+        "Nights": 4,
+        "CityName": "Muscat",
+        "StartDay": 1
+      }
+    ],
+    "tourTypes": {
+      "MarketType": [
+        {
+          "TourType": [
+            {
+              "TourType": 1,
+              "Categories": {
+                "Category": [
+                  {
+                    "Type": "Deluxe",
+                    "Price": "40000.00",
+                    "MPType": [
+                      {
+                        "MPTypeId": 1,
+                        "MPTypeText": "ITENARYWISE",
+                        "PriceAdditional": [
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 12,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 10,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 8,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 6,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 4,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 2,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          }
+                        ]
+                      }
+                    ],
+                    "TPSysId": "114481",
+                    "GroupSize": 12,
+                    "CategoryId": 3,
+                    "MasterTPId": null,
+                    "SeletedForPackage": true
+                  }
+                ]
+              },
+              "TourTypeTitle": "Private"
+            }
+          ],
+          "MarketTypeId": 1,
+          "MarketTypeTitle": "B2C"
+        },
+        {
+          "TourType": [
+            {
+              "TourType": 1,
+              "Categories": {
+                "Category": [
+                  {
+                    "Type": "Deluxe",
+                    "Price": "40000.00",
+                    "MPType": [
+                      {
+                        "MPTypeId": 1,
+                        "MPTypeText": "ITENARYWISE",
+                        "PriceAdditional": [
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 12,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 10,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 8,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 6,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 4,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          },
+                          {
+                            "PC": 1,
+                            "To": "2027-03-20",
+                            "CEB": 5000,
+                            "PAX": 2,
+                            "Tax": "Excluded",
+                            "ACEB": 5000,
+                            "CWOB": 5000,
+                            "From": "2026-03-20",
+                            "CHexa": null,
+                            "CQuad": null,
+                            "COSTDO": 40000,
+                            "COSTSO": 45000,
+                            "COSTTO": 5000,
+                            "CQuint": null,
+                            "CWB2T4": null,
+                            "CWOB2T4": null,
+                            "CostHexa": 0,
+                            "CostQuad": 0,
+                            "Currency": 1,
+                            "MarkType": "FixedPercent",
+                            "TourType": 1,
+                            "CostQuint": 0,
+                            "MarkValue": 0,
+                            "CostInfent": null,
+                            "DiscountVal": 0,
+                            "DiscountType": 0,
+                            "TourTypeTitle": "Private",
+                            "priceExtraBed": "5000.00",
+                            "PricePerPerson": 40000,
+                            "priceDoubleOcc": "40000.00",
+                            "priceSingleOcc": 45000,
+                            "priceTripleOcc": "5000.00",
+                            "ExcludedPercent": "0",
+                            "priceWithoutBed": "5000.00"
+                          }
+                        ]
+                      }
+                    ],
+                    "TPSysId": "114481",
+                    "GroupSize": 12,
+                    "CategoryId": 3,
+                    "MasterTPId": null,
+                    "SeletedForPackage": true
+                  }
+                ]
+              },
+              "TourTypeTitle": "Private"
+            }
+          ],
+          "MarketTypeId": 2,
+          "MarketTypeTitle": "B2B"
+        }
+      ]
+    },
+    "terms": {
+      "WhyUseUs": "",
+      "Inclusion": "&lt;ul&gt;\r\n\t&lt;li&gt;4 Nights Accommodation in 4* hotel&lt;/li&gt;\r\n\t&lt;li&gt;Visa&lt;/li&gt;\r\n\t&lt;li&gt;All Transfers&lt;/li&gt;\r\n\t&lt;li&gt;Breakfast&lt;/li&gt;\r\n\t&lt;li&gt;Half day Muscat city tour - Sultan Qaboos Mosque, Qurum Beach, Opera House (from Outside), Mutrah Souq, Mutrah Fort.&lt;/li&gt;\r\n\t&lt;li&gt;Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort, Nizwa Souq, Jebel Akhdar Mountains&lt;/li&gt;\r\n\t&lt;li&gt;Coastal tour to Sur- Wadi Shab, Bimmah Sinkhole and Fins Beach&lt;/li&gt;\r\n\t&lt;li&gt;GST @5% &amp;amp; TCS@5% as per applicable travel cost&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+      "Conditions": "&lt;p&gt;Payment Terms:&lt;br /&gt;\r\n1. A non-refundable deposit of 50% of the total tour cost is required at the time of booking to&lt;br /&gt;\r\nsecure the reservation.&lt;br /&gt;\r\n2. The remaining 50% must be paid within 7 days of the booking date. Interest the rate of 18%&lt;br /&gt;\r\np.a. will be charged on delayed payment.&lt;br /&gt;\r\n3. For bookings made within 7 days of departure, full payment (100% of the total tour cost) is&lt;br /&gt;\r\nrequired at the time of booking.&lt;br /&gt;\r\nTaxes and Service Fees:&lt;br /&gt;\r\n1. In addition to the cost of booking charged by our service providers, Retreats by Traveon&lt;br /&gt;\r\nreserves the right to charge applicable taxes and&lt;br /&gt;\r\nservice fees, including convenience fees. These taxes and fees may vary and will be displayed to&lt;br /&gt;\r\nthe customer before confirming the&lt;br /&gt;\r\nbooking or collecting payment.&lt;br /&gt;\r\n2. Retreats by Traveon also reserves the right to alter or amend any taxes and/or fees from time&lt;br /&gt;\r\nto time. Any changes will be communicated&lt;br /&gt;\r\nto the customer before finalizing the booking.&lt;br /&gt;\r\nAdjustment of Undercharges:&lt;br /&gt;\r\n1. In the event of any shortfall in the booking amount, taxes, fees, or convenience charges due&lt;br /&gt;\r\nto a technical or other error, Retreats by&lt;br /&gt;\r\nTraveon reserves the right to claim or deduct the outstanding amount from the customer.&lt;br /&gt;\r\n2. If such undercharging is discovered prior to the utilization of the booking Retreats by Traveon&lt;br /&gt;\r\nmay cancel the booking if the balance is&lt;br /&gt;\r\nnot paid before the scheduled date of utilization.&lt;br /&gt;\r\nPrice Adjustments Due to Government Levies:&lt;br /&gt;\r\n1. Tour tariffs mentioned in our Brochure/website/Social media sites are at the time of&lt;br /&gt;\r\npublication &amp;amp; subject to change.&lt;br /&gt;\r\n2. Any increases in the tour cost due to changes in applicable taxes, levies, foreign exchange&lt;br /&gt;\r\nrates, or new government regulations will be&lt;br /&gt;\r\nborne by the customer. These changes may occur without prior notice and may be retroactively&lt;br /&gt;\r\napplied, in accordance with applicable laws.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+      "Exclusions": "&lt;ul&gt;\r\n\t&lt;li&gt;Airfare&lt;/li&gt;\r\n\t&lt;li&gt;Lunch &amp;amp; Dinner&lt;/li&gt;\r\n\t&lt;li&gt;Personal Expenses (Tips, Laundry, Beverages, etc.)&lt;/li&gt;\r\n\t&lt;li&gt;Early Check-in / Late Check-out&lt;/li&gt;\r\n\t&lt;li&gt;Entry tickets not included&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+      "BookingTerms": "&lt;p&gt;1. Upon successful booking, the customer will receive a confirmation voucher via email within 24&lt;br /&gt;\r\nhours.&lt;br /&gt;\r\n2. If the preferred time slots are unavailable, Retreats by Traveon will arrange an alternate&lt;br /&gt;\r\nschedule based on the customer&amp;#39;s preferences&lt;br /&gt;\r\nand a revised confirmation voucher will be sent via email.&lt;br /&gt;\r\n3. Should the customer wish to cancel their booking before receiving confirmation, they may do&lt;br /&gt;\r\nso, and a full refund will be processed&lt;/p&gt;\r\n",
+      "RefundPolicy": "&lt;p&gt;Before 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;/p&gt;\r\n",
+      "TravelBasics": "",
+      "CancellationPolicy": "&lt;p&gt;All bookings are subject to the cancellation policy published on the Retreats by Traveon website&lt;br /&gt;\r\nor as advised to the customer in writing.&lt;br /&gt;\r\n2. Cancellation Policy&lt;br /&gt;\r\nBefore 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;br /&gt;\r\n3. To cancel a booking, guests must submit a written request via email from their registered email&lt;br /&gt;\r\naddress with Retreats by Traveon to&lt;br /&gt;\r\ninfotraveon.in. Cancellation requests are only considered valid when sent to this email. Other&lt;br /&gt;\r\nforms of communication will not be&lt;br /&gt;\r\nrecognized.&lt;br /&gt;\r\n4. In rare cases where a holiday package is cancelled by Retreats by Traveon at its sole discretion,&lt;br /&gt;\r\nRetreats by Traveon&amp;rsquo;s maximum liability&lt;br /&gt;\r\nwill be limited to refunding the amount paid by the customer.&lt;br /&gt;\r\n5. In the event of unforeseen weather conditions, government regulations, or other circumstances&lt;br /&gt;\r\nbeyond our control, certain trips&lt;br /&gt;\r\n/activities may need to be cancelled. Should this occur, Retreats by Traveon will make every effort&lt;br /&gt;\r\nto offer you suitable alternative options.&lt;br /&gt;\r\nIf alternatives are not feasible, a suitable refund may be provided, solely at the discretion of&lt;br /&gt;\r\nRetreats by Traveon. Your safety and&lt;br /&gt;\r\nsatisfaction remain our top priorities.&lt;br /&gt;\r\n6. Airlines are responsible for managing their seats, including cases of overbooking, baggage&lt;br /&gt;\r\nhandling, flight delays, cancellations and denied&lt;br /&gt;\r\nboarding. Retreats by Traveon is not liable for any issues related to failure of airline operations.&lt;br /&gt;\r\n7. Any refunds for cancellations will be credited to the original form of payment or the bank&lt;br /&gt;\r\naccount used for the payment.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n"
+    },
+    "packTypeMask": 0,
+    "inclMask": null,
+    "discountType": 0,
+    "discountVal": "0.00",
+    "cancellationRules": [],
+    "buspickupLocation": [],
+    "transferData": {
+      "904409": {
+        "1": {
+          "Remark": [
+            ""
+          ],
+          "NetCost": [
+            0
+          ],
+          "RoadType": [
+            ""
+          ],
+          "Sequence": [
+            1
+          ],
+          "TPInvnSysId": [
+            904409
+          ],
+          "HotelTransport": [
+            "0"
+          ],
+          "AirportTransport": [
+            "2"
+          ]
+        }
+      },
+      "904410": {
+        "2": {
+          "Remark": [
+            ""
+          ],
+          "NetCost": [
+            0
+          ],
+          "RoadType": [
+            ""
+          ],
+          "Sequence": [
+            2
+          ],
+          "TPInvnSysId": [
+            904410
+          ],
+          "HotelTransport": [
+            "0"
+          ],
+          "AirportTransport": [
+            "0"
+          ]
+        }
+      },
+      "904411": {
+        "3": {
+          "Remark": [
+            ""
+          ],
+          "NetCost": [
+            0
+          ],
+          "RoadType": [
+            ""
+          ],
+          "Sequence": [
+            3
+          ],
+          "TPInvnSysId": [
+            904411
+          ],
+          "HotelTransport": [
+            "0"
+          ],
+          "AirportTransport": [
+            "0"
+          ]
+        }
+      },
+      "904412": {
+        "4": {
+          "Remark": [
+            ""
+          ],
+          "NetCost": [
+            0
+          ],
+          "RoadType": [
+            ""
+          ],
+          "Sequence": [
+            4
+          ],
+          "TPInvnSysId": [
+            904412
+          ],
+          "HotelTransport": [
+            "0"
+          ],
+          "AirportTransport": [
+            "0"
+          ]
+        }
+      },
+      "904413": {
+        "5": {
+          "Remark": [
+            ""
+          ],
+          "NetCost": [
+            0
+          ],
+          "RoadType": [
+            ""
+          ],
+          "Sequence": [
+            5
+          ],
+          "TPInvnSysId": [
+            904413
+          ],
+          "HotelTransport": [
+            "2"
+          ],
+          "AirportTransport": [
+            "0"
+          ]
+        }
+      }
+    },
+    "allowBookingType": 1,
+    "fixedInventory": [],
+    "fixedInventoryCountry": [],
+    "bookingvalidityDay": 0,
+    "eventarray": [],
+    "flightData": [],
+    "busData": [],
+    "busRouteData": [],
+    "addonServices": [],
+    "packageTax": [],
+    "visaDetails": [],
+    "visaServiceProviderDetails": [],
+    "destination": "Muscat",
+    "country": "Oman",
+    "shortDescription": null,
+    "refundPolicy": "&lt;p&gt;Before 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;/p&gt;\r\n",
+    "bookingTerms": "&lt;p&gt;1. Upon successful booking, the customer will receive a confirmation voucher via email within 24&lt;br /&gt;\r\nhours.&lt;br /&gt;\r\n2. If the preferred time slots are unavailable, Retreats by Traveon will arrange an alternate&lt;br /&gt;\r\nschedule based on the customer&amp;#39;s preferences&lt;br /&gt;\r\nand a revised confirmation voucher will be sent via email.&lt;br /&gt;\r\n3. Should the customer wish to cancel their booking before receiving confirmation, they may do&lt;br /&gt;\r\nso, and a full refund will be processed&lt;/p&gt;\r\n",
+    "cancellationPolicy": "&lt;p&gt;All bookings are subject to the cancellation policy published on the Retreats by Traveon website&lt;br /&gt;\r\nor as advised to the customer in writing.&lt;br /&gt;\r\n2. Cancellation Policy&lt;br /&gt;\r\nBefore 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;br /&gt;\r\n3. To cancel a booking, guests must submit a written request via email from their registered email&lt;br /&gt;\r\naddress with Retreats by Traveon to&lt;br /&gt;\r\ninfotraveon.in. Cancellation requests are only considered valid when sent to this email. Other&lt;br /&gt;\r\nforms of communication will not be&lt;br /&gt;\r\nrecognized.&lt;br /&gt;\r\n4. In rare cases where a holiday package is cancelled by Retreats by Traveon at its sole discretion,&lt;br /&gt;\r\nRetreats by Traveon&amp;rsquo;s maximum liability&lt;br /&gt;\r\nwill be limited to refunding the amount paid by the customer.&lt;br /&gt;\r\n5. In the event of unforeseen weather conditions, government regulations, or other circumstances&lt;br /&gt;\r\nbeyond our control, certain trips&lt;br /&gt;\r\n/activities may need to be cancelled. Should this occur, Retreats by Traveon will make every effort&lt;br /&gt;\r\nto offer you suitable alternative options.&lt;br /&gt;\r\nIf alternatives are not feasible, a suitable refund may be provided, solely at the discretion of&lt;br /&gt;\r\nRetreats by Traveon. Your safety and&lt;br /&gt;\r\nsatisfaction remain our top priorities.&lt;br /&gt;\r\n6. Airlines are responsible for managing their seats, including cases of overbooking, baggage&lt;br /&gt;\r\nhandling, flight delays, cancellations and denied&lt;br /&gt;\r\nboarding. Retreats by Traveon is not liable for any issues related to failure of airline operations.&lt;br /&gt;\r\n7. Any refunds for cancellations will be credited to the original form of payment or the bank&lt;br /&gt;\r\naccount used for the payment.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+    "conditions": "&lt;p&gt;Payment Terms:&lt;br /&gt;\r\n1. A non-refundable deposit of 50% of the total tour cost is required at the time of booking to&lt;br /&gt;\r\nsecure the reservation.&lt;br /&gt;\r\n2. The remaining 50% must be paid within 7 days of the booking date. Interest the rate of 18%&lt;br /&gt;\r\np.a. will be charged on delayed payment.&lt;br /&gt;\r\n3. For bookings made within 7 days of departure, full payment (100% of the total tour cost) is&lt;br /&gt;\r\nrequired at the time of booking.&lt;br /&gt;\r\nTaxes and Service Fees:&lt;br /&gt;\r\n1. In addition to the cost of booking charged by our service providers, Retreats by Traveon&lt;br /&gt;\r\nreserves the right to charge applicable taxes and&lt;br /&gt;\r\nservice fees, including convenience fees. These taxes and fees may vary and will be displayed to&lt;br /&gt;\r\nthe customer before confirming the&lt;br /&gt;\r\nbooking or collecting payment.&lt;br /&gt;\r\n2. Retreats by Traveon also reserves the right to alter or amend any taxes and/or fees from time&lt;br /&gt;\r\nto time. Any changes will be communicated&lt;br /&gt;\r\nto the customer before finalizing the booking.&lt;br /&gt;\r\nAdjustment of Undercharges:&lt;br /&gt;\r\n1. In the event of any shortfall in the booking amount, taxes, fees, or convenience charges due&lt;br /&gt;\r\nto a technical or other error, Retreats by&lt;br /&gt;\r\nTraveon reserves the right to claim or deduct the outstanding amount from the customer.&lt;br /&gt;\r\n2. If such undercharging is discovered prior to the utilization of the booking Retreats by Traveon&lt;br /&gt;\r\nmay cancel the booking if the balance is&lt;br /&gt;\r\nnot paid before the scheduled date of utilization.&lt;br /&gt;\r\nPrice Adjustments Due to Government Levies:&lt;br /&gt;\r\n1. Tour tariffs mentioned in our Brochure/website/Social media sites are at the time of&lt;br /&gt;\r\npublication &amp;amp; subject to change.&lt;br /&gt;\r\n2. Any increases in the tour cost due to changes in applicable taxes, levies, foreign exchange&lt;br /&gt;\r\nrates, or new government regulations will be&lt;br /&gt;\r\nborne by the customer. These changes may occur without prior notice and may be retroactively&lt;br /&gt;\r\napplied, in accordance with applicable laws.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+    "exclusions": "&lt;ul&gt;\r\n\t&lt;li&gt;Airfare&lt;/li&gt;\r\n\t&lt;li&gt;Lunch &amp;amp; Dinner&lt;/li&gt;\r\n\t&lt;li&gt;Personal Expenses (Tips, Laundry, Beverages, etc.)&lt;/li&gt;\r\n\t&lt;li&gt;Early Check-in / Late Check-out&lt;/li&gt;\r\n\t&lt;li&gt;Entry tickets not included&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+    "inclusion": "&lt;ul&gt;\r\n\t&lt;li&gt;4 Nights Accommodation in 4* hotel&lt;/li&gt;\r\n\t&lt;li&gt;Visa&lt;/li&gt;\r\n\t&lt;li&gt;All Transfers&lt;/li&gt;\r\n\t&lt;li&gt;Breakfast&lt;/li&gt;\r\n\t&lt;li&gt;Half day Muscat city tour - Sultan Qaboos Mosque, Qurum Beach, Opera House (from Outside), Mutrah Souq, Mutrah Fort.&lt;/li&gt;\r\n\t&lt;li&gt;Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort, Nizwa Souq, Jebel Akhdar Mountains&lt;/li&gt;\r\n\t&lt;li&gt;Coastal tour to Sur- Wadi Shab, Bimmah Sinkhole and Fins Beach&lt;/li&gt;\r\n\t&lt;li&gt;GST @5% &amp;amp; TCS@5% as per applicable travel cost&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+    "travelBasics": null,
+    "whyUseUs": null,
+    "longJsonInfo": {
+      "package": {
+        "URL": "",
+        "IsCF": 0,
+        "Name": "Magical Muscat Tour 4 Star 4 Nights 5 Days",
+        "TPId": 114481,
+        "Type": {
+          "Value": "International                                     ",
+          "TypeId": 3
+        },
+        "Terms": {
+          "WhyUseUs": "",
+          "Inclusion": "&lt;ul&gt;\r\n\t&lt;li&gt;4 Nights Accommodation in 4* hotel&lt;/li&gt;\r\n\t&lt;li&gt;Visa&lt;/li&gt;\r\n\t&lt;li&gt;All Transfers&lt;/li&gt;\r\n\t&lt;li&gt;Breakfast&lt;/li&gt;\r\n\t&lt;li&gt;Half day Muscat city tour - Sultan Qaboos Mosque, Qurum Beach, Opera House (from Outside), Mutrah Souq, Mutrah Fort.&lt;/li&gt;\r\n\t&lt;li&gt;Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort, Nizwa Souq, Jebel Akhdar Mountains&lt;/li&gt;\r\n\t&lt;li&gt;Coastal tour to Sur- Wadi Shab, Bimmah Sinkhole and Fins Beach&lt;/li&gt;\r\n\t&lt;li&gt;GST @5% &amp;amp; TCS@5% as per applicable travel cost&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+          "Conditions": "&lt;p&gt;Payment Terms:&lt;br /&gt;\r\n1. A non-refundable deposit of 50% of the total tour cost is required at the time of booking to&lt;br /&gt;\r\nsecure the reservation.&lt;br /&gt;\r\n2. The remaining 50% must be paid within 7 days of the booking date. Interest the rate of 18%&lt;br /&gt;\r\np.a. will be charged on delayed payment.&lt;br /&gt;\r\n3. For bookings made within 7 days of departure, full payment (100% of the total tour cost) is&lt;br /&gt;\r\nrequired at the time of booking.&lt;br /&gt;\r\nTaxes and Service Fees:&lt;br /&gt;\r\n1. In addition to the cost of booking charged by our service providers, Retreats by Traveon&lt;br /&gt;\r\nreserves the right to charge applicable taxes and&lt;br /&gt;\r\nservice fees, including convenience fees. These taxes and fees may vary and will be displayed to&lt;br /&gt;\r\nthe customer before confirming the&lt;br /&gt;\r\nbooking or collecting payment.&lt;br /&gt;\r\n2. Retreats by Traveon also reserves the right to alter or amend any taxes and/or fees from time&lt;br /&gt;\r\nto time. Any changes will be communicated&lt;br /&gt;\r\nto the customer before finalizing the booking.&lt;br /&gt;\r\nAdjustment of Undercharges:&lt;br /&gt;\r\n1. In the event of any shortfall in the booking amount, taxes, fees, or convenience charges due&lt;br /&gt;\r\nto a technical or other error, Retreats by&lt;br /&gt;\r\nTraveon reserves the right to claim or deduct the outstanding amount from the customer.&lt;br /&gt;\r\n2. If such undercharging is discovered prior to the utilization of the booking Retreats by Traveon&lt;br /&gt;\r\nmay cancel the booking if the balance is&lt;br /&gt;\r\nnot paid before the scheduled date of utilization.&lt;br /&gt;\r\nPrice Adjustments Due to Government Levies:&lt;br /&gt;\r\n1. Tour tariffs mentioned in our Brochure/website/Social media sites are at the time of&lt;br /&gt;\r\npublication &amp;amp; subject to change.&lt;br /&gt;\r\n2. Any increases in the tour cost due to changes in applicable taxes, levies, foreign exchange&lt;br /&gt;\r\nrates, or new government regulations will be&lt;br /&gt;\r\nborne by the customer. These changes may occur without prior notice and may be retroactively&lt;br /&gt;\r\napplied, in accordance with applicable laws.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n",
+          "Exclusions": "&lt;ul&gt;\r\n\t&lt;li&gt;Airfare&lt;/li&gt;\r\n\t&lt;li&gt;Lunch &amp;amp; Dinner&lt;/li&gt;\r\n\t&lt;li&gt;Personal Expenses (Tips, Laundry, Beverages, etc.)&lt;/li&gt;\r\n\t&lt;li&gt;Early Check-in / Late Check-out&lt;/li&gt;\r\n\t&lt;li&gt;Entry tickets not included&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+          "BookingTerms": "&lt;p&gt;1. Upon successful booking, the customer will receive a confirmation voucher via email within 24&lt;br /&gt;\r\nhours.&lt;br /&gt;\r\n2. If the preferred time slots are unavailable, Retreats by Traveon will arrange an alternate&lt;br /&gt;\r\nschedule based on the customer&amp;#39;s preferences&lt;br /&gt;\r\nand a revised confirmation voucher will be sent via email.&lt;br /&gt;\r\n3. Should the customer wish to cancel their booking before receiving confirmation, they may do&lt;br /&gt;\r\nso, and a full refund will be processed&lt;/p&gt;\r\n",
+          "RefundPolicy": "&lt;p&gt;Before 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;/p&gt;\r\n",
+          "TravelBasics": "",
+          "CancellationPolicy": "&lt;p&gt;All bookings are subject to the cancellation policy published on the Retreats by Traveon website&lt;br /&gt;\r\nor as advised to the customer in writing.&lt;br /&gt;\r\n2. Cancellation Policy&lt;br /&gt;\r\nBefore 30 days of travel date: 90% refund will be provided, or the amount can be transferred to&lt;br /&gt;\r\nanother package of the same cost.&lt;br /&gt;\r\n(Applicable only on Land Package with Hotel)&lt;br /&gt;\r\n15 days before travel date: 75% refund will be applicable only on Land Package with Hotel.&lt;br /&gt;\r\n0&amp;ndash;14 days before travel date: No refund (0%) will be applicable if the booking is cancelled.&lt;br /&gt;\r\n3. To cancel a booking, guests must submit a written request via email from their registered email&lt;br /&gt;\r\naddress with Retreats by Traveon to&lt;br /&gt;\r\ninfotraveon.in. Cancellation requests are only considered valid when sent to this email. Other&lt;br /&gt;\r\nforms of communication will not be&lt;br /&gt;\r\nrecognized.&lt;br /&gt;\r\n4. In rare cases where a holiday package is cancelled by Retreats by Traveon at its sole discretion,&lt;br /&gt;\r\nRetreats by Traveon&amp;rsquo;s maximum liability&lt;br /&gt;\r\nwill be limited to refunding the amount paid by the customer.&lt;br /&gt;\r\n5. In the event of unforeseen weather conditions, government regulations, or other circumstances&lt;br /&gt;\r\nbeyond our control, certain trips&lt;br /&gt;\r\n/activities may need to be cancelled. Should this occur, Retreats by Traveon will make every effort&lt;br /&gt;\r\nto offer you suitable alternative options.&lt;br /&gt;\r\nIf alternatives are not feasible, a suitable refund may be provided, solely at the discretion of&lt;br /&gt;\r\nRetreats by Traveon. Your safety and&lt;br /&gt;\r\nsatisfaction remain our top priorities.&lt;br /&gt;\r\n6. Airlines are responsible for managing their seats, including cases of overbooking, baggage&lt;br /&gt;\r\nhandling, flight delays, cancellations and denied&lt;br /&gt;\r\nboarding. Retreats by Traveon is not liable for any issues related to failure of airline operations.&lt;br /&gt;\r\n7. Any refunds for cancellations will be credited to the original form of payment or the bank&lt;br /&gt;\r\naccount used for the payment.&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n"
+        },
+        "Cities": {
+          "City": [
+            {
+              "Title": "Muscat",
+              "CityId": 18762,
+              "Hotels": {
+                "Hotel": [
+                  {
+                    "Name": "Any 4 Star Hotel",
+                    "Star": ".00",
+                    "Brief": "",
+                    "CityId": 18762,
+                    "Images": [],
+                    "Rating": ".00",
+                    "MainImg": "",
+                    "Location": {
+                      "Lat": "0",
+                      "Long": "0",
+                      "Address": "0"
+                    },
+                    "IsfromAPI": false,
+                    "IsIncluded": true,
+                    "RefHotelId": 456344,
+                    "MealTypeName": "CP",
+                    "RoomTypeName": "Deluxe",
+                    "SupplierName": "Traveon Ventures",
+                    "AccoAminities": [],
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null,
+                    "AccoAminitiesMask": ""
+                  }
+                ]
+              },
+              "Activities": [],
+              "SightSeeings": {
+                "SightSeeing": [
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772023904.jpg",
+                    "Title": "muscat city tour half day",
+                    "CityId": 18762,
+                    "RefSSId": 176342,
+                    "CityName": "Muscat",
+                    "Description": "&lt;h2 data-start=&quot;120&quot; data-end=&quot;202&quot;&gt;The &lt;strong data-start=&quot;4&quot; data-end=&quot;33&quot;&gt;Half Day Muscat City Tour&lt;/strong&gt; offers a perfect introduction to the capital of &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Oman&lt;/span&gt;, covering its key cultural and scenic attractions in around 4&ndash;5 hours. The tour includes a visit to the magnificent &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Sultan Qaboos Grand Mosque&lt;/span&gt;, followed by photo stops at the elegant &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Royal Opera House Muscat&lt;/span&gt; and the ceremonial &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Al Alam Palace&lt;/span&gt;. Guests then enjoy a scenic drive along the &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Mutrah Corniche&lt;/span&gt; and explore the vibrant &lt;span class=&quot;hover:entity-accent entity-underline inline cursor-pointer align-baseline&quot;&gt;Mutrah Souq&lt;/span&gt;, known for its traditional Omani handicrafts and souvenirs. The tour is conducted in a private air-conditioned vehicle with hotel pickup and drop-off, making it a comfortable and enriching city experience.&lt;/h2&gt;",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "0",
+                    "Title": "Qurum Beach",
+                    "CityId": 18762,
+                    "RefSSId": 179756,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "0",
+                    "Title": "Opera House (from Outside)",
+                    "CityId": 18762,
+                    "RefSSId": 179757,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772442510.jpg",
+                    "Title": "Mutrah Fort",
+                    "CityId": 18762,
+                    "RefSSId": 179759,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "0",
+                    "Title": "Mutrah Souq",
+                    "CityId": 18762,
+                    "RefSSId": 179758,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 1,
+                    "Long": 1,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772280271.jpg",
+                    "Title": "Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort, Nizwa Souq, Jebel Akhdar Mountains",
+                    "CityId": 18762,
+                    "RefSSId": 179760,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "0",
+                    "Title": "Sultan Qaboos Mosque",
+                    "CityId": 18762,
+                    "RefSSId": 179755,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1772280338.jpg",
+                    "Title": "Costal Tour To SUR - Wadi Shab, Wadi Tiwi, Bimmah Sinkhole and Fins Beach",
+                    "CityId": 18762,
+                    "RefSSId": 179763,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1773404881.jpg",
+                    "Title": "Leisure Day (No Sightseeing)",
+                    "CityId": 18762,
+                    "RefSSId": 183155,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  },
+                  {
+                    "Lat": 0,
+                    "Long": 0,
+                    "Image": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/city/18762/sightseeing/209265_1773468244.jpg",
+                    "Title": "Departure (No Sightseeing)",
+                    "CityId": 18762,
+                    "RefSSId": 183194,
+                    "CityName": "Muscat",
+                    "Description": "",
+                    "CurrencyType": 0,
+                    "SupplierName": "Traveon Ventures",
+                    "SupplierSysId": 30898,
+                    "priceaditionals": null
+                  }
+                ]
+              }
+            }
+          ],
+          "desc": null
+        },
+        "Source": {
+          "Value": "Readymade",
+          "SourceId": 1
+        },
+        "BusData": [],
+        "DETAILS": "&lt;p&gt;Muscat, the capital of Oman, is a captivating coastal city where traditional Arabian heritage blends beautifully with modern elegance. Surrounded by the majestic Al Hajar Mountains and the sparkling Arabian Sea, Muscat offers breathtaking scenery, historic forts, and a peaceful atmosphere that reflects the authentic charm of Oman.The city is home to remarkable landmarks such as the grand Sultan Qaboos Grand Mosque, one of the most beautiful mosques in the Middle East, and the elegant Royal Opera House Muscat, a center for art and culture. Visitors can also explore the famous Mutrah Souq, known for its traditional handicrafts, perfumes, spices, and souvenirs.Muscat is also known for its scenic corniche, pristine beaches, and historic forts such as Al Jalali Fort and Al Mirani Fort that overlook the harbor. With its warm hospitality, rich culture, and stunning landscapes, Muscat offers travelers a perfect blend of history, culture, relaxation, and natural beauty.&lt;/p&gt;\r\n",
+        "AgencyId": 209265,
+        "InclMask": null,
+        "Supplier": {
+          "SupplierId": "30898",
+          "SupplierName": "Traveon Ventures"
+        },
+        "TagLine1": null,
+        "TagLine2": null,
+        "Validity": {
+          "To": "2027-03-20",
+          "From": "2026-03-27"
+        },
+        "GroupSize": 0,
+        "ImgHeader": "0",
+        "QuadPrice": false,
+        "TourTypes": {
+          "MarketType": [
+            {
+              "TourType": [
+                {
+                  "TourType": 1,
+                  "Categories": {
+                    "Category": [
+                      {
+                        "Type": "Deluxe",
+                        "Price": "40000.00",
+                        "MPType": [
+                          {
+                            "MPTypeId": 1,
+                            "MPTypeText": "ITENARYWISE",
+                            "PriceAdditional": [
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 12,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 10,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 8,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 6,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 4,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 2,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              }
+                            ]
+                          }
+                        ],
+                        "TPSysId": "114481",
+                        "GroupSize": 12,
+                        "CategoryId": 3,
+                        "MasterTPId": null,
+                        "SeletedForPackage": true
+                      }
+                    ]
+                  },
+                  "TourTypeTitle": "Private"
+                }
+              ],
+              "MarketTypeId": 1,
+              "MarketTypeTitle": "B2C"
+            },
+            {
+              "TourType": [
+                {
+                  "TourType": 1,
+                  "Categories": {
+                    "Category": [
+                      {
+                        "Type": "Deluxe",
+                        "Price": "40000.00",
+                        "MPType": [
+                          {
+                            "MPTypeId": 1,
+                            "MPTypeText": "ITENARYWISE",
+                            "PriceAdditional": [
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 12,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 10,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 8,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 6,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 4,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              },
+                              {
+                                "PC": 1,
+                                "To": "2027-03-20",
+                                "CEB": 5000,
+                                "PAX": 2,
+                                "Tax": "Excluded",
+                                "ACEB": 5000,
+                                "CWOB": 5000,
+                                "From": "2026-03-20",
+                                "CHexa": null,
+                                "CQuad": null,
+                                "COSTDO": 40000,
+                                "COSTSO": 45000,
+                                "COSTTO": 5000,
+                                "CQuint": null,
+                                "CWB2T4": null,
+                                "CWOB2T4": null,
+                                "CostHexa": 0,
+                                "CostQuad": 0,
+                                "Currency": 1,
+                                "MarkType": "FixedPercent",
+                                "TourType": 1,
+                                "CostQuint": 0,
+                                "MarkValue": 0,
+                                "CostInfent": null,
+                                "DiscountVal": 0,
+                                "DiscountType": 0,
+                                "TourTypeTitle": "Private",
+                                "priceExtraBed": "5000.00",
+                                "PricePerPerson": 40000,
+                                "priceDoubleOcc": "40000.00",
+                                "priceSingleOcc": 45000,
+                                "priceTripleOcc": "5000.00",
+                                "ExcludedPercent": "0",
+                                "priceWithoutBed": "5000.00"
+                              }
+                            ]
+                          }
+                        ],
+                        "TPSysId": "114481",
+                        "GroupSize": 12,
+                        "CategoryId": 3,
+                        "MasterTPId": null,
+                        "SeletedForPackage": true
+                      }
+                    ]
+                  },
+                  "TourTypeTitle": "Private"
+                }
+              ],
+              "MarketTypeId": 2,
+              "MarketTypeTitle": "B2B"
+            }
+          ]
+        },
+        "Transfers": null,
+        "AgencyName": "Traveon Ventures",
+        "FlightData": [],
+        "Inclusions": "Hotel,Breakfast & Lunch,Airport Transfers,Activity,Sightseeing,Visa,All Transfers",
+        "PackageTax": [],
+        "PriceRange": "70000 upto",
+        "eventarray": [],
+        "AgencyIdB2B": 209265,
+        "AgencyIdB2C": 209265,
+        "AllowMinPax": 1,
+        "DiscountVal": 0,
+        "Itineraries": {
+          "Itinerary": [
+            {
+              "Day": 1,
+              "Title": "Arrival",
+              "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Airport to Hotel transfer&lt;/li&gt;\r\n\t&lt;li&gt;Check-in to Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Half day Muscat city tour -&lt;/li&gt;\r\n\t&lt;li&gt;Qurum Beach,&lt;/li&gt;\r\n\t&lt;li&gt;Opera House (from Outside),&lt;/li&gt;\r\n\t&lt;li&gt;Mutrah Souq,&lt;/li&gt;\r\n\t&lt;li&gt;Mutrah Fort.&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+              "ItineraryId": "904409",
+              "ItineraryItem": [
+                {
+                  "Id": 18762,
+                  "Type": "CITY",
+                  "Items": []
+                },
+                {
+                  "Id": 0,
+                  "Type": "HOTEL",
+                  "Items": [
+                    {
+                      "Id": 3,
+                      "Item": [
+                        {
+                          "Id": 456344,
+                          "IsIncluded": true,
+                          "MEALTYPENAME": "CP",
+                          "ROOMTYPENAME": "Deluxe",
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": "Deluxe"
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "ACTIVITY",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [],
+                      "Type": null
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "SIGHTSEEING",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [
+                        {
+                          "Id": 176342,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        },
+                        {
+                          "Id": 179756,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        },
+                        {
+                          "Id": 179757,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        },
+                        {
+                          "Id": 179759,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        },
+                        {
+                          "Id": 179758,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": null
+                    }
+                  ]
+                }
+              ],
+              "MealPlanInclude": ""
+            },
+            {
+              "Day": 2,
+              "Title": "Full Day Nizwa and Jebel Akhdar Tour",
+              "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Full Day Nizwa and Jebel Akhdar Tour- Nizwa Fort,Nizwa Souq,&lt;/li&gt;\r\n\t&lt;li&gt;Jebel Akhdar Mountains&lt;/li&gt;\r\n\t&lt;li&gt;Sultan Qaboos Mosque,&lt;/li&gt;\r\n\t&lt;li&gt;Drop at Hotel&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+              "ItineraryId": "904410",
+              "ItineraryItem": [
+                {
+                  "Id": 18762,
+                  "Type": "CITY",
+                  "Items": []
+                },
+                {
+                  "Id": 0,
+                  "Type": "HOTEL",
+                  "Items": [
+                    {
+                      "Id": 3,
+                      "Item": [
+                        {
+                          "Id": 456344,
+                          "IsIncluded": true,
+                          "MEALTYPENAME": "CP",
+                          "ROOMTYPENAME": "Deluxe",
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": "Deluxe"
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "ACTIVITY",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [],
+                      "Type": null
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "SIGHTSEEING",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [
+                        {
+                          "Id": 179760,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        },
+                        {
+                          "Id": 179755,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": null
+                    }
+                  ]
+                }
+              ],
+              "MealPlanInclude": "Breakfast"
+            },
+            {
+              "Day": 3,
+              "Title": "Leisure Day ",
+              "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast At Hotel&amp;nbsp;&lt;/li&gt;\r\n\t&lt;li&gt;Day At Leisure&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+              "ItineraryId": "904411",
+              "ItineraryItem": [
+                {
+                  "Id": 18762,
+                  "Type": "CITY",
+                  "Items": []
+                },
+                {
+                  "Id": 0,
+                  "Type": "HOTEL",
+                  "Items": [
+                    {
+                      "Id": 3,
+                      "Item": [
+                        {
+                          "Id": 456344,
+                          "IsIncluded": true,
+                          "MEALTYPENAME": "CP",
+                          "ROOMTYPENAME": "Deluxe",
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": "Deluxe"
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "ACTIVITY",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [],
+                      "Type": null
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "SIGHTSEEING",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [
+                        {
+                          "Id": 183155,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": null
+                    }
+                  ]
+                }
+              ],
+              "MealPlanInclude": "Breakfast"
+            },
+            {
+              "Day": 4,
+              "Title": "Coastal Tour To SUR",
+              "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Costal Tour To SUR - Wadi Shab, Wadi Tiwi, Bimmah Sinkhole and Fins Beach&lt;/li&gt;\r\n\t&lt;li&gt;Drop at Hotel&lt;br /&gt;\r\n\t&amp;nbsp;&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+              "ItineraryId": "904412",
+              "ItineraryItem": [
+                {
+                  "Id": 18762,
+                  "Type": "CITY",
+                  "Items": []
+                },
+                {
+                  "Id": 0,
+                  "Type": "HOTEL",
+                  "Items": [
+                    {
+                      "Id": 3,
+                      "Item": [
+                        {
+                          "Id": 456344,
+                          "IsIncluded": true,
+                          "MEALTYPENAME": "CP",
+                          "ROOMTYPENAME": "Deluxe",
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": "Deluxe"
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "ACTIVITY",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [],
+                      "Type": null
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "SIGHTSEEING",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [
+                        {
+                          "Id": 179763,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": null
+                    }
+                  ]
+                }
+              ],
+              "MealPlanInclude": "Breakfast"
+            },
+            {
+              "Day": 5,
+              "Title": "Departure ",
+              "Program": "&lt;ul&gt;\r\n\t&lt;li&gt;Breakfast at Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Checkout From Hotel&lt;/li&gt;\r\n\t&lt;li&gt;Airport Transfer From Hotel&lt;/li&gt;\r\n&lt;/ul&gt;\r\n",
+              "ItineraryId": "904413",
+              "ItineraryItem": [
+                {
+                  "Id": 18762,
+                  "Type": "CITY",
+                  "Items": []
+                },
+                {
+                  "Id": 0,
+                  "Type": "HOTEL",
+                  "Items": [
+                    {
+                      "Id": 3,
+                      "Type": "Deluxe"
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "ACTIVITY",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [],
+                      "Type": null
+                    }
+                  ]
+                },
+                {
+                  "Id": 0,
+                  "Type": "SIGHTSEEING",
+                  "Items": [
+                    {
+                      "Id": 0,
+                      "Item": [
+                        {
+                          "Id": 183194,
+                          "IsIncluded": true,
+                          "MasterIntSysId": 0
+                        }
+                      ],
+                      "Type": null
+                    }
+                  ]
+                }
+              ],
+              "MealPlanInclude": ""
+            }
+          ]
+        },
+        "PackageSpec": {
+          "Specification": "Daily Itinerary Based",
+          "SpecificationId": 1
+        },
+        "PackageType": "Activites Tour",
+        "VisaDetails": [],
+        "BusRouteData": [],
+        "DiscountCode": [],
+        "DiscountType": 0,
+        "ImgThumbnail": "https://b2bzend.s3.ap-south-1.amazonaws.com/img/209265/package/images/magical-muscat-tour--star--nights--days_1773468845",
+        "PackTypeMask": 0,
+        "SourcePlaces": "Muscat",
+        "TransferData": {
+          "904409": {
+            "1": {
+              "Remark": [
+                ""
+              ],
+              "NetCost": [
+                0
+              ],
+              "RoadType": [
+                ""
+              ],
+              "Sequence": [
+                1
+              ],
+              "TPInvnSysId": [
+                904409
+              ],
+              "HotelTransport": [
+                "0"
+              ],
+              "AirportTransport": [
+                "2"
+              ]
+            }
+          },
+          "904410": {
+            "2": {
+              "Remark": [
+                ""
+              ],
+              "NetCost": [
+                0
+              ],
+              "RoadType": [
+                ""
+              ],
+              "Sequence": [
+                2
+              ],
+              "TPInvnSysId": [
+                904410
+              ],
+              "HotelTransport": [
+                "0"
+              ],
+              "AirportTransport": [
+                "0"
+              ]
+            }
+          },
+          "904411": {
+            "3": {
+              "Remark": [
+                ""
+              ],
+              "NetCost": [
+                0
+              ],
+              "RoadType": [
+                ""
+              ],
+              "Sequence": [
+                3
+              ],
+              "TPInvnSysId": [
+                904411
+              ],
+              "HotelTransport": [
+                "0"
+              ],
+              "AirportTransport": [
+                "0"
+              ]
+            }
+          },
+          "904412": {
+            "4": {
+              "Remark": [
+                ""
+              ],
+              "NetCost": [
+                0
+              ],
+              "RoadType": [
+                ""
+              ],
+              "Sequence": [
+                4
+              ],
+              "TPInvnSysId": [
+                904412
+              ],
+              "HotelTransport": [
+                "0"
+              ],
+              "AirportTransport": [
+                "0"
+              ]
+            }
+          },
+          "904413": {
+            "5": {
+              "Remark": [
+                ""
+              ],
+              "NetCost": [
+                0
+              ],
+              "RoadType": [
+                ""
+              ],
+              "Sequence": [
+                5
+              ],
+              "TPInvnSysId": [
+                904413
+              ],
+              "HotelTransport": [
+                "2"
+              ],
+              "AirportTransport": [
+                "0"
+              ]
+            }
+          }
+        },
+        "AddonServices": [],
+        "OtherServices": null,
+        "AdvBookingDays": 30,
+        "IsSharingPrice": 0,
+        "fixedInventory": [],
+        "AllowBookingType": 1,
+        "CitiesBySequence": [
+          {
+            "CityId": "18762",
+            "EndDay": 5,
+            "MinDay": 1,
+            "Nights": 4,
+            "CityName": "Muscat",
+            "StartDay": 1
+          }
+        ],
+        "SourcePlaceSysId": 18762,
+        "AdvBookingPercent": 10,
+        "BuspickupLocation": [],
+        "CancellationRules": [],
+        "DestinationPlaces": "Muscat",
+        "IsBusRoutePackage": 0,
+        "BookingValidUntill": "2027-03-20",
+        "bookingvalidityDay": 0,
+        "IsFixPriceCalculate": "1",
+        "fixedInventoryCountry": [],
+        "DestinationPlacesSysId": 18762,
+        "IsFixedDeparturePackage": 0,
+        "MarkUpOnGTXNetworkPackage": 0,
+        "VisaServiceProviderDetails": []
+      }
+    },
+    "createdAt": "2026-03-27T12:28:03.000Z",
+    "updatedAt": "2026-03-27T12:28:03.000Z"
+  }
+}
