@@ -519,8 +519,8 @@ const AdminDashboard = () => {
           </button>
 
           <div className={`absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-gray-100 p-2 origin-top-right transition-all ${
-            showUserDropdown ? 'opacity-100 visible' : 'opacity-0 invisible'
-          } md:opacity-0 md:invisible md:group-hover:opacity-100 md:group-hover:visible md:translate-y-2 md:group-hover:translate-y-0 md:scale-95 md:group-hover:scale-100`}>
+            showUserDropdown ? 'opacity-100 visible' : 'opacity-0 invisible md:opacity-100 md:visible'
+          }`}>
             <button
               onClick={() => {
                 setShowLogoutConfirm(true);
