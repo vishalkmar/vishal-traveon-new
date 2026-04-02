@@ -10,4 +10,30 @@ export default defineConfig({
     port: 5173,
     cors: true, // Enable CORS
   },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': [
+            'react',
+            'react-dom',
+            'react-router-dom',
+          ],
+          'ui-libs': [
+            'react-hot-toast',
+            'framer-motion',
+            'motion',
+            'aos',
+          ],
+          'icons': [
+            'react-icons',
+            'lucide-react',
+          ],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 })
