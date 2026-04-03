@@ -529,7 +529,7 @@ export default function AboutUs() {
       },
       {
         img: "/team/bhumi.jpg",
-        name: "Bhumi Thakur",
+        name: "Bhoomi Thakur",
         role: "Graphic Designer",
       },
       {

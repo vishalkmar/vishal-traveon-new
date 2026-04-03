@@ -156,9 +156,9 @@ export default function HomePagePackages() {
         <div className="mb-4 p-4 sm:p-5 lg:p-6">
           <div className="flex flex-col items-center gap-6">
             <div className="text-center">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500 text-white text-xs sm:text-sm font-semibold shadow-md">
+              {/* <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500 text-white text-xs sm:text-sm font-semibold shadow-md">
   Explore Packages
-</div>
+</div> */}
               <div className="mt-1 text-2xl sm:text-4xl font-extrabold leading-tight">
                 <span className="text-slate-900">Choose your </span>
                 <span className="text-blue-500">Destination</span>

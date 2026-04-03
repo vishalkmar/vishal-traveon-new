@@ -6,7 +6,7 @@ export default function OurApproachMice(){
     {
       title: 'Consultation & Planning',
       description: 'Understand your goals, team dynamics, and desired outcomes',
-      img: "/mice/PLANNING.jpg",
+      img: "/mice/Planing.jpeg",
     },
     {
       title: 'Customized Itinerary',

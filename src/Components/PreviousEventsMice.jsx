@@ -204,7 +204,7 @@ export default function PreviousEventsMice() {
                  <div className="mt-20 mb-20 text-center px-4">
                    {/* Title */}
                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                     Want to Be Start Planning Your M.I.C.E Tour?
+                     Planning an event or offsite soon ?
                    </h2>
      
                    {/* Description */}
