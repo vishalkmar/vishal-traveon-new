@@ -80,14 +80,14 @@ const DataTable = ({ type, apiEndpoint, extraParams = {} }) => {
   const fetchData = async () => {
     // Prevent duplicate simultaneous requests
     if (loadingRef.current) return;
-    
+
     loadingRef.current = true;
     setLoading(true);
-    
+
     // Cancel previous request
     if (abortControllerRef.current) abortControllerRef.current.abort();
     abortControllerRef.current = new AbortController();
-    
+
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -116,7 +116,7 @@ const DataTable = ({ type, apiEndpoint, extraParams = {} }) => {
     } catch (error) {
       // Ignore abort errors
       if (error.name === "CanceledError") return;
-      
+
       console.error("Failed to fetch data", error);
       if (error.response?.status === 401 || error.response?.status === 403) {
         localStorage.removeItem("isAdminLoggedIn");
@@ -127,12 +127,11 @@ const DataTable = ({ type, apiEndpoint, extraParams = {} }) => {
       loadingRef.current = false;
       setLoading(false);
     }
-  };;
+  };
 
   const navigateToDetails = (id) => {
     if (type === "Query") return; // No details page for queries yet
     const typeSegment = apiEndpoint.includes("tour") ? "tour" : "visa";
-    // Using simple redirect consistent with previous code, or could use navigate
     window.location.href = `/admin/booking/${typeSegment}/${id}`;
   };
 
@@ -436,6 +435,9 @@ const AdminDashboard = () => {
   });
   const navigate = useNavigate();
 
+  // ✅ FIX: Ref for dropdown container to detect outside clicks
+  const dropdownRef = React.useRef(null);
+
   const statsAbortRef = React.useRef(null);
   const statsLoadingRef = React.useRef(false);
 
@@ -446,15 +448,24 @@ const AdminDashboard = () => {
     };
   }, []);
 
+  // ✅ FIX: Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowUserDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const fetchStats = async () => {
-    // Prevent duplicate simultaneous requests
     if (statsLoadingRef.current) return;
-    
-    // Cancel previous request
+
     if (statsAbortRef.current) statsAbortRef.current.abort();
     statsAbortRef.current = new AbortController();
     statsLoadingRef.current = true;
-    
+
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -469,12 +480,10 @@ const AdminDashboard = () => {
         setStats(res.data.data);
       }
     } catch (error) {
-      // Ignore abort errors
       if (error.name === "CanceledError") return;
-      
+
       console.error("Error fetching stats:", error);
       if (error.response?.status === 401 || error.response?.status === 403) {
-        // Token invalid - redirect to login
         localStorage.removeItem("isAdminLoggedIn");
         localStorage.removeItem("token");
         navigate("/admin");
@@ -503,24 +512,28 @@ const AdminDashboard = () => {
           </h1>
         </div>
 
-        <div className="relative">
-          <button 
-            onClick={() => setShowUserDropdown(!showUserDropdown)}
-            className="flex items-center gap-3 pl-3 pr-2 py-2 rounded-2xl bg-gray-50 hover:bg-cyan-50 transition-all border border-transparent hover:border-cyan-100 md:group"
+        {/* ✅ FIX: ref added here, md: classes removed from dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setShowUserDropdown((prev) => !prev)}
+            className="flex items-center gap-3 pl-3 pr-2 py-2 rounded-2xl bg-gray-50 hover:bg-cyan-50 transition-all border border-transparent hover:border-cyan-100"
           >
             <div className="flex flex-col items-end mr-1">
               <span className="text-xs font-black text-gray-800">
                 Admin User
               </span>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-700 shadow-inner md:group-hover:bg-cyan-500 md:group-hover:text-white transition-all">
+            <div className="w-10 h-10 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-700 shadow-inner transition-all">
               <UserIcon className="w-5 h-5" />
             </div>
           </button>
 
-          <div className={`absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-gray-100 p-2 origin-top-right transition-all ${
-            showUserDropdown ? 'opacity-100 visible' : 'opacity-0 invisible md:opacity-100 md:visible'
-          }`}>
+          {/* ✅ FIX: Only state controls visibility — no md: override classes */}
+          <div
+            className={`absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-gray-100 p-2 origin-top-right transition-all ${
+              showUserDropdown ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
+          >
             <button
               onClick={() => {
                 setShowLogoutConfirm(true);
@@ -596,14 +609,17 @@ const AdminDashboard = () => {
             { id: "Oman-visa-10-days", label: "10-Day Visas", icon: FileCheck },
             { id: "Oman-visa-30-days", label: "30-Day Visas", icon: FileCheck },
             { id: "Queries", label: "General Queries", icon: Mail },
-            { id: "Package-Configuration", label: "Package Configuration", icon: Settings },
+            {
+              id: "Package-Configuration",
+              label: "Package Configuration",
+              icon: Settings,
+            },
             { id: "Blogs", label: "Blogs", icon: BookOpen },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => {
                 if (tab.id === "Blogs") {
-                  // Check authentication before navigating to blogs
                   const token = localStorage.getItem("token");
                   if (token) {
                     navigate("/admin/blogs");
