@@ -5,6 +5,7 @@ import PackagesListingLayout from "../../Components/packages/PackagesListingLayo
 
 import { useEffect, useState } from "react";
 import { useDisabledPackages } from "../../hooks/useDisabledPackages";
+import { useTopSellingPackages } from "../../hooks/useTopSellingPackages";
 import { getApiV1Base } from "../../utils/apiUrl.js";
 
 export default function PackagesIndex() {
@@ -22,6 +23,7 @@ export default function PackagesIndex() {
   const [sortBy, setSortBy] = useState("recommended");
 
   const { isPackageEnabled } = useDisabledPackages();
+  const { isTopSelling } = useTopSellingPackages();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -308,21 +310,22 @@ export default function PackagesIndex() {
             );
           }
 
-          // When a price sort is active, merge all packages into one flat sorted list
-          if (sortBy === "price_low" || sortBy === "price_high") {
+          // Collect all enabled packages (deduplicated) respecting current filters
+          const getAllFiltered = () => {
             const seen = new Set();
-            const allPackages = [];
+            const all = [];
             destinations.forEach((destination) => {
               getFilteredPackages(destination.name).forEach((pkg) => {
                 const key = pkg.id || pkg.gtxPkgId;
-                if (!seen.has(key)) {
-                  seen.add(key);
-                  allPackages.push(pkg);
-                }
+                if (!seen.has(key)) { seen.add(key); all.push(pkg); }
               });
             });
-            // Sort the merged list
-            const sorted = [...allPackages].sort((a, b) => {
+            return all;
+          };
+
+          // When a price sort is active, merge all packages into one flat sorted list
+          if (sortBy === "price_low" || sortBy === "price_high") {
+            const sorted = getAllFiltered().sort((a, b) => {
               const aPrice = parseFloat(a?.minPrice) || 0;
               const bPrice = parseFloat(b?.minPrice) || 0;
               return sortBy === "price_low" ? aPrice - bPrice : bPrice - aPrice;
@@ -343,10 +346,26 @@ export default function PackagesIndex() {
             );
           }
 
+          // Default view: top-selling first, then category-wise
+          const allFiltered = getAllFiltered();
+          const topSellingItems = allFiltered.filter((pkg) => isTopSelling(pkg.gtxPkgId));
+          const topSellingIdSet = new Set(topSellingItems.map((p) => p.id || p.gtxPkgId));
+
           return (
             <>
+              {/* Top Selling section — shown first if any packages are marked */}
+              {topSellingItems.length > 0 && (
+                <PackagesCarousel
+                  title={`Top Selling Packages (${topSellingItems.length})`}
+                  items={topSellingItems}
+                />
+              )}
+
+              {/* Category-wise sections — skip packages already shown in top selling */}
               {destinations.map((destination) => {
-                const items = getFilteredPackages(destination.name);
+                const items = getFilteredPackages(destination.name).filter(
+                  (pkg) => !topSellingIdSet.has(pkg.id || pkg.gtxPkgId)
+                );
                 if (items.length > 0) {
                   return (
                     <PackagesCarousel

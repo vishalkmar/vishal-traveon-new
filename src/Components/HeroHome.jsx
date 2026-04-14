@@ -1,3 +1,5 @@
+import LazyVideo from "./shared/LazyVideo.jsx";
+
 export default function Hero({
 
   title = (
@@ -19,16 +21,11 @@ export default function Hero({
   return (
     <section className="relative pt-[200px]  min-h-[90svh] md:min-h-[98svh] lg:min-h-[86svh] overflow-hidden border-b-2 border-gray-300">
       {/* Video Background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
+      <LazyVideo
+        src="/index2.mp4"
         className="absolute inset-0 w-full h-full object-cover -z-20"
-      >
-        <source src="/index2.mp4" type="video/mp4" />
-
-      </video>
+        rootMargin="0px"
+      />
 
       {/* Overlay */}
       {/* <div aria-hidden className="absolute inset-0 -z-10">

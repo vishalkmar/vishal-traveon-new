@@ -60,6 +60,7 @@ function filterPackagesClient(rows, countryId, statusFilter, searchString, disab
     maxPrice: pkg.maxPrice,
     createdAt: pkg.createdAt,
     isEnabled: !disabledGtx.has(Number(pkg.gtxPkgId)),
+    isTopSelling: !!pkg.isTopSelling,
   }));
 
   let out = mapped;
@@ -87,6 +88,7 @@ export default function PackageConfiguration() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [toggleLoadingId, setToggleLoadingId] = useState(null);
+  const [topSellingLoadingId, setTopSellingLoadingId] = useState(null);
 
   /** null = probing, 'config' = package-config API, 'packages' = fallback from /packages */
   const [apiMode, setApiMode] = useState(null);
@@ -247,6 +249,43 @@ export default function PackageConfiguration() {
     }
   };
 
+  const handleToggleTopSelling = async (gtxPkgId, currentTopSelling) => {
+    const token = localStorage.getItem('token');
+    setTopSellingLoadingId(gtxPkgId);
+    try {
+      const response = await fetch(`${base}/package-config/${gtxPkgId}/top-selling`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ isTopSelling: !currentTopSelling }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.status === 401 || response.status === 403) {
+        alert(data.message || 'Admin login required.');
+        return;
+      }
+
+      if (data.success) {
+        setPackages((prev) =>
+          prev.map((pkg) =>
+            pkg.gtxPkgId === gtxPkgId ? { ...pkg, isTopSelling: !currentTopSelling } : pkg
+          )
+        );
+      } else {
+        alert(data.message || 'Error updating top selling status');
+      }
+    } catch (err) {
+      console.error('Error toggling top selling:', err);
+      alert('Failed to update top selling status');
+    } finally {
+      setTopSellingLoadingId(null);
+    }
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('en-IN', {
@@ -344,6 +383,7 @@ export default function PackageConfiguration() {
                 <th>GTS Package ID</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Top Selling</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -354,6 +394,25 @@ export default function PackageConfiguration() {
                   <td>{pkg.gtxPkgId}</td>
                   <td>{formatAmountCell(pkg.minPrice, pkg.maxPrice)}</td>
                   <td>{formatDate(pkg.createdAt)}</td>
+                  <td>
+                    <button
+                      title={pkg.isTopSelling ? 'Remove from Top Selling' : 'Mark as Top Selling'}
+                      disabled={topSellingLoadingId === pkg.gtxPkgId}
+                      onClick={() => handleToggleTopSelling(pkg.gtxPkgId, !!pkg.isTopSelling)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: topSellingLoadingId === pkg.gtxPkgId ? 'wait' : 'pointer',
+                        fontSize: '22px',
+                        lineHeight: 1,
+                        color: pkg.isTopSelling ? '#f59e0b' : '#cbd5e1',
+                        transition: 'color 0.2s',
+                        padding: '2px 6px',
+                      }}
+                    >
+                      ★
+                    </button>
+                  </td>
                   <td>
                     <label
                       className="pkg-switch"

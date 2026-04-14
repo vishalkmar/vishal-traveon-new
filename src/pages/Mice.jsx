@@ -1,6 +1,7 @@
 
 
 import React, { useState } from "react";
+import LazyVideo from "../Components/shared/LazyVideo.jsx";
 import PreviousEventsMice from "../Components/PreviousEventsMice";
 import BussinessObjective from "../Components/BussinessObjective";
 import OurApproachMice from "../Components/shared/OurApproachMice";
@@ -38,15 +39,11 @@ export default function Mice() {
       {/* Hero section with video background */}
       <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden flex items-center justify-center">
         {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <LazyVideo
+          src="/mice/micevideo.mp4"
           className="absolute inset-0 w-full h-full object-cover -z-20"
-        >
-          <source src="/mice/micevideo.mp4" type="video/mp4" />
-        </video>
+          rootMargin="0px"
+        />
 
         {/* CTA Button Below Video */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
