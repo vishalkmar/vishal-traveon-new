@@ -54,7 +54,21 @@ export default function HomePagePackages() {
         setDestinations(destinationsWithPackages);
 
         if (destinationsWithPackages.length > 0) {
-          setActiveTab(destinationsWithPackages[0].name.toLowerCase());
+          // Default to the destination with the most packages
+          const countPackagesForDest = (destName) => {
+            const term = destName.toLowerCase();
+            return packagesArray.filter((pkg) => {
+              const pkgCountries = (pkg?.countries || "").toLowerCase();
+              const pkgName = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
+              const pkgDestinations = (pkg?.destinations || "").toLowerCase();
+              return `${pkgCountries} ${pkgName} ${pkgDestinations}`.includes(term);
+            }).length;
+          };
+          const defaultDest = destinationsWithPackages.reduce((best, dest) =>
+            countPackagesForDest(dest.name) > countPackagesForDest(best.name) ? dest : best,
+            destinationsWithPackages[0]
+          );
+          setActiveTab(defaultDest.name.toLowerCase());
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -161,7 +175,7 @@ export default function HomePagePackages() {
 </div> */}
               <div className="mt-1 text-2xl sm:text-4xl font-extrabold leading-tight">
                 <span className="text-slate-900">Choose your </span>
-                <span className="text-blue-500">Destination</span>
+                <span className="" style={{color:'rgb(40, 188, 207)'}} >Destination</span>
               </div>
             </div>
 

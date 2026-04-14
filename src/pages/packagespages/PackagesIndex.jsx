@@ -308,16 +308,51 @@ export default function PackagesIndex() {
             );
           }
 
+          // When a price sort is active, merge all packages into one flat sorted list
+          if (sortBy === "price_low" || sortBy === "price_high") {
+            const seen = new Set();
+            const allPackages = [];
+            destinations.forEach((destination) => {
+              getFilteredPackages(destination.name).forEach((pkg) => {
+                const key = pkg.id || pkg.gtxPkgId;
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  allPackages.push(pkg);
+                }
+              });
+            });
+            // Sort the merged list
+            const sorted = [...allPackages].sort((a, b) => {
+              const aPrice = parseFloat(a?.minPrice) || 0;
+              const bPrice = parseFloat(b?.minPrice) || 0;
+              return sortBy === "price_low" ? aPrice - bPrice : bPrice - aPrice;
+            });
+            if (sorted.length === 0) {
+              return (
+                <div className="rounded-2xl bg-white p-12 ring-1 ring-black/10 text-center">
+                  <p className="text-lg font-semibold text-slate-900">No packages found</p>
+                  <p className="text-sm text-slate-600 mt-1">Try adjusting your filters or search criteria</p>
+                </div>
+              );
+            }
+            return (
+              <PackagesCarousel
+                title={`All Tour Packages (${sorted.length})`}
+                items={sorted}
+              />
+            );
+          }
+
           return (
             <>
               {destinations.map((destination) => {
                 const items = getFilteredPackages(destination.name);
                 if (items.length > 0) {
                   return (
-                    <PackagesCarousel 
-                      key={destination._id} 
-                      title={`${destination.name} Tour Packages (${items.length})`} 
-                      items={items} 
+                    <PackagesCarousel
+                      key={destination._id}
+                      title={`${destination.name} Tour Packages (${items.length})`}
+                      items={items}
                     />
                   );
                 }
