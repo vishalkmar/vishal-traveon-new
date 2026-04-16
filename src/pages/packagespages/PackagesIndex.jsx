@@ -14,13 +14,15 @@ export default function PackagesIndex() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Filter states
-  const [priceFilter, setPriceFilter] = useState(500000); // Increased to show all packages by default
-  const [durationFilter, setDurationFilter] = useState(""); // single select - e.g., "4N"
-  const [flightFilter, setFlightFilter] = useState(""); // single select - e.g., "With Flight Holidays"
+  const [priceFilter, setPriceFilter] = useState(500000);
+  const [durationFilter, setDurationFilter] = useState("");
+  const [flightFilter, setFlightFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState("");
   const [searchName, setSearchName] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
+  const [countryFilter, setCountryFilter] = useState(""); // new country filter
+  const [availableCountries, setAvailableCountries] = useState([]);
 
   const { isPackageEnabled } = useDisabledPackages();
   const { isTopSelling } = useTopSellingPackages();
@@ -29,8 +31,8 @@ export default function PackagesIndex() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Fetch packages
-        const res = await fetch(`${getApiV1Base()}/packages/`);
+        // Fetch packages (limit=500 to get all packages, not just the default 10)
+        const res = await fetch(`${getApiV1Base()}/packages/?limit=500&page=1`);
         if (!res.ok) throw new Error("API error");
         const jsondata = await res.json();
 
@@ -39,6 +41,17 @@ export default function PackagesIndex() {
           : (Array.isArray(jsondata) ? jsondata : [jsondata?.data].filter(Boolean));
 
         setApiPackages(packagesArray);
+
+        // Extract unique countries from all packages
+        const countrySet = new Set();
+        packagesArray.forEach((pkg) => {
+          const raw = pkg?.countries || pkg?.country || "";
+          raw.split(",").forEach((c) => {
+            const name = c.trim();
+            if (name) countrySet.add(name);
+          });
+        });
+        setAvailableCountries([...countrySet].sort());
 
         // Fetch destinations
         const destRes = await fetch(`${getApiV1Base()}/destinations`);
@@ -178,6 +191,16 @@ export default function PackagesIndex() {
       
       if (!searchText.includes(searchTerm)) return false;
 
+      // 2a. Filter by selected country (dropdown)
+      if (countryFilter) {
+        const cf = countryFilter.toLowerCase();
+        const pkgCountriesField = (pkg?.countries || pkg?.country || "").toLowerCase();
+        const pkgNameField = (pkg?.longJsonInfo?.package?.Name || pkg?.Name || "").toLowerCase();
+        const pkgDestsField = (pkg?.destinations || "").toLowerCase();
+        const combined = `${pkgCountriesField} ${pkgNameField} ${pkgDestsField}`;
+        if (!combined.includes(cf)) return false;
+      }
+
       // 2. Filter by package name and country search (if provided)
       if (searchName.trim()) {
         const searchLower = searchName.toLowerCase();
@@ -270,10 +293,10 @@ export default function PackagesIndex() {
 
   return (
     <div className="min-h-screen pt-28">
-      <PackagesListingLayout 
-        pageTitle="Tour Packages" 
+      <PackagesListingLayout
+        pageTitle="Tour Packages"
         totalCount={apiPackages.length}
-        
+
         // Pass filter state
         priceValue={priceFilter}
         durationValue={durationFilter}
@@ -282,6 +305,8 @@ export default function PackagesIndex() {
         searchValue={searchName}
         dateValue={selectedDate}
         sortValue={sortBy}
+        countryValue={countryFilter}
+        availableCountries={availableCountries}
         // Pass callbacks
         onPriceChange={setPriceFilter}
         onDurationChange={setDurationFilter}
@@ -290,6 +315,7 @@ export default function PackagesIndex() {
         onSearchChange={setSearchName}
         onDateChange={setSelectedDate}
         onSortChange={setSortBy}
+        onCountryChange={setCountryFilter}
         isLoading={isLoading}
       >
         {/* Show carousels only if they have items */}
@@ -310,18 +336,9 @@ export default function PackagesIndex() {
             );
           }
 
-          // Collect all enabled packages (deduplicated) respecting current filters
-          const getAllFiltered = () => {
-            const seen = new Set();
-            const all = [];
-            destinations.forEach((destination) => {
-              getFilteredPackages(destination.name).forEach((pkg) => {
-                const key = pkg.id || pkg.gtxPkgId;
-                if (!seen.has(key)) { seen.add(key); all.push(pkg); }
-              });
-            });
-            return all;
-          };
+          // Collect ALL enabled packages respecting current filters (not just destination-matched)
+          // This ensures top-selling packages are never missed regardless of destination matching
+          const getAllFiltered = () => applyAllFilters(apiPackages, "");
 
           // When a price sort is active, merge all packages into one flat sorted list
           if (sortBy === "price_low" || sortBy === "price_high") {
@@ -346,10 +363,36 @@ export default function PackagesIndex() {
             );
           }
 
-          // Default view: top-selling first, then category-wise
+          // Default view: top-selling first, then category-wise, then catch-all for unmatched
           const allFiltered = getAllFiltered();
           const topSellingItems = allFiltered.filter((pkg) => isTopSelling(pkg.gtxPkgId));
-          const topSellingIdSet = new Set(topSellingItems.map((p) => p.id || p.gtxPkgId));
+
+          // Track every package ID that has been rendered so far
+          const shownIdSet = new Set(topSellingItems.map((p) => p.id || p.gtxPkgId));
+
+          // Build destination carousels, marking each shown package
+          const destinationCarousels = destinations.map((destination) => {
+            const items = getFilteredPackages(destination.name).filter(
+              (pkg) => !shownIdSet.has(pkg.id || pkg.gtxPkgId)
+            );
+            // Mark as shown so catch-all doesn't duplicate them
+            items.forEach((pkg) => shownIdSet.add(pkg.id || pkg.gtxPkgId));
+            if (items.length > 0) {
+              return (
+                <PackagesCarousel
+                  key={destination._id}
+                  title={`${destination.name} Tour Packages (${items.length})`}
+                  items={items}
+                />
+              );
+            }
+            return null;
+          });
+
+          // Catch-all: packages that didn't match any destination (e.g. country name mismatch)
+          const otherItems = allFiltered.filter(
+            (pkg) => !shownIdSet.has(pkg.id || pkg.gtxPkgId)
+          );
 
           return (
             <>
@@ -361,22 +404,16 @@ export default function PackagesIndex() {
                 />
               )}
 
-              {/* Category-wise sections — skip packages already shown in top selling */}
-              {destinations.map((destination) => {
-                const items = getFilteredPackages(destination.name).filter(
-                  (pkg) => !topSellingIdSet.has(pkg.id || pkg.gtxPkgId)
-                );
-                if (items.length > 0) {
-                  return (
-                    <PackagesCarousel
-                      key={destination._id}
-                      title={`${destination.name} Tour Packages (${items.length})`}
-                      items={items}
-                    />
-                  );
-                }
-                return null;
-              })}
+              {/* Category-wise sections */}
+              {destinationCarousels}
+
+              {/* Catch-all: packages not matched by any destination */}
+              {otherItems.length > 0 && (
+                <PackagesCarousel
+                  title={`More Tour Packages (${otherItems.length})`}
+                  items={otherItems}
+                />
+              )}
             </>
           );
         })()}

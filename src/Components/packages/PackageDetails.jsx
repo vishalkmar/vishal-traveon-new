@@ -583,16 +583,8 @@ function GallerySection({ pkg }) {
         </div>
       )}
       
-      <div className="p-4 flex items-center justify-between border-b border-slate-200">
-        <div className="flex items-center gap-3">
-          <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-          </svg>
-          <span className="text-xs font-semibold text-slate-700">
-            {pkg.tag || "Group Tour"}
-          </span>
-        </div>
-       
+      <div className="p-2 flex items-center justify-between ">
+      
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-2 p-4 pt-0">
@@ -934,9 +926,9 @@ function ItineraryTab({ itinerary = [] }) {
 
 function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
   const SUBTABS = [
-    { key: "flights", label: "Flights" },
-    { key: "transfer", label: "Transfer" },
-    { key: "visa", label: "Visa" },
+    // { key: "flights", label: "Flights" },
+    // { key: "transfer", label: "Transfer" },
+    // { key: "visa", label: "Visa" },
     { key: "sightseeing", label: "Sightseeing" },
     { key: "accommodation", label: "Accommodation" },
     { key: "meals", label: "Meals" },
@@ -1088,21 +1080,73 @@ function PackageDetailsTab({ pkg, activeSub, onSubChange }) {
     </div>
   );
 }
-function TermsConditionsTab({ termsObj }) {
-  const validKeys = Object.keys(termsObj || {}).filter(k => termsObj[k] && String(termsObj[k]).trim() !== "");
-  const [activeTerm, setActiveTerm] = useState(validKeys[0] || "");
+/**
+ * Converts raw API terms string → structured array of {type, text} blocks.
+ * Handles double-encoded entities (&amp;bull; → •), strips tags, detects headings.
+ */
+function parseTermsContent(raw) {
+  if (!raw) return [];
 
-  // Helper to decode HTML entities
-  const decodeHtmlEntities = (html) => {
-    return String(html || "")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&amp;nbsp;/g, ' ')
-      .replace(/&amp;#39;/g, "'")
-      .replace(/&amp;rsquo;/g, "'")
-      .replace(/&quot;/g, '"')
-      .replace(/&amp;/g, '&');
-  };
+  // 1. Deep-decode ALL HTML entities (handles &amp;bull; → &bull; → • in multiple passes)
+  let text = decodeHtmlEntitiesDeep(String(raw));
+
+  // 2. Convert HTML block/list elements to plain-text equivalents
+  text = text
+    .replace(/<li[^>]*>/gi, "\n• ")
+    .replace(/<\/li>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<p[^>]*>/gi, "\n")
+    .replace(/<\/div>/gi, "\n")
+    .replace(/<div[^>]*>/gi, "\n")
+    .replace(/<strong[^>]*>/gi, "")
+    .replace(/<\/strong>/gi, "")
+    .replace(/<b[^>]*>/gi, "")
+    .replace(/<\/b>/gi, "")
+    .replace(/<[^>]*>/g, ""); // strip all remaining tags
+
+  // 3. Split into lines, trim, remove empties
+  const lines = text
+    .split(/\n|\r\n|\r/)
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0);
+
+  // 4. Classify each line
+  return lines.map((line) => {
+    const clean = line.replace(/^[•\-\*]\s*/, "").trim();
+
+    // Explicit bullet: starts with •, -, *, or &bull; aftermath
+    if (/^[•\-\*]/.test(line)) {
+      return { type: "bullet", text: clean };
+    }
+
+    // Numbered point: "1. text" or "1) text"
+    if (/^\d+[\.\)]\s/.test(line)) {
+      return { type: "numbered", text: line };
+    }
+
+    // Heading detection:
+    // - ends with ":" (strong signal e.g. "Payment Terms:")
+    // - OR short line (≤ 7 words) with no sentence-ending punctuation
+    const wordCount = line.split(/\s+/).length;
+    const endsWithColon = line.endsWith(":");
+    const looksLikeHeading =
+      endsWithColon ||
+      (wordCount <= 7 && !/[.!?]$/.test(line) && line.length < 70);
+
+    if (looksLikeHeading) {
+      return { type: "heading", text: line };
+    }
+
+    return { type: "text", text: line };
+  });
+}
+
+function TermsConditionsTab({ termsObj }) {
+  const validKeys = Object.keys(termsObj || {}).filter(
+    (k) => termsObj[k] && String(termsObj[k]).trim() !== ""
+  );
+  const [activeTerm, setActiveTerm] = useState(validKeys[0] || "");
 
   if (validKeys.length === 0) {
     return (
@@ -1112,13 +1156,15 @@ function TermsConditionsTab({ termsObj }) {
     );
   }
 
+  const parsedContent = parseTermsContent(termsObj[activeTerm]);
+
   return (
     <div className="rounded-2xl bg-white ring-1 ring-black/10 overflow-hidden">
-      {/* Sub tabs (Horizontal) */}
+      {/* Sub tabs */}
       <div className="flex flex-wrap border-b border-black/5 bg-slate-50">
         {validKeys.map((key) => {
           const isActive = activeTerm === key;
-          const label = key.replace(/([A-Z])/g, ' $1').trim();
+          const label = key.replace(/([A-Z])/g, " $1").trim();
           return (
             <button
               key={key}
@@ -1137,21 +1183,48 @@ function TermsConditionsTab({ termsObj }) {
         })}
       </div>
 
-      {/* Content Area */}
+      {/* Content */}
       <div className="p-4">
-        <div className="rounded-xl ring-1 ring-black/10 bg-white p-6 overflow-y-auto prose prose-sm max-w-none text-slate-700">
-          <h3 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-3">
-            {activeTerm.replace(/([A-Z])/g, ' $1').trim()}
+        <div className="rounded-xl ring-1 ring-black/10 bg-white p-5">
+          <h3 className="text-base font-bold text-slate-900 mb-4 border-b border-slate-100 pb-3">
+            {activeTerm.replace(/([A-Z])/g, " $1").trim()}
           </h3>
 
-          {/* Render HTML content securely */}
-          <div
-            className="space-y-3 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-emerald-500"
-            dangerouslySetInnerHTML={{
-              // Parse entities &lt; and &gt; back to html
-              __html: String(termsObj[activeTerm] || "").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;nbsp;/g, ' ').replace(/&amp;#39;/g, "'").replace(/&amp;rsquo;/g, "’")
-            }}
-          />
+          <div className="space-y-1.5">
+            {parsedContent.map((item, i) => {
+              if (item.type === "heading") {
+                return (
+                  <p
+                    key={i}
+                    className="text-sm font-semibold text-slate-800 mt-4 first:mt-0"
+                  >
+                    {item.text}
+                  </p>
+                );
+              }
+              if (item.type === "bullet") {
+                return (
+                  <div key={i} className="flex gap-2 text-sm text-slate-600 pl-2">
+                    <span className="text-emerald-500 shrink-0 mt-0.5">•</span>
+                    <span>{item.text}</span>
+                  </div>
+                );
+              }
+              if (item.type === "numbered") {
+                return (
+                  <p key={i} className="text-sm text-slate-600 pl-2">
+                    {item.text}
+                  </p>
+                );
+              }
+              // type === "text"
+              return (
+                <p key={i} className="text-sm text-slate-600">
+                  {item.text}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -1230,7 +1303,7 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
         <div className="text-xs text-slate-500">{pkg.pricing.note}</div>
       </div>
 
-      <div
+      {/* <div
         className="mt-4 rounded-xl ring-1 p-3 text-sm text-slate-700"
         style={{
           background: "rgba(0,178,119,0.08)",
@@ -1239,7 +1312,7 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
       >
         <p className="font-semibold text-slate-900">{plainTextFromApi(pkg.title)}</p>
         <p className="text-xs text-slate-600">{pkg.pricing.points}</p>
-      </div>
+      </div> */}
 
       <button
         type="button"

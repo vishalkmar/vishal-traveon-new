@@ -23,6 +23,7 @@ export default function PackagesListingLayout({
   onSearchChange,
   onDateChange,
   onSortChange,
+  onCountryChange,
   priceValue = 500000,
   durationValue = {},
   flightValue = {},
@@ -30,6 +31,8 @@ export default function PackagesListingLayout({
   searchValue = "",
   dateValue = "",
   sortValue = "recommended",
+  countryValue = "",
+  availableCountries = [],
 }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -65,6 +68,10 @@ export default function PackagesListingLayout({
     if (onSortChange) onSortChange(val);
   };
 
+  const handleCountryChange = (val) => {
+    if (onCountryChange) onCountryChange(val);
+  };
+
   const handleClearAll = () => {
     if (onPriceChange) onPriceChange(500000);
     if (onDurationChange) onDurationChange("");
@@ -73,6 +80,7 @@ export default function PackagesListingLayout({
     if (onSearchChange) onSearchChange("");
     if (onDateChange) onDateChange("");
     if (onSortChange) onSortChange("recommended");
+    if (onCountryChange) onCountryChange("");
   };
 
   const handleSearchPackage = (e) => {
@@ -86,8 +94,9 @@ export default function PackagesListingLayout({
     if (durationValue) count += 1;
     if (flightValue) count += 1;
     if (monthValue) count += 1;
+    if (countryValue) count += 1;
     return count;
-  }, [durationValue, flightValue, monthValue]);
+  }, [durationValue, flightValue, monthValue, countryValue]);
 
   const clearAll = () => {
     handleClearAll();
@@ -110,6 +119,30 @@ export default function PackagesListingLayout({
         </div>
 
         <div className="p-5 space-y-6">
+          {/* Country Filter */}
+          {availableCountries.length > 0 && (
+            <>
+              <div>
+                <label className="text-sm font-semibold text-slate-800 mb-2 block">
+                  Country
+                </label>
+                <select
+                  value={countryValue}
+                  onChange={(e) => handleCountryChange(e.target.value)}
+                  className="w-full h-10 rounded-xl bg-white px-3 text-sm ring-1 ring-black/10 focus:outline-none focus:ring-4 focus:ring-teal-500/30"
+                >
+                  <option value="">All Countries</option>
+                  {availableCountries.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <Divider />
+            </>
+          )}
+
           <div>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-slate-800">Price Per Person</p>
