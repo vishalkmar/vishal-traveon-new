@@ -20,13 +20,49 @@ const EMPTY_FORM = {
 // ─── Image Drag-Drop Zone ────────────────────────────────────────────────────
 function ImageDropZone({ value, onChange }) {
   const [isDragging, setIsDragging] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState(value || null);
+  const blobRef = useRef(null);
   const fileRef = useRef(null);
+
+  useEffect(() => {
+    return () => { if (blobRef.current) URL.revokeObjectURL(blobRef.current); };
+  }, []);
+
+  useEffect(() => {
+    if (!value) setPreviewSrc(null);
+  }, [value]);
 
   const handleFile = (file) => {
     if (!file || !file.type.startsWith("image/")) return;
-    const reader = new FileReader();
-    reader.onloadend = () => onChange(reader.result);
-    reader.readAsDataURL(file);
+    if (blobRef.current) { URL.revokeObjectURL(blobRef.current); blobRef.current = null; }
+
+    const blobUrl = URL.createObjectURL(file);
+    blobRef.current = blobUrl;
+    setPreviewSrc(blobUrl); // instant preview
+
+    const img = new window.Image();
+    img.onload = () => {
+      const MAX = 800;
+      let { width, height } = img;
+      if (width > MAX || height > MAX) {
+        if (width > height) { height = Math.round((height * MAX) / width); width = MAX; }
+        else { width = Math.round((width * MAX) / height); height = MAX; }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width || 1;
+      canvas.height = height || 1;
+      canvas.getContext("2d").drawImage(img, 0, 0, width || 1, height || 1);
+      onChange(canvas.toDataURL("image/jpeg", 0.8));
+    };
+    img.onerror = () => { URL.revokeObjectURL(blobUrl); blobRef.current = null; setPreviewSrc(null); };
+    img.src = blobUrl;
+  };
+
+  const handleClear = (e) => {
+    e.stopPropagation();
+    if (blobRef.current) { URL.revokeObjectURL(blobRef.current); blobRef.current = null; }
+    setPreviewSrc(null);
+    onChange("");
   };
 
   const onDrop = (e) => {
@@ -57,17 +93,17 @@ function ImageDropZone({ value, onChange }) {
           onChange={(e) => handleFile(e.target.files[0])}
         />
 
-        {value ? (
+        {previewSrc ? (
           <>
             <img
-              src={value}
+              src={previewSrc}
               alt="preview"
               className="w-16 h-16 rounded-full object-cover mx-auto"
             />
             <p className="text-xs text-gray-400">Click or drag to replace</p>
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); onChange(""); }}
+              onClick={handleClear}
               className="absolute top-2 right-2 w-6 h-6 bg-red-100 hover:bg-red-200 rounded-full flex items-center justify-center text-red-500 transition-colors"
             >
               <X className="w-3 h-3" />

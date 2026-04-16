@@ -17,11 +17,13 @@ import {
   BookOpen,
   Settings,
   MessageCircle,
+  Image,
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PackageConfiguration from "../../Components/admin/PackageConfiguration";
 import WhatsappFlowAdmin from "../../Components/admin/WhatsappFlowAdmin";
+import ImageBannerAdmin from "../../Components/admin/ImageBannerAdmin";
 
 const API_URL =
   (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api";
@@ -618,6 +620,7 @@ const AdminDashboard = () => {
             },
             { id: "Blogs", label: "Blogs", icon: BookOpen },
             { id: "WhatsApp-Flow", label: "WhatsApp Flow", icon: MessageCircle },
+            { id: "Image-Banner", label: "Image Banner", icon: Image },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -656,6 +659,7 @@ const AdminDashboard = () => {
           {activeTab === "Queries" && <ContactQueryTab />}
           {activeTab === "Package-Configuration" && <PackageConfiguration />}
           {activeTab === "WhatsApp-Flow" && <WhatsappFlowAdmin />}
+          {activeTab === "Image-Banner" && <ImageBannerAdmin />}
         </div>
       </main>
 

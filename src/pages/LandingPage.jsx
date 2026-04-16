@@ -29,6 +29,7 @@ import PopularDestinations from "../Components/PopularDestinations.jsx";
 
 
 import HomePagePackages from "../Components/packages/HomePagePackages";
+import HomeBannerSlider from "../Components/HomeBannerSlider.jsx";
 import FAQAccordion from "../Components/FAQAccordion.jsx";
 import Gallery from "../Components/HomeGallery.jsx";
 
@@ -158,7 +159,10 @@ const backendUrl = import.meta.env.VITE_API_URL;
       </button>
       
            <Hero />
-      
+
+          {/* Banner Slider — shows only if images are added from admin; renders nothing if empty */}
+          <HomeBannerSlider />
+
           <HomePagePackages />
              <Testimonial />
           {/* <Why /> */}
