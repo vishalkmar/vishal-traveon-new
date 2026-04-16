@@ -89,6 +89,8 @@ export default function PackageConfiguration() {
   const [error, setError] = useState('');
   const [toggleLoadingId, setToggleLoadingId] = useState(null);
   const [topSellingLoadingId, setTopSellingLoadingId] = useState(null);
+  const [flowStringPopup, setFlowStringPopup] = useState(null); // { gtxPkgId, value }
+  const [flowStringSaving, setFlowStringSaving] = useState(false);
 
   /** null = probing, 'config' = package-config API, 'packages' = fallback from /packages */
   const [apiMode, setApiMode] = useState(null);
@@ -286,6 +288,36 @@ export default function PackageConfiguration() {
     }
   };
 
+  const handleSaveFlowString = async (gtxPkgId, value) => {
+    const token = localStorage.getItem('token');
+    setFlowStringSaving(true);
+    try {
+      const response = await fetch(`${base}/package-config/${gtxPkgId}/flow-string`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ flowString: value || null }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (data.success) {
+        setPackages((prev) =>
+          prev.map((pkg) =>
+            pkg.gtxPkgId === gtxPkgId ? { ...pkg, flowString: value || null } : pkg
+          )
+        );
+        setFlowStringPopup(null);
+      } else {
+        alert(data.message || 'Error saving flow string');
+      }
+    } catch {
+      alert('Failed to save flow string');
+    } finally {
+      setFlowStringSaving(false);
+    }
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('en-IN', {
@@ -383,6 +415,7 @@ export default function PackageConfiguration() {
                 <th>GTS Package ID</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Flow String</th>
                 <th>Top Selling</th>
                 <th>Action</th>
               </tr>
@@ -394,6 +427,26 @@ export default function PackageConfiguration() {
                   <td>{pkg.gtxPkgId}</td>
                   <td>{formatAmountCell(pkg.minPrice, pkg.maxPrice)}</td>
                   <td>{formatDate(pkg.createdAt)}</td>
+                  <td>
+                    {pkg.flowString ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, maxWidth: 180 }}>
+                        <span style={{ fontSize: 12, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 120 }} title={pkg.flowString}>
+                          {pkg.flowString}
+                        </span>
+                        <button
+                          onClick={() => setFlowStringPopup({ gtxPkgId: pkg.gtxPkgId, value: pkg.flowString || '' })}
+                          title="Edit flow string"
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: '#0891b2', padding: '2px 4px' }}
+                        >✏️</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setFlowStringPopup({ gtxPkgId: pkg.gtxPkgId, value: '' })}
+                        title="Add flow string"
+                        style={{ background: 'none', border: '1px dashed #0891b2', borderRadius: 6, cursor: 'pointer', fontSize: 11, color: '#0891b2', padding: '3px 8px' }}
+                      >+ Add</button>
+                    )}
+                  </td>
                   <td>
                     <button
                       title={pkg.isTopSelling ? 'Remove from Top Selling' : 'Mark as Top Selling'}
@@ -434,6 +487,80 @@ export default function PackageConfiguration() {
         </div>
       ) : (
         !showTableLoading && <div className="no-data">No packages found</div>
+      )}
+
+      {/* Flow String Popup */}
+      {flowStringPopup && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 1000,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16,
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: 16, padding: 28, width: '100%', maxWidth: 440,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.18)',
+          }}>
+            <h3 style={{ margin: '0 0 6px', fontSize: 16, fontWeight: 700, color: '#111827' }}>
+              WhatsApp Flow String
+            </h3>
+            <p style={{ margin: '0 0 16px', fontSize: 12, color: '#6b7280' }}>
+              This message will be pre-filled when user taps "Book Now" on this package.
+              Leave empty to use the default auto-generated message.
+            </p>
+            <textarea
+              autoFocus
+              value={flowStringPopup.value}
+              onChange={(e) => setFlowStringPopup((p) => ({ ...p, value: e.target.value }))}
+              placeholder="e.g. Hi! I'm interested in the Seychelles 5N/6D package, please share more details."
+              rows={4}
+              style={{
+                width: '100%', boxSizing: 'border-box', padding: '10px 12px',
+                borderRadius: 10, border: '1.5px solid #d1d5db', fontSize: 13,
+                resize: 'vertical', outline: 'none', fontFamily: 'inherit',
+                lineHeight: 1.5, color: '#1f2937',
+              }}
+              onFocus={(e) => { e.target.style.borderColor = '#0891b2'; }}
+              onBlur={(e) => { e.target.style.borderColor = '#d1d5db'; }}
+            />
+            <div style={{ display: 'flex', gap: 8, marginTop: 16, justifyContent: 'flex-end' }}>
+              {/* Clear (only shown when there was an existing value) */}
+              {packages.find((p) => p.gtxPkgId === flowStringPopup.gtxPkgId)?.flowString && (
+                <button
+                  disabled={flowStringSaving}
+                  onClick={() => handleSaveFlowString(flowStringPopup.gtxPkgId, '')}
+                  style={{
+                    padding: '8px 16px', borderRadius: 8, border: '1px solid #fca5a5',
+                    background: '#fff', color: '#dc2626', fontSize: 13, fontWeight: 600,
+                    cursor: flowStringSaving ? 'wait' : 'pointer', marginRight: 'auto',
+                  }}
+                >
+                  {flowStringSaving ? '...' : 'Clear'}
+                </button>
+              )}
+              <button
+                disabled={flowStringSaving}
+                onClick={() => setFlowStringPopup(null)}
+                style={{
+                  padding: '8px 16px', borderRadius: 8, border: '1px solid #e5e7eb',
+                  background: '#f9fafb', color: '#374151', fontSize: 13, fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                disabled={flowStringSaving}
+                onClick={() => handleSaveFlowString(flowStringPopup.gtxPkgId, flowStringPopup.value.trim())}
+                style={{
+                  padding: '8px 20px', borderRadius: 8, border: 'none',
+                  background: '#0891b2', color: '#fff', fontSize: 13, fontWeight: 700,
+                  cursor: flowStringSaving ? 'wait' : 'pointer',
+                }}
+              >
+                {flowStringSaving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

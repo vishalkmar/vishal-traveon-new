@@ -254,6 +254,7 @@ export default function PackageDetailsPage() {
   const { id: packageId } = useParams();
   const [loading, setLoading] = useState(true);
   const [pkg, setPkg] = useState(null);
+  const [customFlowString, setCustomFlowString] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
@@ -464,6 +465,13 @@ export default function PackageDetailsPage() {
         setActiveTab("itinerary");
         setActiveDetail(mappedPkg.inclusions[0]?.key || "hotel");
         setActiveSubDetail("accommodation");
+
+        // Fetch custom flow string for this package (if admin set one)
+        const gtxId = pObj.gtxPkgId || packageId;
+        fetch(`${getApiV1Base()}/package-config/${gtxId}/flow-string`)
+          .then((r) => r.json())
+          .then((d) => { if (d.success && d.flowString) setCustomFlowString(d.flowString); })
+          .catch(() => {});
       } catch (error) {
         console.error("Failed to fetch package:", error);
         if (mounted) setLoading(false);
@@ -548,7 +556,7 @@ export default function PackageDetailsPage() {
           {/* Right */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-6 space-y-4">
-              <PriceCard pkg={pkg} onCustomize={() => setIsFormOpen(true)} isShareOpen={isShareOpen} setIsShareOpen={setIsShareOpen} packageId={packageId} />
+              <PriceCard pkg={pkg} onCustomize={() => setIsFormOpen(true)} isShareOpen={isShareOpen} setIsShareOpen={setIsShareOpen} packageId={packageId} customFlowString={customFlowString} />
              
             </div>
           </div>
@@ -1211,10 +1219,15 @@ function TermsConditionsTab({ termsObj }) {
                 );
               }
               if (item.type === "numbered") {
+                // Split "1. text" so wrapped lines align under the text, not the number
+                const numMatch = item.text.match(/^(\d+[\.\)]\s*)(.*)$/s);
+                const numPart = numMatch ? numMatch[1] : "";
+                const textPart = numMatch ? numMatch[2] : item.text;
                 return (
-                  <p key={i} className="text-sm text-slate-600 pl-2">
-                    {item.text}
-                  </p>
+                  <div key={i} className="flex gap-1 text-sm text-slate-600 pl-2">
+                    <span className="shrink-0">{numPart}</span>
+                    <span>{textPart}</span>
+                  </div>
                 );
               }
               // type === "text"
@@ -1288,7 +1301,7 @@ function TermsTab({ terms = [] }) {
 
 /* -------------------- Right Cards -------------------- */
 
-function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId }) {
+function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId, customFlowString }) {
   return (
     <div className="rounded-2xl bg-white ring-1 ring-black/10 p-5">
       <div className="text-right">
@@ -1320,7 +1333,7 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId })
         style={{ background: BRAND.grad }}
         onClick={() => {
           const phone = "919540111307"; // without +
-          const message = pkg?.preString || "Hi, I want to enquire about this tour package.";
+          const message = customFlowString || pkg?.preString || "Hi, I want to enquire about this tour package.";
           const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
           window.open(url, "_blank");
         }}
