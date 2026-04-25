@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Pencil, Trash2, Plus, X, Upload, Loader2, Image } from "lucide-react";
+import { Pencil, Trash2, Plus, X, Upload, Loader2, Image, Link as LinkIcon, ExternalLink } from "lucide-react";
 import { getApiV1Base } from "../../utils/apiUrl.js";
 
 // ─── Image Drag-Drop Zone ────────────────────────────────────────────────────
@@ -120,6 +120,7 @@ function BannerModal({ banner, onClose, onSaved }) {
   const [imageData, setImageData] = useState(banner?.imageData || "");
   const [displayOrder, setDisplayOrder] = useState(banner?.displayOrder ?? 0);
   const [isActive, setIsActive] = useState(banner?.isActive !== false);
+  const [redirectUrl, setRedirectUrl] = useState(banner?.redirectUrl || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -141,7 +142,12 @@ function BannerModal({ banner, onClose, onSaved }) {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ imageData, displayOrder, isActive }),
+        body: JSON.stringify({
+          imageData,
+          displayOrder,
+          isActive,
+          redirectUrl: redirectUrl.trim() || null,
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -185,6 +191,27 @@ function BannerModal({ banner, onClose, onSaved }) {
           )}
 
           <ImageDropZone value={imageData} onChange={setImageData} />
+
+          {/* Redirect URL */}
+          <div>
+            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+              Redirect URL
+              <span className="ml-2 text-gray-400 normal-case font-medium">(optional)</span>
+            </label>
+            <div className="relative">
+              <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                value={redirectUrl}
+                onChange={(e) => setRedirectUrl(e.target.value)}
+                placeholder="https://example.com/offer  or  /packages/oman-luxury"
+                className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
+              />
+            </div>
+            <p className="text-xs text-gray-400 mt-1.5">
+              Where users go when they click the banner. External links open in a new tab; internal paths (start with <code className="px-1 py-0.5 bg-gray-100 rounded text-gray-500">/</code>) navigate within the site.
+            </p>
+          </div>
 
           <div className="flex gap-4">
             <div className="flex-1">
@@ -337,6 +364,7 @@ export default function ImageBannerAdmin() {
             <thead>
               <tr className="bg-gray-50/30 text-gray-400 uppercase text-[10px] font-black tracking-[0.15em] border-b border-gray-100">
                 <th className="px-6 py-5">Image</th>
+                <th className="px-6 py-5">Redirect Link</th>
                 <th className="px-6 py-5">Order</th>
                 <th className="px-6 py-5">Status</th>
                 <th className="px-6 py-5">Created</th>
@@ -352,6 +380,23 @@ export default function ImageBannerAdmin() {
                       alt={`Banner ${banner.id}`}
                       className="h-14 w-40 object-cover rounded-xl ring-1 ring-gray-100"
                     />
+                  </td>
+                  <td className="px-6 py-4 max-w-[260px]">
+                    {banner.redirectUrl ? (
+                      <a
+                        href={banner.redirectUrl}
+                        target={banner.redirectUrl.startsWith("/") ? "_self" : "_blank"}
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 hover:underline truncate max-w-full"
+                        title={banner.redirectUrl}
+                      >
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{banner.redirectUrl}</span>
+                      </a>
+                    ) : (
+                      <span className="text-xs text-gray-300 italic">No link</span>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <span className="text-gray-500 text-sm">{banner.displayOrder}</span>
