@@ -19,6 +19,7 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import { Toaster } from "react-hot-toast";
 import ScrollToTop from "./Components/ScrollToTop";
 import WhatsappCTA from "./Components/WhatsappCTA";
+import CustomCursor from "./Components/CustomCursor";
 
 import RetreatsPackages from "./pages/Retreat-Package-Pages/RetreatsPackages";
 import RetreatsPackageDetails1 from "./pages/Retreat-Package-Pages/RetreatsPackageDetails1";
@@ -92,6 +93,7 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <Toaster position="top-right" />
+      <CustomCursor />
 
       <Layout>
         <Routes>

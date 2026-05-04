@@ -24,6 +24,8 @@ import {
   Cog,
   Menu,
   X,
+  Star,
+  Users,
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +33,8 @@ import PackageConfiguration from "../../Components/admin/PackageConfiguration";
 import WhatsappFlowAdmin from "../../Components/admin/WhatsappFlowAdmin";
 import ImageBannerAdmin from "../../Components/admin/ImageBannerAdmin";
 import BlogsAdmin from "../../Components/admin/BlogsAdmin";
+import ReviewsAdmin from "../../Components/admin/ReviewsAdmin";
+import TeamAdmin from "../../Components/admin/TeamAdmin";
 
 const API_URL =
   (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api";
@@ -429,6 +433,8 @@ const AdminDashboard = () => {
     destinationCount: 0,
     bannerCount: 0,
     whatsappFlowCount: 0,
+    reviewCount: 0,
+    teamMemberCount: 0,
   });
   const navigate = useNavigate();
   const dropdownRef = React.useRef(null);
@@ -505,6 +511,8 @@ const AdminDashboard = () => {
       "WhatsApp-Flow": "WhatsApp Flow",
       "Image-Banner": "Image Banner",
       Blogs: "Blogs",
+      Reviews: "Reviews",
+      Team: "Team Members",
     }[activeTab] || "Dashboard";
 
   return (
@@ -603,6 +611,20 @@ const AdminDashboard = () => {
                 indent
                 active={activeTab === "Image-Banner"}
                 onClick={() => goTab("Image-Banner")}
+              />
+              <NavItem
+                icon={Star}
+                label="Reviews"
+                indent
+                active={activeTab === "Reviews"}
+                onClick={() => goTab("Reviews")}
+              />
+              <NavItem
+                icon={Users}
+                label="Team Members"
+                indent
+                active={activeTab === "Team"}
+                onClick={() => goTab("Team")}
               />
             </NavGroup>
           </div>
@@ -792,6 +814,22 @@ const AdminDashboard = () => {
                   progress={Math.min((stats.bannerCount / 5) * 100, 100)}
                   onClick={() => goTab("Image-Banner")}
                 />
+                <StatsCard
+                  title="Reviews"
+                  count={stats.reviewCount}
+                  icon={Star}
+                  colorClass="bg-yellow-500 text-white shadow-yellow-500/30"
+                  progress={Math.min((stats.reviewCount / 10) * 100, 100)}
+                  onClick={() => goTab("Reviews")}
+                />
+                <StatsCard
+                  title="Team Members"
+                  count={stats.teamMemberCount}
+                  icon={Users}
+                  colorClass="bg-teal-500 text-white shadow-teal-500/30"
+                  progress={Math.min((stats.teamMemberCount / 10) * 100, 100)}
+                  onClick={() => goTab("Team")}
+                />
               </div>
 
               {/* Quick action panels */}
@@ -888,6 +926,24 @@ const AdminDashboard = () => {
                       </span>
                       <ChevronRight className="w-4 h-4" />
                     </button>
+                    <button
+                      onClick={() => goTab("Reviews")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-gray-50 hover:bg-indigo-50 hover:text-indigo-700 text-sm font-semibold text-gray-700 transition-all"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Star className="w-4 h-4" /> Reviews
+                      </span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => goTab("Team")}
+                      className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-gray-50 hover:bg-indigo-50 hover:text-indigo-700 text-sm font-semibold text-gray-700 transition-all"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Users className="w-4 h-4" /> Team Members
+                      </span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -904,6 +960,8 @@ const AdminDashboard = () => {
             {activeTab === "WhatsApp-Flow" && <WhatsappFlowAdmin />}
             {activeTab === "Image-Banner" && <ImageBannerAdmin />}
             {activeTab === "Blogs" && <BlogsAdmin />}
+            {activeTab === "Reviews" && <ReviewsAdmin />}
+            {activeTab === "Team" && <TeamAdmin />}
           </div>
         </main>
       </div>

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { FileText, MapPin, Trash2, Edit2, Loader } from "lucide-react";
 import AddBlogModal from "../../Components/admin/AddBlogModal";
 import AddDestinationModal from "../../Components/admin/AddDestinationModal";
-import { backendUrl } from "../../../apiConfig/config";
 import toast from "react-hot-toast";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
 export default function AdminDashboardContent() {
-
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+  const API_BASE = getApiV1Base();
   const [isBlogModalOpen, setIsBlogModalOpen] = useState(false);
   const [isDestinationModalOpen, setIsDestinationModalOpen] = useState(false);
   const [isEditBlogModalOpen, setIsEditBlogModalOpen] = useState(false);
@@ -25,7 +24,7 @@ export default function AdminDashboardContent() {
   const fetchDestinations = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/api/v1/destinations`);
+      const response = await fetch(`${API_BASE}/destinations`);
       const data = await response.json();
       if (data.success) {
         setDestinations(data.data || []);
@@ -41,7 +40,7 @@ export default function AdminDashboardContent() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://traveon-backend-production.up.railway.app/api/v1/blog`);
+      const response = await fetch(`${API_BASE}/blog?limit=500&page=1`);
       const data = await response.json();
       if (data.success) {
         setBlogs(data.data || []);
@@ -86,7 +85,7 @@ export default function AdminDashboardContent() {
     
     setDeleteLoading(id);
     try {
-      const response = await fetch(`${API_BASE}/api/v1/destinations/${id}`, {
+      const response = await fetch(`${API_BASE}/destinations/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -112,7 +111,7 @@ export default function AdminDashboardContent() {
     
     setDeleteLoading(id);
     try {
-      const response = await fetch(`${API_BASE}/api/v1/blog/${id}`, {
+      const response = await fetch(`${API_BASE}/blog/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

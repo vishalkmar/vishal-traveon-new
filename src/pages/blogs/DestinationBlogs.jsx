@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { Loader } from "lucide-react";
 import BlogCard from "../../Components/blogs/BlogCard";
 import transformBlogData from "../../data/blogs/blogData";
-
-const API_BASE = "https://traveon-backend-production.up.railway.app/api";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
 export default function DestinationBlogs() {
   const { destination } = useParams();
@@ -17,11 +16,18 @@ export default function DestinationBlogs() {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch(`${API_BASE}/v1/blog`);
-      const data = await res.json();
+      const [blogsRes, destinationsRes] = await Promise.all([
+        fetch(`${getApiV1Base()}/blog?limit=500&page=1`),
+        fetch(`${getApiV1Base()}/destinations`),
+      ]);
+      const blogsData = await blogsRes.json().catch(() => ({}));
+      const destinationsData = await destinationsRes.json().catch(() => ({}));
 
-      if (data.success && data.data) {
-        const transformed = transformBlogData(data.data);
+      if (blogsRes.ok && blogsData.success && Array.isArray(blogsData.data)) {
+        const transformed = transformBlogData(
+          blogsData.data,
+          destinationsData.success && Array.isArray(destinationsData.data) ? destinationsData.data : []
+        );
         setBlogDataState(transformed);
       } else {
         setError("Failed to fetch blogs");

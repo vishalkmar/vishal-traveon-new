@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import transformBlogData from "../../data/blogs/blogData";
 import { ChevronLeft, Share2, X as XIcon, Loader } from "lucide-react";
 import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaLink, FaEnvelope } from "react-icons/fa";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
 export default function BlogDetail() {
   const { destination, slug } = useParams();
@@ -12,17 +13,15 @@ export default function BlogDetail() {
   const [destinationData, setDestinationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const API_BASE = "https://traveon-backend-production.up.railway.app/api";
-
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE}/v1/blog`);
+        setError(null);
+        const response = await fetch(`${getApiV1Base()}/blog?limit=500&page=1`);
         const data = await response.json();
         
-        if (data.success) {
+        if (response.ok && data.success && Array.isArray(data.data)) {
           const transformedData = transformBlogData(data.data);
           setDestinationData(transformedData[destination]);
           
@@ -30,6 +29,8 @@ export default function BlogDetail() {
             (b) => b.slug === slug
           );
           setBlog(foundBlog);
+        } else {
+          setError(data.message || "Failed to load blog");
         }
       } catch (err) {
         console.error("Error fetching blogs:", err);

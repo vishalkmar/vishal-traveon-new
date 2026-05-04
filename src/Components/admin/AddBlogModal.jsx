@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { X, Upload, Loader, Trash2 } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = getApiV1Base();
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
@@ -34,7 +35,7 @@ export default function AddBlogModal({ onClose, onSuccess, editingId, initialDat
 
   const fetchDestinations = async () => {
     try {
-      const response = await axios.get(`${API_BASE}/api/v1/destinations`);
+      const response = await axios.get(`${API_BASE}/destinations`);
       setDestinations(response.data.data || []);
     } catch (error) {
       console.error("Error fetching destinations:", error);
@@ -210,12 +211,12 @@ export default function AddBlogModal({ onClose, onSuccess, editingId, initialDat
       };
 
       if (isEdit || editingId) {
-        await axios.put(`${API_BASE}/api/v1/blog/${initialData?.id || editingId}`, payload, {
+        await axios.put(`${API_BASE}/blog/${initialData?.id || editingId}`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         toast.success("Blog updated successfully!");
       } else {
-        await axios.post(`${API_BASE}/api/v1/blog`, payload, {
+        await axios.post(`${API_BASE}/blog`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         toast.success("Blog created successfully!");

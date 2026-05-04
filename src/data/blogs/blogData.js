@@ -1,5 +1,17 @@
-const transformBlogData = (blogs = []) => {
+const transformBlogData = (blogs = [], destinations = []) => {
   const grouped = {};
+
+  destinations.forEach((destination) => {
+    if (!destination?.slug) return;
+
+    grouped[destination.slug] = {
+      destination: destination.name,
+      slug: destination.slug,
+      image: destination.image || "",
+      description: destination.description || "",
+      blogs: [],
+    };
+  });
 
   blogs.forEach((blog) => {
     if (!blog.destination) return;
@@ -10,11 +22,14 @@ const transformBlogData = (blogs = []) => {
       grouped[slug] = {
         destination: blog.destination.name,
         slug,
-        image: blog.image,
+        image: blog.destination.image || blog.image,
         description: blog.excerpt || "",
         blogs: [],
       };
     }
+
+    if (!grouped[slug].image) grouped[slug].image = blog.image;
+    if (!grouped[slug].description) grouped[slug].description = blog.excerpt || "";
 
     grouped[slug].blogs.push({
       id: blog.id,

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../Components/HeroHome.jsx";
 import TrustedBy from "../Components/TrustedBy";
 import { ArrowRight } from "lucide-react";
+import { getApiV1Base } from "../utils/apiUrl.js";
 
 export default function AboutUs() {
   const carouselItems = [
@@ -32,12 +33,42 @@ export default function AboutUs() {
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [leaders, setLeaders] = useState([]);
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % carouselItems.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchTeamMembers = async () => {
+      try {
+        const res = await fetch(`${getApiV1Base()}/team-members/active`);
+        const data = await res.json().catch(() => ({}));
+
+        if (!cancelled && data.success && Array.isArray(data.data) && data.data.length > 0) {
+          const nextLeaders = data.data.filter((item) => item.memberType === "leader");
+          const nextMembers = data.data.filter((item) => item.memberType === "member");
+          setLeaders(nextLeaders);
+          setMembers(nextMembers);
+        }
+      } catch {
+        if (!cancelled) {
+          setLeaders([]);
+          setMembers([]);
+        }
+      }
+    };
+
+    fetchTeamMembers();
+    return () => {
+      cancelled = true;
+    };
   }, []);
   
   return (
@@ -418,78 +449,29 @@ export default function AboutUs() {
 
     <div className="max-w-7xl mx-auto mb-8 px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <img
-            src="/team/piyush.jpg"
-            alt="Dr. Piyush Bhardwaj"
-            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
-          />
-          <div className="text-center">
-            <h4
-              className="text-white font-semibold"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              Dr. Piyush Bhardwaj
-            </h4>
-            <p
-              className="text-white/90 mt-2 text-sm"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              With 15 years of experience in technology, data science and
-              academic research, Dr. Piyush brings expertise in building
-              data-driven engagement platforms and program design.
-            </p>
+        {leaders.map((leader) => (
+          <div key={leader.id} className="flex flex-col items-center gap-4 text-center">
+            <img
+              src={leader.imageData}
+              alt={leader.name}
+              className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
+            />
+            <div className="text-center">
+              <h4
+                className="text-white font-semibold"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {leader.name}
+              </h4>
+              <p
+                className="text-white/90 mt-2 text-sm"
+                style={{ fontFamily: "Lato, sans-serif" }}
+              >
+                {leader.description}
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-4 text-center">
-          <img
-            src="/team/abhineet.jpg"
-            alt="Mr. Abhineet Gupta"
-            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
-          />
-          <div className="text-center">
-            <h4
-              className="text-white font-semibold"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              Mr. Abhineet Gupta
-            </h4>
-            <p
-              className="text-white/90 mt-2 text-sm"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              A seasoned business strategist with 14 years of experience across
-              travel and hospitality, Abhineet leads commercial strategy and
-              partnerships.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-4 text-center">
-          <img
-            src="/team/ajit.png"
-            alt="Mr. Ajit Waghe"
-            className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg"
-          />
-          <div className="text-center">
-            <h4
-              className="text-white font-semibold"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              Mr. Ajit Waghe
-            </h4>
-            <p
-              className="text-white/90 mt-2 text-sm"
-              style={{ fontFamily: "Lato, sans-serif" }}
-            >
-              Senior aviation expert with 22+ years at Oman Air, Swissair and
-              KLM. Specializes in loyalty programs, pricing strategies, and
-              revenue optimization. Spearheads Traveon's expansion in the Middle
-              East.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
 
@@ -501,54 +483,13 @@ export default function AboutUs() {
     {/* Small team cards */}
 <div className="mt-8 px-4 sm:px-6">
   <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 justify-items-center">
-    {[
-      {
-        img: "/team/shakshi.jpeg",
-        name: "Sakshi Garg",
-        role: "V.P. Business Development",
-      },
-      {
-        img: "/team/pooja.jpg",
-        name: "Pooja Goyal",
-        role: "Business Development Manager",
-      },
-      {
-        img: "/team/shobha.jpg",
-        name: "Shubha Sharma",
-        role: "Operations Associate",
-      },
-      {
-        img: "/team/himanshu.jpeg",
-        name: "Himanshu Vashist",
-        role: "Operations Associate",
-      },
-      {
-        img: "/team/deepanshu.jpg",
-        name: "Deepanshu Vashist",
-        role: "Operations Associate",
-      },
-      {
-        img: "/team/bhumi.jpg",
-        name: "Bhoomi Thakur",
-        role: "Graphic Designer",
-      },
-      {
-        img: "/team/vishal.png",
-        name: "Vishal Kumar",
-        role: "Full Stack Developer",
-      },
-      {
-        img: "/team/priyal.jpg",
-        name: "Priyal Arora",
-        role: "Business Development Executive",
-      },
-    ].map((card, idx) => (
+    {members.map((card) => (
       <div
-        key={idx}
+        key={card.id}
         className="w-full max-w-[260px] flex flex-col items-center justify-center text-center mx-auto"
       >
         <img
-          src={card.img}
+          src={card.imageData}
           alt={card.name}
           className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-cover rounded-lg"
         />
@@ -565,7 +506,7 @@ export default function AboutUs() {
             className="text-white/90 text-sm sm:text-base leading-snug mt-1 max-w-[220px]"
             style={{ fontFamily: "Lato, sans-serif" }}
           >
-            {card.role}
+            {card.position}
           </p>
         </div>
       </div>

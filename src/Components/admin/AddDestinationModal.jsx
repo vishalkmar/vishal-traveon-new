@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { X, Upload, Loader } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = getApiV1Base();
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
@@ -131,13 +132,13 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId, ini
 
       if (isEdit || editingId) {
         await axios.patch(
-          `${API_BASE}/api/v1/destinations/${initialData?.id || editingId}`,
+          `${API_BASE}/destinations/${initialData?.id || editingId}`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success("Destination updated successfully!");
       } else {
-        await axios.post(`${API_BASE}/api/v1/destinations`, payload, {
+        await axios.post(`${API_BASE}/destinations`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         toast.success("Destination created successfully!");
