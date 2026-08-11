@@ -8,12 +8,14 @@ import Testimonial from "../Components/Testimonial.jsx";
 import HomePageEvents from "./Events/HomePageEvents.jsx";
 import Transform from "../Components/TransFormHome.jsx";
 import PopularDestinations from "../Components/PopularDestinations.jsx";
+import Seo from "../Components/Seo.jsx";
 
 export default function Randompage() {
 
   return (
     // prevent any page-level horizontal overflow (full-bleed children, transforms, etc.)
     <div className="min-h-screen pt-28 overflow-x-hidden">
+      <Seo title="Preview" description="Internal preview page." noIndex />
      
       <Hero />
       <TrustedBy />

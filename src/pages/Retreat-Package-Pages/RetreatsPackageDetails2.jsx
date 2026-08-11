@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Seo from "../../Components/Seo.jsx";
 import {
   MapPin,
   Clock,
@@ -261,6 +262,12 @@ const RightSidebar = () => {
 const RetreatsPackageDetails = () => {
   return (
     <div className="">
+      <Seo
+        path="/packages/wellness/nirvana_inner_journey"
+        title="Nirvana Inner Journey — Meditation & Sound Healing Retreat"
+        description="An inner-journey meditation and healing retreat with Mystic Rose meditation and sound healing sessions in nature. Reconnect, release and restore with Traveon."
+        keywords="Nirvana Inner Journey, meditation retreat, sound healing, Mystic Rose meditation, wellness retreat, healing retreat India, mindfulness"
+      />
       {/* HERO */}
       <section className="relative h-[360px] md:h-[620px]">
         <img

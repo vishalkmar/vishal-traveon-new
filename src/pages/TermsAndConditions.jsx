@@ -1,6 +1,14 @@
+import Seo from "../Components/Seo.jsx";
+
 function TermsAndConditions() {
   return (
     <section className="min-h-screen bg-white py-8" style={{ marginTop: '150px' }}>
+      <Seo
+        path="/terms"
+        title="Terms & Conditions"
+        description="Review the Terms & Conditions for using Traveon's website, tour packages and travel services, including booking, payment and cancellation policies."
+        keywords="Traveon terms and conditions, booking terms, travel terms, cancellation policy"
+      />
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow">
         <h1 className="text-3xl font-bold mb-6 text-center text-white bg-gray-800 -mx-8 -mt-8 px-8 py-6 rounded-t-lg">Terms & Conditions</h1>
         <p className="mb-4 font-semibold">

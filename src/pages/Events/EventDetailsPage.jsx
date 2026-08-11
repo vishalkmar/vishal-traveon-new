@@ -13,6 +13,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { events } from "../../data/events";
+import Seo from "../../Components/Seo.jsx";
 
 const GalleryModal = ({ images, currentIndex, onClose, onNext, onPrevious }) => {
   return (
@@ -437,10 +438,25 @@ const EventDetailsPage = () => {
     );
   }
 
-  return event.isUpcoming ? (
-    <UpcomingEventDetails event={event} />
-  ) : (
-    <PreviousEventDetails event={event} />
+  return (
+    <>
+      <Seo
+        title={event.title}
+        description={
+          event.shortDescription ||
+          event.description ||
+          `${event.title} — event details, highlights and gallery by Traveon. Explore the experience and enquire about similar events.`
+        }
+        keywords={`${event.title}, ${event.location || "event"}, Traveon events, conference, corporate event, MICE`}
+        image={typeof event.image === "string" && event.image.startsWith("http") ? event.image : undefined}
+        type="article"
+      />
+      {event.isUpcoming ? (
+        <UpcomingEventDetails event={event} />
+      ) : (
+        <PreviousEventDetails event={event} />
+      )}
+    </>
   );
 };
 

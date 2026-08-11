@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin, Users, Award, Globe, Clock, ChevronRight } from "lucide-react";
 import PreviewEventsSection from "./EventCard";
+import Seo from "../../Components/Seo.jsx";
 
 /* ----------------------------- Reveal on Scroll ---------------------------- */
 const Reveal = ({ children, delay = 0, className = "" }) => {
@@ -291,6 +292,12 @@ const EventsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+        path="/events"
+        title="Events & Conferences — Corporate Events, MICE & Retreats"
+        description="Discover events managed by Traveon: international conferences, corporate events, incentive tours and wellness retreats delivered end-to-end across India and worldwide."
+        keywords="Traveon events, corporate events, conferences, MICE events, incentive tours, event management company, business events India"
+      />
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div

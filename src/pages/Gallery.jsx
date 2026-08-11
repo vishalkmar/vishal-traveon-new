@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Seo from "../Components/Seo.jsx";
 
 /* ------------------------------ Simple FadeIn ------------------------------ */
 const FadeIn = ({ children, delay = 0 }) => {
@@ -271,6 +272,12 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+        path="/gallery"
+        title="Gallery — Moments from Our Retreats, Tours & Events"
+        description="Browse the Traveon gallery: highlights from wellness retreats, community tours, conferences and corporate events across India and worldwide destinations."
+        keywords="Traveon gallery, travel photos, retreat gallery, event photos, tour photos, conference gallery"
+      />
       {/* Hero Section */}
       <div className="text-white py-20 relative">
         <div className="max-w-screen-xl mx-auto px-4 my-20 relative z-30">

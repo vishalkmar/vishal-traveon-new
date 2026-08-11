@@ -1,6 +1,14 @@
+import Seo from "../Components/Seo.jsx";
+
 function Terms() {
   return (
     <section className="min-h-screen bg-white py-8" style={{ marginTop: '150px' }}>
+      <Seo
+        path="/privacy"
+        title="Privacy Policy"
+        description="Read Traveon's Privacy Policy to understand how we collect, use and protect your personal information when you use our website and travel services."
+        keywords="Traveon privacy policy, data protection, personal information, privacy"
+      />
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow">
         <h1 className="text-3xl font-bold mb-6 text-center text-white bg-gray-800 -mx-8 -mt-8 px-8 py-6 rounded-t-lg">Privacy Policy</h1>
         <p className="mb-4 font-semibold">

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SelectionCard from "./SelectionCard";
 import TourForm from "./forms/TourForm";
 import VisaForm from "./forms/VisaForm";
+import Seo from "../../Components/Seo.jsx";
 
 const OmanPage = () => {
   // 'selection', 'tour_package', 'visa_10', 'visa_30'
@@ -14,6 +15,12 @@ const OmanPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans relative overflow-hidden">
+      <Seo
+        path="/oman-tour"
+        title="Oman Tour Packages — Muscat Holidays & Visa Assistance"
+        description="Plan your Oman trip with Traveon — curated Muscat tour packages, sightseeing and Oman visa assistance. Choose your experience and enquire online for the best group rates."
+        keywords="Oman tour, Muscat tour package, Oman holiday, Oman visa, Oman travel, Muscat sightseeing, Oman group tour, Traveon Oman"
+      />
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-emerald-900/10 to-transparent pointer-events-none" />
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />

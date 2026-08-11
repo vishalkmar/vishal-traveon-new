@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useDisabledPackages } from "../../hooks/useDisabledPackages";
 import { useTopSellingPackages } from "../../hooks/useTopSellingPackages";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import Seo from "../../Components/Seo.jsx";
 
 export default function PackagesIndex() {
   const [apiPackages, setApiPackages] = useState([]);
@@ -293,6 +294,12 @@ export default function PackagesIndex() {
 
   return (
     <div className="min-h-screen pt-28">
+      <Seo
+        path="/packages"
+        title="Tour Packages — Curated Holidays & Group Tours"
+        description="Explore Traveon's curated tour packages across India and international destinations. Handcrafted itineraries, group tours and holiday experiences with the best value and support."
+        keywords="tour packages, holiday packages, travel packages India, group tours, international tour packages, curated itineraries, Traveon packages"
+      />
       <PackagesListingLayout
         pageTitle="Tour Packages"
         totalCount={apiPackages.length}

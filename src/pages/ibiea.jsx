@@ -1,4 +1,5 @@
 import CrossfadeCarousel from "../Components/shared/CrossfadeCarousel";
+import Seo from "../Components/Seo.jsx";
 import { Link } from "react-router-dom";
 export default function Ibiea() {
   const whatsappUrl =
@@ -29,6 +30,12 @@ export default function Ibiea() {
 
   return (
     <>
+      <Seo
+        path="/ibiea"
+        title="IBIEA 2025 Oman — International Event Management by Traveon"
+        description="Traveon organized IBIEA 2025 in Oman end-to-end — group travel, stay at Grand Hyatt Muscat, curated sightseeing and local experiences across Muscat for a seamless international event."
+        keywords="IBIEA 2025, IBIEA Oman, Muscat event, Grand Hyatt Muscat, international event management, MICE Oman, group tour Oman, Traveon events"
+      />
       {/* Banner */}
       {/* Banner */}
 <div className="relative w-full h-[250px] sm:h-[400px] md:h-[520px]">

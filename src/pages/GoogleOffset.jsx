@@ -1,5 +1,6 @@
 
 import CrossfadeCarousel from "../Components/shared/CrossfadeCarousel";
+import Seo from "../Components/Seo.jsx";
 import { Link } from "react-router-dom";
 export default function GoogleOffet(){
 
@@ -13,6 +14,12 @@ export default function GoogleOffet(){
     { type: "image", src: "/google-wellness/16.jpg"},
   ];
      return(<>
+      <Seo
+        path="/google-offset"
+        title="Google Wellness Retreat — Corporate Sound Healing by Traveon"
+        description="Traveon delivered a rejuvenating corporate wellness retreat at the Google Campus, Gurgaon — a guided relaxation and sound healing session promoting balance, mindfulness and well-being."
+        keywords="Google wellness retreat, corporate wellness, sound healing, workplace wellness, mindfulness session, corporate relaxation, Traveon wellness"
+      />
 
              <div className="relative w-full h-[350px] sm:h-[500px] md:h-[600px]">
                <CrossfadeCarousel

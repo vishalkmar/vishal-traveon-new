@@ -1,5 +1,6 @@
 
 import CrossfadeCarousel from "../Components/shared/CrossfadeCarousel";
+import Seo from "../Components/Seo.jsx";
 
 import { Link } from "react-router-dom";
 export default function Iccict(){
@@ -18,6 +19,12 @@ export default function Iccict(){
   ];
 
      return(<>
+      <Seo
+        path="/iccict"
+        title="ICCICT — International Conference Management by Traveon"
+        description="Traveon handles end-to-end management for the ICCICT international conference — delegate travel, visa, venues, hospitality and on-ground logistics for a seamless academic event."
+        keywords="ICCICT, international conference, conference management, academic conference, delegate travel, MICE, event logistics"
+      />
 
              <div className="relative w-full h-[450px] sm:h-[550px] md:h-[700px]">
                <CrossfadeCarousel

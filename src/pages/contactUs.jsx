@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
 import { FaYoutube, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import Seo from "../Components/Seo.jsx";
 
 const backendUrl = import.meta.env.VITE_API_URL;
 
@@ -155,6 +156,12 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+        path="/contact"
+        title="Contact Us — Plan Your Trip or Event with Traveon"
+        description="Get in touch with Traveon for wellness retreats, tour packages, MICE and corporate events. Call +91 9540111207 or email info@traveon.in. Based in D-Mall, NSP, Delhi, India."
+        keywords="contact Traveon, travel enquiry, book tour package, event planning enquiry, Traveon Delhi office, travel agency contact"
+      />
       {/* Hero Section */}
       <div className="text-white py-20 relative">
         <div className="max-w-screen-xl mx-auto px-4 my-20 relative z-30">

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Seo from "../../Components/Seo.jsx";
 import {
   MapPin,
   Clock,
@@ -195,6 +196,12 @@ const RightSidebar = () => {
 const RetreatsPackageDetails3 = () => {
   return (
     <div className="">
+      <Seo
+        path="/packages/wellness/corporate_sound_healing"
+        title="Corporate Sound Healing Workshop — 2-Hour Onsite Session"
+        description="A 2-hour onsite corporate sound healing workshop designed to reduce stress, reset the nervous system and elevate team well-being through vibrational therapy. Book with Traveon."
+        keywords="corporate sound healing, workplace wellness, sound bath, corporate wellness workshop, team well-being, onsite wellness, stress relief workshop"
+      />
       {/* HERO */}
       <section className="relative h-[360px] md:h-[620px]">
         <img

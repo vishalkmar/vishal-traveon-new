@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Upload, User, Phone, Mail, FileText, Image, CreditCard } from 'lucide-react';
+import Seo from '../Components/Seo.jsx';
 
 const OmanTourPackageDetailsForm = () => {
   const [packageType, setPackageType] = useState('');
@@ -271,6 +272,11 @@ const OmanTourPackageDetailsForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 sm:px-6 lg:px-8">
+      <Seo
+        title="Oman Tour Booking Form"
+        description="Oman tour package booking and details form."
+        noIndex
+      />
       <div className="max-w-5xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 px-6 sm:px-8 py-[50px] mt-[-50]">

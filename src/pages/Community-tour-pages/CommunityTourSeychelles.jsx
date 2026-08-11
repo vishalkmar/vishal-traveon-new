@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Clock, IndianRupee, CheckCircle2, Phone, Mail } from "lucide-react";
+import Seo from "../../Components/Seo.jsx";
 
 const hero = {
   title: "Seychelles — Fixed Departure Group Tour",
@@ -200,6 +201,12 @@ const CommunityTourSeychelles = () => {
 
   return (
     <div className="">
+      <Seo
+        path="/community/seychelles"
+        title="Seychelles — Fixed Departure Group Tour"
+        description="Discover the Seychelles islands on Traveon's fixed-departure group tour — Mahé, Praslin, La Digue and Victoria city. Pristine beaches and island experiences with a curated group."
+        keywords="Seychelles tour, Seychelles group tour, fixed departure Seychelles, Mahe, Praslin, La Digue, island holiday, beach tour Seychelles"
+      />
       {/* HERO */}
       <section className="relative h-[460px] md:h-[620px] overflow-hidden bg-black">
         {/* Crossfade carousel */}

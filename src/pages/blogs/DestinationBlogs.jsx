@@ -4,6 +4,7 @@ import { Loader } from "lucide-react";
 import BlogCard from "../../Components/blogs/BlogCard";
 import transformBlogData from "../../data/blogs/blogData";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import Seo from "../../Components/Seo.jsx";
 
 export default function DestinationBlogs() {
   const { destination } = useParams();
@@ -95,6 +96,15 @@ export default function DestinationBlogs() {
   // Destination found - show blogs
   return (
     <div className="min-h-screen bg-white pt-20">
+      <Seo
+        title={`${data.destination} Travel Blogs & Guides`}
+        description={
+          data.description ||
+          `Explore Traveon's travel blogs and guides for ${data.destination} — itineraries, tips and inspiration to help you plan the perfect trip.`
+        }
+        keywords={`${data.destination} travel blog, ${data.destination} travel guide, ${data.destination} itinerary, travel tips, Traveon blog`}
+        image={typeof data.image === "string" && data.image.startsWith("http") ? data.image : undefined}
+      />
       {/* Hero Section with Destination Image */}
       <div className="relative w-full h-80 md:h-96 lg:h-[28rem] overflow-hidden bg-slate-900">
         {data.image && (

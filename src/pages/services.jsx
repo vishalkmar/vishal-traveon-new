@@ -12,6 +12,7 @@ import {
   HeartHandshake
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Seo from "../Components/Seo.jsx";
 
 /* ----------------------------- Reveal on Scroll ---------------------------- */
 const Reveal = ({ children, delay = 0, className = "" }) => {
@@ -252,6 +253,12 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo
+        path="/services"
+        title="Our Services — Travel, Wellness, MICE & Business Facilitation"
+        description="Explore Traveon's services: curated travel experiences, wellness retreats, MICE and corporate event management, and business facilitation tailored to individuals, teams and enterprises."
+        keywords="Traveon services, travel services, wellness retreats, MICE management, corporate events, business facilitation, event management company"
+      />
       {/* Hero */}
       <section className="relative overflow-hidden">
         {/* background image */}

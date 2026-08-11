@@ -1,6 +1,7 @@
 // CommunityTourMagicalMuscat.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import Seo from "../../Components/Seo.jsx";
 import {
   MapPin,
   Clock,
@@ -219,6 +220,12 @@ const CommunityTourMagicalMuscat = () => {
 
   return (
     <div className="">
+      <Seo
+        path="/community/magical-muscat"
+        title="Magical Muscat — 5 Days / 4 Nights Community Tour"
+        description="Explore Oman on Traveon's Magical Muscat community tour — 5 days / 4 nights covering Muscat city, Nizwa Fort, Al Hoota Cave and dolphin watching. Fixed departures with a friendly group."
+        keywords="Magical Muscat, Oman tour, Muscat tour package, Nizwa Fort, Al Hoota Cave, dolphin watching Oman, community tour Oman, group tour Muscat"
+      />
       {/* HERO */}
       <section className="relative h-[460px] md:h-[520px] overflow-hidden bg-black">
         {/* Crossfade carousel (no arrows / no slider UI) */}

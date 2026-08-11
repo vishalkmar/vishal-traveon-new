@@ -3,6 +3,7 @@ import Hero from "../Components/HeroHome.jsx";
 import TrustedBy from "../Components/TrustedBy";
 import { ArrowRight } from "lucide-react";
 import { getApiV1Base } from "../utils/apiUrl.js";
+import Seo from "../Components/Seo.jsx";
 
 export default function AboutUs() {
   const carouselItems = [
@@ -73,6 +74,12 @@ export default function AboutUs() {
   
   return (
     <div className="min-h-screen">
+      <Seo
+        path="/about"
+        title="About Us — Architects of Wellness & Transformation"
+        description="Born from a vision of weaving wellness, adventure and purpose into everyday living, Traveon blends ancient wisdom with modern wellness science to craft transformative retreats and experiences."
+        keywords="about Traveon, wellness travel company, our mission, our vision, wellness retreat planners, Traveon team, transformative travel"
+      />
       {/* CAROUSEL HERO */}
       <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden">
         {carouselItems.map((item, index) => (

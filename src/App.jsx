@@ -55,6 +55,7 @@ import BlogDetail from "./pages/blogs/BlogDetail.jsx";
 
 
 import Iccict from "./pages/iccict.jsx";
+import CantonFair2026 from "./pages/CantonFair2026.jsx";
 
 import Randompage from "./pages/random.jsx";
 
@@ -142,6 +143,7 @@ export default function App() {
           <Route path="/google-offset" element={<GoogleOffet />} />
           <Route path="/ibiea" element={<Ibiea />} />
           <Route path="/iccict" element={<Iccict />} />
+          <Route path="/canton-fair-2026" element={<CantonFair2026 />} />
 
            
             <Route path="/packages/:id" element={<PackageDetailsPage />} />

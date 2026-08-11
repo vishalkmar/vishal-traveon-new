@@ -4,6 +4,7 @@ import transformBlogData from "../../data/blogs/blogData";
 import { ChevronLeft, Share2, X as XIcon, Loader } from "lucide-react";
 import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaLink, FaEnvelope } from "react-icons/fa";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import Seo from "../../Components/Seo.jsx";
 
 export default function BlogDetail() {
   const { destination, slug } = useParams();
@@ -157,6 +158,17 @@ export default function BlogDetail() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Seo
+        title={blog.title}
+        description={
+          blog.excerpt ||
+          blog.metaDescription ||
+          `Read "${blog.title}" on the Traveon travel blog — tips, guides and inspiration for your next trip to ${destination}.`
+        }
+        keywords={`${blog.title}, ${destination} travel blog, travel guide, travel tips, Traveon blog, things to do in ${destination}`}
+        image={typeof blog.image === "string" && blog.image.startsWith("http") ? blog.image : undefined}
+        type="article"
+      />
       {/* Hero Image */}
       <div className="relative h-96 overflow-hidden">
         <img

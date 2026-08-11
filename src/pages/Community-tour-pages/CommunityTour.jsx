@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
+import Seo from "../../Components/Seo.jsx";
 
 const tours = [
   {
@@ -136,6 +137,12 @@ const TourCard = ({ item }) => {
 const CommunityTour = () => {
   return (
     <div className="">
+      <Seo
+        path="/packages/community-tour"
+        title="Community Tours — Group Travel to Muscat, Seychelles & More"
+        description="Join Traveon's community tours — curated group journeys to destinations like Magical Muscat and Seychelles, blending sightseeing, culture and shared experiences with like-minded travellers."
+        keywords="community tours, group tours, Muscat tour, Seychelles tour, group travel, curated group holidays, Traveon community tours"
+      />
       <CommunityHero />
 
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-14">

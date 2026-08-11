@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Seo from '../../Components/Seo.jsx';
 import {
   MapPin, Clock, IndianRupee, CheckCircle2, AlertCircle, MessageSquare, Phone, Mail
 } from 'lucide-react';
@@ -212,6 +213,12 @@ const RightSidebar = () => {
 const RetreatsPackageDetails1 = () => {
   return (
     <div className="">
+      <Seo
+        path="/packages/wellness/nirvana_anantam"
+        title="Nirvana Anantam — Holistic Wellness Retreat in Rishikesh"
+        description="A holistic wellness retreat at Phool Chatti Yoga Ashram, Rishikesh — yoga, sound healing, chakra work and spirituality by the Ganga. Awaken, heal and evolve with Traveon."
+        keywords="Nirvana Anantam, wellness retreat Rishikesh, yoga retreat, sound healing, chakra healing, spiritual retreat India, Phool Chatti ashram"
+      />
       {/* HERO */}
       <section className="relative h-[460px] md:h-[620px]">
         <img src={hero.image} alt={hero.title} className="absolute inset-0 w-full h-full object-cover" />

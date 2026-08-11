@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Clock, IndianRupee } from 'lucide-react';
+import Seo from '../../Components/Seo.jsx';
 
 const retreats = [
   {
@@ -114,6 +115,12 @@ const RetreatsPackages = () => {
   // offset main content for fixed navbar
   return (
     <div className="">
+      <Seo
+        path="/packages/wellness"
+        title="Wellness Retreats — Nirvana Retreats & Sound Healing"
+        description="Discover Traveon's wellness retreats blending ancient wisdom with modern science — Nirvana Anantam, Inner Journey, Rishikesh and corporate sound healing for calm, clarity and renewal."
+        keywords="wellness retreats, meditation retreat, sound healing retreat, Nirvana retreat, Rishikesh retreat, corporate wellness, mindfulness retreat, spiritual retreat India"
+      />
       <Hero />
 
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-14">

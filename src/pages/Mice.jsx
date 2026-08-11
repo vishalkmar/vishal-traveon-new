@@ -27,6 +27,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 // import PreviewCardCarousel from "../components/shared/PreviewCardCarousel";
 import MiceTourOffering from "../Components/MiceTourOffering";
+import Seo from "../Components/Seo.jsx";
 
 export default function Mice() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -36,6 +37,12 @@ export default function Mice() {
 
   return (
     <div className="min-h-screen  bg-background">
+      <Seo
+        path="/mice"
+        title="MICE — Meetings, Incentives, Conferences & Events"
+        description="Traveon delivers end-to-end MICE solutions: meetings, incentive travel, conferences and corporate events. Seamless planning, global venues and memorable experiences for your team."
+        keywords="MICE India, meetings incentives conferences events, corporate travel, incentive tours, conference management, business events, corporate offsite"
+      />
       {/* Hero section with video background */}
       <section id="hero" className="pt-20 relative h-screen max-h-screen overflow-hidden flex items-center justify-center">
         {/* Video Background */}

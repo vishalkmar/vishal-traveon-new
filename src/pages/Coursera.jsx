@@ -1,5 +1,6 @@
 
 import CrossfadeCarousel from "../Components/shared/CrossfadeCarousel";
+import Seo from "../Components/Seo.jsx";
 
 import { Link } from "react-router-dom";
 export default function Coursera(){
@@ -18,6 +19,12 @@ export default function Coursera(){
   ];
 
      return(<>
+      <Seo
+        path="/coursera"
+        title="Coursera Corporate Event & Experience by Traveon"
+        description="A curated corporate event and experience delivered by Traveon for Coursera — thoughtfully designed engagement, hospitality and on-ground management from start to finish."
+        keywords="Coursera event, corporate event, corporate experience, Traveon events, MICE, corporate engagement"
+      />
 
              <div className="relative w-full h-[350px] sm:h-[500px] md:h-[600px]">
                <CrossfadeCarousel

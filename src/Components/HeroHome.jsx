@@ -22,7 +22,7 @@ export default function Hero({
     <section className="relative pt-[200px]  min-h-[90svh] md:min-h-[98svh] lg:min-h-[86svh] overflow-hidden border-b-2 border-gray-300">
       {/* Video Background */}
       <LazyVideo
-        src="/index2.mp4"
+        src="https://traveon-pdf-files.s3.ap-southeast-2.amazonaws.com/Oman+website+1080p.mp4"
         className="absolute inset-0 w-full h-full object-cover -z-20"
         rootMargin="0px"
       />

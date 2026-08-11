@@ -20,6 +20,7 @@ import { backendUrl } from "../../apiConfig/config";
 
 
 import Hero from "../Components/HeroHome.jsx";
+import Seo from "../Components/Seo.jsx";
 
 // import Why from "../Components/Why.jsx";
 import Testimonial from "../Components/Testimonial.jsx";
@@ -150,6 +151,12 @@ const backendUrl = import.meta.env.VITE_API_URL;
  
   return (
     <div className="font-['Lato'] text-gray-800 overflow-x-hidden relative">
+      <Seo
+        path="/"
+        title="Wellness Retreats, Travel Experiences & MICE Management"
+        description="Traveon crafts curated wellness retreats, community tours, corporate events and global travel experiences. Plan your next journey with India's experience-first travel company."
+        keywords="Traveon, travel company India, wellness retreats, tour packages, MICE, corporate events, community tours, luxury travel, Delhi travel agency"
+      />
       {/* Scroll to top button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Seo from "../../Components/Seo.jsx";
 import {
   MapPin,
   Clock,
@@ -252,6 +253,12 @@ const RightSidebar = () => {
 const RetreatsPackageDetails4 = () => {
   return (
     <div className="">
+      <Seo
+        path="/packages/wellness/nirvana_rishikesh"
+        title="Nirvana Rishikesh — 4-Day Meditation & Healing Retreat"
+        description="A 4-day retreat in Tapovan, Rishikesh led by Anant Gogia — yoga, sound healing, Mystic Rose meditation, Ganga Aarti and sacred Himalayan rituals. Journey inward with Traveon."
+        keywords="Nirvana Rishikesh, Rishikesh retreat, 4 day meditation retreat, yoga retreat Rishikesh, sound healing, Ganga Aarti, Himalayan wellness retreat"
+      />
       {/* HERO */}
       <section className="relative h-[360px] md:h-[620px]">
         <img

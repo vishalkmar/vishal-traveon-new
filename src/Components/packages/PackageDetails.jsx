@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaSnapchat, FaEnvelope, FaLink } from "react-icons/fa";
 import CustomizePackageForm from "../CustomizePackageForm";
+import Seo from "../Seo.jsx";
 
 
 /**
@@ -500,6 +501,12 @@ export default function PackageDetailsPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen pt-6 mt-[80px]" >
+      <Seo
+        title={plainTextFromApi(pkg.title)}
+        description={`Book ${plainTextFromApi(pkg.title)} with Traveon — explore the day-wise itinerary, hotels, inclusions and pricing. Customise your trip and enquire online today.`}
+        keywords={`${plainTextFromApi(pkg.title)}, tour package, holiday package, travel itinerary, Traveon packages, book tour online`}
+        type="article"
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Title row */}
         <div className="flex flex-col gap-2">
