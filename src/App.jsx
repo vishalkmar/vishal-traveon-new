@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -59,6 +60,9 @@ import CantonFair2026 from "./pages/CantonFair2026.jsx";
 
 import Randompage from "./pages/random.jsx";
 
+// Lazy: the flipbook pulls in pdf.js, which no other route needs.
+const OmanToolkit = lazy(() => import("./pages/OmanToolkit/OmanToolkit.jsx"));
+
 /* ---------------- LAYOUT CONTROLLER ---------------- */
 function Layout({ children }) {
   const location = useLocation();
@@ -68,6 +72,7 @@ function Layout({ children }) {
     "/admin-dashboard",
     "/oman-form",
     "/oman-tour",
+    "/oman-toolkit",
     "/admin/blogs",
     "/admins/blogs",
   ];
@@ -97,6 +102,7 @@ export default function App() {
       <CustomCursor />
 
       <Layout>
+        <Suspense fallback={null}>
         <Routes>
           {/* PUBLIC ROUTES */}
           <Route path="/" element={<LandingPage />} />
@@ -157,6 +163,7 @@ export default function App() {
           {/* NO HEADER / FOOTER ROUTES */}
           <Route path="/oman-form" element={<OmanTourPackageDetails />} />
           <Route path="/oman-tour" element={<OmanPage />} />
+          <Route path="/oman-toolkit" element={<OmanToolkit />} />
           <Route path="/admin" element={<AdminLogin />} />
         
 
@@ -171,6 +178,7 @@ export default function App() {
             />
           </Route>
         </Routes>
+        </Suspense>
       </Layout>
     </Router>
   );

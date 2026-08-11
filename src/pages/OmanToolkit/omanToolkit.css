@@ -1,0 +1,480 @@
+/* ============================================================
+   Oman MICE Toolkit — flipbook reader
+   Scoped under .omt-root so it never collides with the app shell.
+   ============================================================ */
+
+.omt-root {
+  --omt-bg-0: #0a1210;
+  --omt-gold: #c9a561;
+  --omt-gold-dim: #8a7546;
+  --omt-paper: #f6f1e2;
+  --omt-glass: rgba(18, 28, 25, 0.72);
+  --omt-glass-brd: rgba(201, 165, 97, 0.22);
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(
+    ellipse at 50% 20%,
+    #16241f 0%,
+    var(--omt-bg-0) 55%,
+    #060a09 100%
+  );
+  font-family: "Inter", system-ui, sans-serif;
+  color: #e9e3d4;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.omt-root * {
+  box-sizing: border-box;
+}
+
+.omt-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Top bar ---------- */
+.omt-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 18px 26px;
+  z-index: 40;
+  pointer-events: none;
+}
+.omt-top-actions {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+.omt-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--omt-glass);
+  border: 1px solid var(--omt-glass-brd);
+  color: #e9e3d4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+  backdrop-filter: blur(10px);
+}
+.omt-icon-btn:hover {
+  background: rgba(201, 165, 97, 0.16);
+  border-color: var(--omt-gold-dim);
+  transform: translateY(-1px);
+}
+.omt-icon-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ---------- Loading / error ---------- */
+.omt-splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 20px;
+  max-width: 480px;
+}
+.omt-mark {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid var(--omt-glass-brd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--omt-gold);
+  background: var(--omt-glass);
+}
+.omt-splash h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 26px;
+  margin: 0;
+  color: #f2ecdc;
+}
+.omt-splash p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #a9a191;
+}
+.omt-spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(201, 165, 97, 0.2);
+  border-top-color: var(--omt-gold);
+  animation: omt-spin 0.9s linear infinite;
+}
+@keyframes omt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.omt-prog-track {
+  width: 220px;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.omt-prog-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--omt-gold);
+  transition: width 0.15s;
+}
+.omt-retry {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: #1a1410;
+  background: linear-gradient(180deg, #e0bd7a, var(--omt-gold));
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Book ---------- */
+.omt-book-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  perspective: 2600px;
+}
+.omt-book-wrap[hidden] {
+  display: none;
+}
+.omt-floor {
+  position: absolute;
+  width: min(70vw, 760px);
+  height: 36px;
+  bottom: calc(50% - 46vh);
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(4px);
+  pointer-events: none;
+}
+.omt-book {
+  position: relative;
+  transform-style: preserve-3d;
+  display: flex;
+  /* Never let the flex parent squeeze the book: the page slots inside are
+     absolutely positioned against this exact width. */
+  flex: 0 0 auto;
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.65);
+}
+.omt-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 26px;
+  margin-left: -13px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.28),
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.28)
+  );
+  z-index: 5;
+  pointer-events: none;
+}
+.omt-slot {
+  position: relative;
+  background: var(--omt-paper);
+  overflow: hidden;
+}
+.omt-slot canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.omt-slot.left {
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset -10px 0 25px -18px rgba(0, 0, 0, 0.5);
+}
+.omt-slot.right {
+  border-radius: 0 6px 6px 0;
+  box-shadow: inset 10px 0 25px -18px rgba(0, 0, 0, 0.5);
+}
+.omt-slot.single {
+  border-radius: 6px;
+}
+.omt-slot-wait::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  border: 2px solid rgba(138, 117, 70, 0.25);
+  border-top-color: var(--omt-gold-dim);
+  animation: omt-spin 0.9s linear infinite;
+}
+
+.omt-flipper {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.68s cubic-bezier(0.4, 0.15, 0.2, 1);
+  z-index: 20;
+  pointer-events: none;
+}
+.omt-flipper .omt-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: var(--omt-paper);
+  overflow: hidden;
+  /* Front and back share a plane; nudge them apart so the compositor never
+     has to guess which one is in front (see LIFT in flipbookEngine.js). */
+  transform: translateZ(0.4px);
+}
+.omt-flipper .omt-face canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.omt-flipper .omt-face.front {
+  box-shadow: inset -14px 0 30px -20px rgba(0, 0, 0, 0.55);
+  border-radius: 0 6px 6px 0;
+}
+.omt-flipper .omt-face.back {
+  transform: rotateY(180deg) translateZ(0.4px);
+  box-shadow: inset 14px 0 30px -20px rgba(0, 0, 0, 0.55);
+  border-radius: 6px 0 0 6px;
+}
+.omt-flipper.rev .omt-face.front {
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset 14px 0 30px -20px rgba(0, 0, 0, 0.55);
+}
+.omt-flipper.rev .omt-face.back {
+  border-radius: 0 6px 6px 0;
+  box-shadow: inset -14px 0 30px -20px rgba(0, 0, 0, 0.55);
+}
+.omt-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0) 30%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.omt-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 38%;
+  z-index: 25;
+  cursor: grab;
+}
+.omt-hit:active {
+  cursor: grabbing;
+}
+.omt-hit.l {
+  left: 0;
+}
+.omt-hit.r {
+  right: 0;
+}
+.omt-arrow {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f3edd9;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 26;
+  pointer-events: none;
+}
+.omt-arrow.l {
+  left: 10px;
+}
+.omt-arrow.r {
+  right: 10px;
+}
+.omt-hit.l:hover ~ .omt-arrow.l,
+.omt-hit.r:hover ~ .omt-arrow.r {
+  opacity: 0.9;
+}
+
+/* ---------- Bottom bar ---------- */
+.omt-bottombar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--omt-glass);
+  border: 1px solid var(--omt-glass-brd);
+  padding: 9px 14px;
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  z-index: 40;
+}
+.omt-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  color: #eee6d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.omt-nav-btn:hover {
+  background: rgba(201, 165, 97, 0.22);
+}
+.omt-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  background: rgba(255, 255, 255, 0.06);
+}
+.omt-indicator {
+  font-size: 13px;
+  color: #d8d0bd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.omt-indicator input {
+  width: 40px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--omt-glass-brd);
+  border-radius: 6px;
+  color: #f2ecdc;
+  text-align: center;
+  font-size: 13px;
+  padding: 3px 2px;
+  font-family: inherit;
+}
+.omt-indicator input:focus {
+  outline: 1px solid var(--omt-gold);
+}
+.omt-building {
+  font-size: 11.5px;
+  color: #8f8676;
+  letter-spacing: 0.03em;
+  border-left: 1px solid var(--omt-glass-brd);
+  padding-left: 12px;
+}
+
+/* ---------- Protection ---------- */
+.omt-lock {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px;
+  background: #06100d;
+}
+.omt-lock h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 22px;
+  margin: 0;
+  color: #f2ecdc;
+}
+.omt-lock p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #a9a191;
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+body.cp-blurred .omt-book-wrap {
+  filter: blur(22px);
+}
+
+@media print {
+  .omt-root {
+    display: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .omt-floor {
+    display: none;
+  }
+  /* One page at a time on phones, so the shadow of a full spread would sit
+     wider than the sheet actually on screen. */
+  .omt-book {
+    box-shadow: none;
+  }
+  .omt-slot {
+    box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.7);
+  }
+  .omt-bottombar {
+    bottom: 14px;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  .omt-building {
+    display: none;
+  }
+}

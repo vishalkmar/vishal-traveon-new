@@ -15,6 +15,13 @@ export default defineConfig({
     minify: 'esbuild',
     rollupOptions: {
       output: {
+        // Apache has no MIME mapping for .mjs and serves it with an empty
+        // Content-Type, which browsers refuse to execute as a module — that
+        // breaks pdf.js's worker. Emit those assets as .js instead.
+        assetFileNames: (info) =>
+          (info.names?.[0] || info.name || "").endsWith(".mjs")
+            ? "assets/[name]-[hash].js"
+            : "assets/[name]-[hash][extname]",
         manualChunks: {
           'vendor': [
             'react',

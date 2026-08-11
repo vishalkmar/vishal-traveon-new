@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Hero background media (Cloudinary CDN): open the connection during HTML
+       parse and fetch the poster straight away, so the hero is painted long
+       before React has mounted. -->
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="preload" as="image" fetchpriority="high"
+    href="https://res.cloudinary.com/dvmnfubdi/video/upload/so_1,f_auto,q_auto:eco,w_1280/home/oman-hero.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
   <title>Traveon | Wellness Retreats, Travel Experiences, MICE & Corporate Events</title>

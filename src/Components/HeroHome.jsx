@@ -1,5 +1,21 @@
 import LazyVideo from "./shared/LazyVideo.jsx";
 
+const HERO_CLOUDINARY_BASE = "https://res.cloudinary.com/dvmnfubdi/video/upload";
+const HERO_POSTER = `${HERO_CLOUDINARY_BASE}/so_1,f_auto,q_auto:eco,w_1280/home/oman-hero.jpg`;
+
+/**
+ * The hero is a muted, decorative loop, so we ask the CDN for the smallest
+ * rendition that still fills the viewport. `<source media>` is ignored by
+ * browsers inside <video>, so the choice is made here, once, at mount.
+ *
+ *   phones   ~0.5 MB   |   laptops ~1.2 MB   |   large screens ~2.0 MB
+ */
+function heroVideoUrl() {
+  const w = typeof window === "undefined" ? 1920 : window.innerWidth * (window.devicePixelRatio || 1);
+  const rendition = w <= 900 ? ",w_768" : w <= 1500 ? ",w_1280" : "";
+  return `${HERO_CLOUDINARY_BASE}/f_auto,q_auto:eco,ac_none${rendition}/home/oman-hero.mp4`;
+}
+
 export default function Hero({
 
   title = (
@@ -20,11 +36,17 @@ export default function Hero({
 }) {
   return (
     <section className="relative pt-[200px]  min-h-[90svh] md:min-h-[98svh] lg:min-h-[86svh] overflow-hidden border-b-2 border-gray-300">
-      {/* Video Background */}
+      {/* Video Background.
+          Served from Cloudinary's CDN rather than the raw S3 object: the S3
+          bucket is in ap-southeast-2 with no CDN in front, which is what made
+          this take 10-15s. f_auto/q_auto:eco lets the CDN pick the codec and
+          bitrate per browser, ac_none drops the audio track we never play,
+          and the poster paints instantly so the hero is never blank. */}
       <LazyVideo
-        src="https://traveon-pdf-files.s3.ap-southeast-2.amazonaws.com/Oman+website+1080p.mp4"
+        src={heroVideoUrl()}
+        poster={HERO_POSTER}
         className="absolute inset-0 w-full h-full object-cover -z-20"
-        rootMargin="0px"
+        eager
       />
 
       {/* Overlay */}
