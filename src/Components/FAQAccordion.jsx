@@ -9,7 +9,7 @@ const FAQAccordion = () => {
       id: 1,
       question: "What destinations do you offer?",
       answer:
-        "We offer curated travel experiences to Oman, Seychelles, Vietnam, and selected custom international destinations for leisure, wellness, and corporate travel.",
+        "We offer curated travel experiences to Oman, Seychelles, and selected custom international destinations for leisure, wellness, and corporate travel.",
     },
     {
       id: 2,

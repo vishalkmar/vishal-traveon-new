@@ -83,7 +83,7 @@ export default function Mice() {
               Business Objectives, Immersive Experiences
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              At Retreats by Traveon, our M.I.C.E Tours are designed to combine
+              At Traveon, our M.I.C.E Tours are designed to combine
               business objectives with immersive travel experiences. We create
               programs that integrate corporate meetings, incentive trips,
               conferences, and team-building events with cultural exploration,

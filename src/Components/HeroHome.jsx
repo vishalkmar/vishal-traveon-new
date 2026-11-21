@@ -1,19 +1,23 @@
 import LazyVideo from "./shared/LazyVideo.jsx";
 
-const HERO_CLOUDINARY_BASE = "https://res.cloudinary.com/dvmnfubdi/video/upload";
-const HERO_POSTER = `${HERO_CLOUDINARY_BASE}/so_1,f_auto,q_auto:eco,w_1280/home/oman-hero.jpg`;
+const HERO_CLOUDINARY_BASE = "https://res.cloudinary.com/dk0docnhx/video/upload";
+const HERO_PUBLIC_ID = "wwbsite_video_4k_h76brc";
+const HERO_POSTER = `${HERO_CLOUDINARY_BASE}/so_1,f_auto,q_auto:eco,w_1280/${HERO_PUBLIC_ID}.jpg`;
 
 /**
  * The hero is a muted, decorative loop, so we ask the CDN for the smallest
  * rendition that still fills the viewport. `<source media>` is ignored by
  * browsers inside <video>, so the choice is made here, once, at mount.
  *
- *   phones   ~0.5 MB   |   laptops ~1.2 MB   |   large screens ~2.0 MB
+ *   phones   ~0.7 MB   |   laptops ~1.7 MB   |   large screens ~2.9 MB
+ *
+ * The source is 4K, so the largest tier is capped at w_1920 — uncapped it
+ * delivers the full 8.7 MB master, which no viewport needs.
  */
 function heroVideoUrl() {
   const w = typeof window === "undefined" ? 1920 : window.innerWidth * (window.devicePixelRatio || 1);
-  const rendition = w <= 900 ? ",w_768" : w <= 1500 ? ",w_1280" : "";
-  return `${HERO_CLOUDINARY_BASE}/f_auto,q_auto:eco,ac_none${rendition}/home/oman-hero.mp4`;
+  const rendition = w <= 900 ? ",w_768" : w <= 1500 ? ",w_1280" : ",w_1920";
+  return `${HERO_CLOUDINARY_BASE}/f_auto,q_auto:eco,ac_none${rendition}/${HERO_PUBLIC_ID}.mp4`;
 }
 
 export default function Hero({
@@ -46,6 +50,7 @@ export default function Hero({
         src={heroVideoUrl()}
         poster={HERO_POSTER}
         className="absolute inset-0 w-full h-full object-cover -z-20"
+        autoPlay
         eager
       />
 

@@ -58,7 +58,7 @@ export default function BussinessObjective() {
             </h3>
 
             <p style={{ fontFamily: 'Lato, sans-serif', fontWeight: 400, fontSize: 16, lineHeight: '24px', letterSpacing: '-2%', marginBottom: 16 }}>
-At Retreats by Traveon, our MICE Tours are designed to combine business objectives with immersive travel experiences. We create programs that integrate corporate meetings, incentive trips, conferences, and team-building events with cultural exploration, wellness, and leisure—ensuring participants are engaged, motivated, and inspired.
+At Traveon, our MICE Tours are designed to combine business objectives with immersive travel experiences. We create programs that integrate corporate meetings, incentive trips, conferences, and team-building events with cultural exploration, wellness, and leisure—ensuring participants are engaged, motivated, and inspired.
             </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4 md:px-0">

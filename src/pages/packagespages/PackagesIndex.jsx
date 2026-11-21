@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useDisabledPackages } from "../../hooks/useDisabledPackages";
 import { useTopSellingPackages } from "../../hooks/useTopSellingPackages";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import { withoutHiddenDestinations } from "../../utils/hiddenDestinations.js";
 import Seo from "../../Components/Seo.jsx";
 
 export default function PackagesIndex() {
@@ -59,7 +60,7 @@ export default function PackagesIndex() {
         if (!destRes.ok) throw new Error("Destinations API error");
 
         const destData = await destRes.json();
-        const destinationsArray = destData.data || [];
+        const destinationsArray = withoutHiddenDestinations(destData.data || []);
 
         // Filter destinations to only show those with packages
         const destinationsWithPackages = destinationsArray.filter((destination) => {

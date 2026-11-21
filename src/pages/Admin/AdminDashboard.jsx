@@ -26,6 +26,7 @@ import {
   X,
   Star,
   Users,
+  ShieldCheck,
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +36,8 @@ import ImageBannerAdmin from "../../Components/admin/ImageBannerAdmin";
 import BlogsAdmin from "../../Components/admin/BlogsAdmin";
 import ReviewsAdmin from "../../Components/admin/ReviewsAdmin";
 import TeamAdmin from "../../Components/admin/TeamAdmin";
+import SecurityAdmin from "../../Components/admin/SecurityAdmin";
+import { getApiV1Base } from "../../utils/apiUrl.js";
 
 const API_URL =
   (import.meta.env.VITE_API_URL || "http://localhost:8000") + "/api";
@@ -488,7 +491,13 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Ask the backend to clear the httpOnly session cookie, then drop local UI state.
+    try {
+      await fetch(`${getApiV1Base()}/auth/logout`, { method: "POST" });
+    } catch {
+      /* ignore network errors — we clear local state regardless */
+    }
     localStorage.removeItem("isAdminLoggedIn");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -513,6 +522,7 @@ const AdminDashboard = () => {
       Blogs: "Blogs",
       Reviews: "Reviews",
       Team: "Team Members",
+      Security: "Security",
     }[activeTab] || "Dashboard";
 
   return (
@@ -638,6 +648,15 @@ const AdminDashboard = () => {
               badge={stats.queryCount || undefined}
             />
           </div>
+
+          <div className="pt-2">
+            <NavItem
+              icon={ShieldCheck}
+              label="Security"
+              active={activeTab === "Security"}
+              onClick={() => goTab("Security")}
+            />
+          </div>
         </nav>
 
         {/* Footer */}
@@ -728,8 +747,8 @@ const AdminDashboard = () => {
 
         {/* Content */}
         <main className="px-6 lg:px-10 py-8 max-w-[1600px]">
-          {/* Page title */}
-          <div className="mb-8">
+          {/* Page title (the Security tab has its own hero heading) */}
+          <div className={`mb-8 ${activeTab === "Security" ? "hidden" : ""}`}>
             <h2 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-tight mb-1">
               {activeTab === "Home" ? (
                 <>
@@ -962,6 +981,7 @@ const AdminDashboard = () => {
             {activeTab === "Blogs" && <BlogsAdmin />}
             {activeTab === "Reviews" && <ReviewsAdmin />}
             {activeTab === "Team" && <TeamAdmin />}
+            {activeTab === "Security" && <SecurityAdmin />}
           </div>
         </main>
       </div>

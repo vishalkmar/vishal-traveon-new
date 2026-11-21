@@ -1,0 +1,42 @@
+# ───────────────────────── Traveon frontend (Apache / cPanel) ─────────────────────────
+# React single-page app routing + security headers.
+# Vite copies this file into dist/, so every domain serving the build gets it.
+
+Options -MultiViews -Indexes
+DirectoryIndex index.html
+
+# ── Security headers ──────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # Stop MIME sniffing and clickjacking.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # Force HTTPS for a year.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Content Security Policy: only our own scripts run, so an injected
+  # <script src="evil.com"> or inline attacker script is blocked by the browser.
+  # Allows: our origin, the backend API, Cloudinary media, Google Fonts.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com https://upload.wikimedia.org; media-src 'self' blob: https://res.cloudinary.com https://*.cloudinary.com; connect-src 'self' https://backend.traveon.in https://api.cloudinary.com https://res.cloudinary.com; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+# ── Block access to source / hidden / config files ────────────────────────────
+# Blocks .env, source maps, lockfiles and dotfiles if any are uploaded by
+# mistake. Does NOT touch .json (none are served, but kept open for safety).
+<FilesMatch "(^\.(?!well-known)|\.(env|map|lock|log)$|package.*\.json$)">
+  Require all denied
+</FilesMatch>
+
+# ── SPA routing: serve index.html for any non-file path ───────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+ErrorDocument 404 /index.html

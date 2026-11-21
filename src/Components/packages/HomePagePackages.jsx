@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import PackagesCarousel from "../../Components/packages/PackageCrawsel.jsx";
 import { useDisabledPackages } from "../../hooks/useDisabledPackages";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import { withoutHiddenDestinations } from "../../utils/hiddenDestinations.js";
 
 export default function HomePagePackages() {
   const [apiPackages, setApiPackages] = useState([]);
@@ -33,7 +34,7 @@ export default function HomePagePackages() {
         if (!destRes.ok) throw new Error("Destinations API error");
 
         const destData = await destRes.json();
-        const destinationsArray = destData.data || [];
+        const destinationsArray = withoutHiddenDestinations(destData.data || []);
 
         const destinationsWithPackages = destinationsArray.filter((destination) => {
           const destinationName = (destination.name || "").toLowerCase();

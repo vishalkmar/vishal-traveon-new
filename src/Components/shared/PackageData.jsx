@@ -98,53 +98,6 @@ export const packagesData = {
     },
 
     {
-      id: "pkg_201",
-      title: "Vietnam Highlights 6N/7D",
-      isWishlisted: false,
-      recommended: true,
-      preString:
-        "Hi Traveon Team,\n\nI’m interested in the Europe Winter package (14N/15D).\nPlease share itinerary, inclusions, hotel details, and the best price.\n\nTravel Month: __\nAdults: __  Children: __\nDeparture City: __\n\nThanks!",
-      routeSummary: "2N Hanoi • 1N Halong Bay • +2 More",
-
-      pointsBanner: {
-        badgeText: "HOLIDAY REWARDS",
-        label: "Earn 1299 Loyal Points",
-      },
-
-      itinerariesTitle: "Detailed Itinerary",
-      itinerariesText:
-        "Hanoi, Halong Bay, Danang, Hoi An, Ho Chi Minh City",
-
-      ctaLabel: "View Details",
-      rating: 4.7,
-      reviewsLabel: "(842)",
-      nightsDays: "6 Nights 7 Days",
-
-      routeLine:
-        "Hanoi (2N) → Halong Bay (1N) → Danang (2N) → Ho Chi Minh City (1N)",
-
-      tag: "Best Seller",
-
-      gallery: {
-        hero: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=80",
-        thumbs: [
-          "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=900&q=80",
-          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
-          "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=900&q=80",
-          "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=900&q=80",
-        ],
-      },
-
-      pricing: {
-        oldPrice: "₹89 900",
-        price: "₹79 900",
-        note: "Starting price per adult",
-        points: "Earn 799 Holiday Reward points on this booking",
-        discountLabel: "11% OFF",
-      },
-    },
-
-    {
       id: "pkg_301",
       title: "Seychelles Escape 4N/5D",
       isWishlisted: false,

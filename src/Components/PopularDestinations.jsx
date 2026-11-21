@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader, ChevronLeft, ChevronRight } from "lucide-react";
 import { getApiV1Base } from "../utils/apiUrl.js";
+import { withoutHiddenDestinations } from "../utils/hiddenDestinations.js";
 
 const THEME = {
   teal: "#0f8b8d",
@@ -32,7 +33,7 @@ export default function PopularDestinations({
   const fetchDestinations = async () => {
     try {
       const response = await axios.get(`${getApiV1Base()}/destinations`);
-      setDestinations(response.data.data || []);
+      setDestinations(withoutHiddenDestinations(response.data.data || []));
     } catch (error) {
       console.error("Error fetching destinations:", error);
       setDestinations([]);

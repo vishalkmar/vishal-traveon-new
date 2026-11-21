@@ -16,6 +16,7 @@ import {
 import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaSnapchat, FaEnvelope, FaLink } from "react-icons/fa";
 import CustomizePackageForm from "../CustomizePackageForm";
 import Seo from "../Seo.jsx";
+import { safeHtml } from "../../utils/sanitizeHtml.js";
 
 
 /**
@@ -1369,18 +1370,17 @@ function PriceCard({ pkg, onCustomize, isShareOpen, setIsShareOpen, packageId, c
       {pkg.details && (
         <div className="mt-4 p-4 rounded-xl bg-slate-50 ring-1 ring-slate-200">
           <p className="text-xs font-semibold text-slate-900 mb-2">About Destination</p>
-          <div 
+          <div
             className="text-xs text-slate-700 leading-relaxed "
-            dangerouslySetInnerHTML={{
-              __html: String(pkg.details || "")
+            dangerouslySetInnerHTML={safeHtml(
+              String(pkg.details || "")
                 .replace(/&lt;/g, '<')
                 .replace(/&gt;/g, '>')
                 .replace(/&amp;nbsp;/g, ' ')
                 .replace(/&amp;/g, '&')
                 .replace(/&quot;/g, '"')
                 .replace(/&#39;/g, "'")
-                .replace(/<[^>]*>/g, '')
-            }}
+            )}
           />
         </div>
       )}

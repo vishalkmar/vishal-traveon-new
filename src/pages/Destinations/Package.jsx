@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { backendUrl } from "../../../apiConfig/config";
+import { safeHtml } from "../../utils/sanitizeHtml.js";
 import { toast } from "react-hot-toast";
 import { FaBus, FaChevronLeft, FaChevronRight, FaImages } from "react-icons/fa";
 import { FaHotel, FaUtensils, FaBinoculars } from "react-icons/fa";
@@ -180,7 +181,7 @@ const Package = () => {
     if (!data) return null;
     if (Array.isArray(data)) return renderList(data);
     if (typeof data === "string")
-      return <div dangerouslySetInnerHTML={{ __html: data }} />;
+      return <div dangerouslySetInnerHTML={safeHtml(data)} />;
     return <pre>{JSON.stringify(data, null, 2)}</pre>;
   };
 

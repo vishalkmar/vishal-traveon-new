@@ -3,10 +3,9 @@ import { X, Upload, Loader, Trash2 } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import { uploadImage } from "../../utils/uploadImage.js";
 
 const API_BASE = getApiV1Base();
-const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 export default function AddBlogModal({ onClose, onSuccess, editingId, initialData, isEdit }) {
   const [formData, setFormData] = useState({
@@ -113,27 +112,8 @@ export default function AddBlogModal({ onClose, onSuccess, editingId, initialDat
         continue;
       }
 
-      const uploadFormData = new FormData();
-      uploadFormData.append("file", imageFile);
-      uploadFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
       try {
-        const uploadResponse = await fetch(
-          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-          {
-            method: "POST",
-            body: uploadFormData,
-          }
-        );
-
-        if (!uploadResponse.ok) {
-          const errorData = await uploadResponse.json();
-          console.error("Cloudinary error response:", errorData);
-          throw new Error(errorData.error?.message || "Upload failed");
-        }
-
-        const uploadData = await uploadResponse.json();
-        uploadedUrls.push(uploadData.secure_url);
+        uploadedUrls.push(await uploadImage(imageFile, "blogs"));
       } catch (uploadErr) {
         console.error("Cloudinary upload error:", uploadErr);
         throw new Error("Failed to upload image");

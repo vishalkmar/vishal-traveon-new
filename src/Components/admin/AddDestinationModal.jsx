@@ -3,10 +3,9 @@ import { X, Upload, Loader } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { getApiV1Base } from "../../utils/apiUrl.js";
+import { uploadImage } from "../../utils/uploadImage.js";
 
 const API_BASE = getApiV1Base();
-const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 export default function AddDestinationModal({ onClose, onSuccess, editingId, initialData, isEdit }) {
   const [formData, setFormData] = useState({
@@ -18,18 +17,6 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId, ini
   const [imagePreview, setImagePreview] = useState(initialData?.image || null);
   const [error, setError] = useState("");
   const [wordCount, setWordCount] = useState(0);
-
-  // Check environment variables on mount
-  React.useEffect(() => {
-    console.log("🔍 Environment Variables Check:");
-    console.log("API_BASE:", API_BASE);
-    console.log("CLOUDINARY_CLOUD_NAME:", CLOUDINARY_CLOUD_NAME);
-    console.log("CLOUDINARY_UPLOAD_PRESET:", CLOUDINARY_UPLOAD_PRESET);
-
-    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
-      console.warn("⚠️ Missing Cloudinary environment variables in .env");
-    }
-  }, []);
 
   // Handle image upload
   const handleImageDrop = (e) => {
@@ -93,27 +80,8 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId, ini
       // Upload image to Cloudinary if new image selected
       let imageUrl = null;
       if (formData.image && typeof formData.image === "object") {
-        const uploadFormData = new FormData();
-        uploadFormData.append("file", formData.image);
-        uploadFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
         try {
-          const uploadResponse = await fetch(
-            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-            {
-              method: "POST",
-              body: uploadFormData,
-            }
-          );
-
-          if (!uploadResponse.ok) {
-            const errorData = await uploadResponse.json();
-            console.error("Cloudinary error response:", errorData);
-            throw new Error(errorData.error?.message || "Upload failed");
-          }
-
-          const uploadData = await uploadResponse.json();
-          imageUrl = uploadData.secure_url;
+          imageUrl = await uploadImage(formData.image, "destinations");
         } catch (uploadErr) {
           console.error("Cloudinary upload error:", uploadErr);
           setError(`Failed to upload image: ${uploadErr.message}`);
@@ -224,7 +192,7 @@ export default function AddDestinationModal({ onClose, onSuccess, editingId, ini
             </label>
             <input
               type="text"
-              placeholder="e.g., Oman, Seychelles, Vietnam"
+              placeholder="e.g., Oman, Seychelles, Maldives"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#44B3C4]"
